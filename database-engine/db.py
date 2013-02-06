@@ -1,6 +1,7 @@
 #!/usr/bin/python
 """This is an in-memory database engine
-It should support CRUD (Create, Retrieve, Update, Delete operations)
+It should support CRD (Create, Retrieve, Delete operations)
+Update has been omitted as this shouldn't update their profile details. This application's purpose is just analytical
 """
 # curl -XGET https://api.github.com/users/shrikrishnaholla/repos|grep -i python => for reference for future use
 import csv
@@ -15,15 +16,6 @@ def create(uname, details):
         database[uname] = details
         # TODO: Avoid printing to console
         print "Profile of", uname, "added to the database"
-
-def update(uname, updates):
-    """Update profiles' data"""
-    # TODO: preferably use get()
-    if database.has_key(uname):
-        for key in updates.keys:
-            database[uname][key] = updates[key]
-    else:
-        create(uname, updates)
 
 def delete(uname):
     """Delete profile"""
@@ -80,10 +72,9 @@ if __name__ == '__main__':
         choice = raw_input("""
             Enter a choice
             1: Create
-            2: Update
-            3: Delete
-            4: Query
-            5: Display
+            2: Delete
+            3: Query
+            4: Display
             """)
         if int(choice) == 1:
             # TODO: Once webscraping_demo is fixed and make api - like, can be moved to the top of the page
@@ -95,16 +86,17 @@ if __name__ == '__main__':
             for key, value in database.items():
                 # TODO: Devise a better method to store the value which is also a dictionary
                 writer.writerow([key, value])
-            
-        elif int(choice) == 2: # TODO
-            pass
-        elif int(choice) == 3:
+
+        elif int(choice) == 2:
             name = raw_input("Enter uname of the profile to delete")
             delete(name)
-        elif int(choice) == 4: # TODO
+
+        elif int(choice) == 3: # TODO
             pass
-        elif int(choice) == 5: # TODO
+
+        elif int(choice) == 4:
             display()
+
         else:
             print "Enter a valid choice"
 
