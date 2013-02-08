@@ -3,7 +3,6 @@
 Usage: Suppose the profile of the person XYZ whose data is required has a linkedIn profile whose public url goes by
 www.linkedin.com/pub/xyz/123/456/789, on prompted, input 'xyz/123/456/789' into the console"""
 # TODOs:
-# 1: Ask user input only when testing (using ifmain) => make it an api that can be called from another module
 # 2: search for the person and get his url instead of expecting the user to know it
 
 import requests
