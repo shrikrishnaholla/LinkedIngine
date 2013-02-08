@@ -73,7 +73,8 @@ if __name__ == '__main__':
         if int(choice) == 1:
             webscraping_demo.testing()
             for profile in webscraping_demo.links: # TODO: variables musn't be global - functions must return them
-                create(profile[:profile.index('/')], webscraping_demo.resume) # take the username and remove the /xxx/yyy/zzz numbers
+                create(profile[:profile.index('/')], webscraping_demo.resume) 
+                # take the username and remove the /xxx/yyy/zzz numbers
 
             writer = csv.writer(open('data/profiles.csv', 'wb'))
             for key, value in database.items():
