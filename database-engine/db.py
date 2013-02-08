@@ -8,24 +8,16 @@ import csv
 database = dict()
 def create(uname, details):
     """Create an entry to the database of LinkedIN profiles"""
-    if database.has_key(uname):
-        # TODO: don't print; this has to act as an api - not a console application
-        # TODO: preferably use get()
-        print "Profile for", uname, "already exists in database"
-    else:
-        database[uname] = details
-        # TODO: Avoid printing to console
-        print "Profile of", uname, "added to the database"
+    database[uname] = database.get(uname, details)
 
 def delete(uname):
     """Delete profile"""
-    # TODO: use get()
     if database.has_key(uname):
-        database.pop(uname)
+        del database[uname]   # more efficient than database.pop(uname)
 
 def query(parameters):
     """Retrieves data based on parameters"""
-    # TODO: can we allow for the user to give gmail-like queries? 
+    # TODO: can we allow for the user to give gmail-like queries? (boolean)
     # Ex: 
     # 1) people living in bangalore AND know python
     # 2) people living in bangalore OR mumbai
@@ -56,16 +48,17 @@ def query(parameters):
                         break
 
         if valid:
+            # There might be more than one profile that match the criteria
             resultset[profile] = database[profile]
 
     return resultset
                     
 def display():
-    """Displays the contents of the database (For testing purposes only)"""
+    """Displays the contents of the database on console (For testing purposes only)"""
     for professional, details in database.items():
         for field, description in details.items():
             print field,":",description
-        print "="*50
+        print "="*100
 
 if __name__ == '__main__':
     while True:
@@ -80,7 +73,7 @@ if __name__ == '__main__':
             # TODO: Once webscraping_demo is fixed and make api - like, can be moved to the top of the page
             import webscraping_demo
             for profile in webscraping_demo.links: # TODO: variables musn't be global - functions must return them
-                create(profile[:profile.index('/')], webscraping_demo.d) # take the username and remove the /xxx/yyy/zzz numbers
+                create(profile[:profile.index('/')], webscraping_demo.resume) # take the username and remove the /xxx/yyy/zzz numbers
 
             writer = csv.writer(open('data/profiles.csv', 'wb'))
             for key, value in database.items():

@@ -9,58 +9,63 @@ www.linkedin.com/pub/xyz/123/456/789, on prompted, input 'xyz/123/456/789' into 
 import requests
 from BeautifulSoup import BeautifulSoup
 #initialize the structure in which to hold data, and also a list to hold the url of all profiles
-d = dict()
+resume = dict()
 links = []
-while True:
-    links.append(raw_input('Enter the public profile url: '))
-    page = requests.get('http://www.linkedin.com/pub/'+links[len(links)-1])        # Send a GET request to their public profile
+
+def scrape(link):
+    if len(link.split('linkedin.com/pub/')) > 1:    # If the input is the whole link
+        link = link.split('linkedin.com/pub/')[-1]  # extract only the username string
+
+    page = requests.get('http://www.linkedin.com/pub/'+link)    # Send a GET request to their public profile
     soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
-    soup = soup.find(id="main")                                                     # The id "main" contains their profile data
+    soup = soup.find(id="main")    # The id "main" contains their profile data
 
     # Scraping the data
-    # TODO: can't this be modularized into a separate method?
-    # TODO: repetition of steps - modularize
-    d['fname'] = soup.find("span", { "class" : "given-name" }).getText()
-    d['lname'] = soup.find("span", { "class" : "family-name" }).getText()
-    d['locality'] = soup.find("span", { "class" : "locality" }).getText()
-    d['industry'] = soup.find("dd", { "class" : "industry" }).getText()
-    d['current'] = str(soup.find("ul", {"class":"current"}).findAll("li")[0].getText()).replace('at', ' at ') #TODO:devise an alternative
+    collect('fname', 'span', 'given-name')
+    collect('lname', 'span', 'family-name')
+    collect('locality', 'span', 'locality')
+    collect('industry', 'dd', 'industry')
+
+    # incompatible with collect()
+    resume['current'] = str(soup.find("ul", {"class":"current"}).findAll("li")[0].getText()).replace('at', ' at ') 
+    #TODO:devise an alternative
 
     # Scrape fields that can have more than one elements
-    # TODO: repetition of procedures for a lot of stuff - modularize
-    pastjobs = soup.find("dd", {"class":"summary-past"})
-    if pastjobs:
-        # TODO: use better variable names
-        j=0
-        d['past'] = dict()
-        for i in pastjobs.findAll('li'):
-            j+=1
-            d['past'][j] = str(i.getText()).replace('at', ' at ') # used because, otherwise they would stick together. Ex: "StudentatPESIT"
+    collectmultiple('dd', 'summary-past', 'past', 'li', 'at')
+    collectmultiple('dd', 'summary-education', 'education', 'li')
+    collectmultiple('ol', 'skills', 'skills', 'li')
 
-    education = soup.find("dd", {"class":"summary-education"})
-    if education:
-        j=0
-        d['education'] = dict()
-        for i in education.findAll('li'):
-            j+=1
-            d['education'][j] = i.getText()
-
-    skills = soup.find("ol", {"class":"skills"})
-    if skills:
-        j=0
-        d['skills'] = dict()
-        for i in skills.findAll('li'):
-            j+=1
-            d['skills'][j] = i.getText()
-
+    # incompatible with collectmultiple()
     projects = soup.find(id="profile-projects")
     if projects:
-        j=0
-        d['project-descriptions'] = dict()
-        for i in projects.findAll('p'):
-            j+=1
-            d['project-descriptions'][j] = i.getText()
+        counter=0
+        resume['project-descriptions'] = dict()
+        for project in projects.findAll('p'):
+            counter+=1
+            resume['project-descriptions'][counter] = project.getText()
 
-    choice = raw_input("One more? ")
-    if choice.find('y') == -1 and choice.find('1') == -1: # The tester can either give just 'y' or 'yes' or '1'
-        break
+def collect(hashkey, domnode, htmlclass):
+    """Easy method to collect fields"""
+    resume[hashkey] = soup.find(domnode, {"class":htmlclass}).getText()
+
+def collectmultiple(domnode, htmlclass, hashkey, subnode,*at):
+    """Easy method to collect fields with multiple attributes"""
+    section = soup.find(domnode, {"class":htmlclass})
+    if section:
+        counter = 0
+        resume[hashkey] = dict()
+        for subsection in section.findAll(subnode):
+            counter+=1
+            if at:
+                resume[hashkey][counter] = str(subsection.getText()).replace('at', ' at ')
+            else:
+                resume[hashkey][counter] = subsection.getText()
+
+if __name__ == '__main__':
+    while True:
+        links.append(raw_input('Enter the public profile url: '))
+        if not links[-1] in links[:-1]:
+            scrape(links[-1])
+        choice = raw_input("One more? ")
+        if choice.find('y') == -1 and choice.find('1') == -1: # The tester can either give just 'y' or 'yes' or '1'
+            break
