@@ -60,7 +60,7 @@ def collectmultiple(domnode, htmlclass, hashkey, subnode,*at):
             else:
                 resume[hashkey][counter] = subsection.getText()
 
-if __name__ == '__main__':
+def testing():
     while True:
         links.append(raw_input('Enter the public profile url: '))
         if not links[-1] in links[:-1]:
@@ -68,3 +68,6 @@ if __name__ == '__main__':
         choice = raw_input("One more? ")
         if choice.find('y') == -1 and choice.find('1') == -1: # The tester can either give just 'y' or 'yes' or '1'
             break
+
+if __name__ == '__main__':
+    testing()

@@ -5,6 +5,7 @@ Update has been omitted as this shouldn't update their profile details. This app
 """
 # curl -XGET https://api.github.com/users/shrikrishnaholla/repos|grep -i python => for reference for future use
 import csv
+import webscraping_demo
 database = dict()
 def create(uname, details):
     """Create an entry to the database of LinkedIN profiles"""
@@ -70,8 +71,7 @@ if __name__ == '__main__':
             4: Display
             """)
         if int(choice) == 1:
-            # TODO: Once webscraping_demo is fixed and make api - like, can be moved to the top of the page
-            import webscraping_demo
+            webscraping_demo.testing()
             for profile in webscraping_demo.links: # TODO: variables musn't be global - functions must return them
                 create(profile[:profile.index('/')], webscraping_demo.resume) # take the username and remove the /xxx/yyy/zzz numbers
 
