@@ -38,7 +38,6 @@ def generate():
     projectdescriptions = []
     for i in xrange(0,ri(0,3)):
         desc = ''
-        projectdescriptions.append(desc)
         for j in xrange(0,ri(20,100)):
             choice = ri(0,100)
             if choice % 10 == 0:
@@ -50,6 +49,8 @@ def generate():
                 for k in xrange(1,ri(1,7)):
                     word += chr(ri(97,122))
                 desc += word
+        
+        projectdescriptions.append(desc)
 
     profile = dict()
     details = dict()
