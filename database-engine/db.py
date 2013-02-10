@@ -95,7 +95,10 @@ if __name__ == '__main__':
             writer = csv.writer(dbfile)
             for key, value in database.items():
                 # TODO: Devise a better method to store the value which is also a dictionary
-                writer.writerow([key, value])
+                dets = []
+                for field, fieldval in value.items():
+                    dets.append((field, fieldval))
+                writer.writerow([key, dets])
             dbfile.close()
 
         else:
