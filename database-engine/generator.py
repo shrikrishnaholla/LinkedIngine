@@ -11,6 +11,7 @@ college = ['IIT', 'IISc', 'NIT', 'PESIT']
 skillset = ['Python', 'C', 'C++', 'Java', 'Ruby', 'JavaScript', 'Scala', 'Erlang', 'PHP', 'HTML5', 'CSS3', 'MySQL', 'MongoDB']
 
 def generate():
+    """Generate profile data for creating test database"""
     fname = ''
     for i in xrange(0,ri(3,10)):
         fname += chr(ri(97,122))
@@ -20,6 +21,7 @@ def generate():
         lname += chr(ri(97,122))
 
     uname = fname+'-'+lname+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/'
+    # Public LinkedIn public profile link template
 
     email = fname+'.'+lname+'@'+mail[ri(0,len(mail)-1)]+'.com'
     locality = place[ri(0,len(place)-1)]
@@ -49,7 +51,6 @@ def generate():
                 for k in xrange(1,ri(1,7)):
                     word += chr(ri(97,122))
                 desc += word
-        
         projectdescriptions.append(desc)
 
     profile = dict()
