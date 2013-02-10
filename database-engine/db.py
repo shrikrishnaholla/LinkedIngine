@@ -5,7 +5,7 @@ Update has been omitted as this shouldn't update their profile details. This app
 """
 # curl -XGET https://api.github.com/users/shrikrishnaholla/repos|grep -i python => for reference for future use
 import csv
-import webscraping_demo
+import datacollector
 database = dict()
 def create(uname, details):
     """Create an entry to the database of LinkedIN profiles"""
@@ -15,6 +15,10 @@ def delete(uname):
     """Delete profile"""
     if database.has_key(uname):
         del database[uname]   # more efficient than database.pop(uname)
+
+def read():
+    reader = csv.reader(open('data/profiles.csv', 'rb'))
+    
 
 def query(parameters):
     """Retrieves data based on parameters"""
@@ -69,17 +73,12 @@ if __name__ == '__main__':
             2: Delete
             3: Query
             4: Display
+            5: Write existing database to file
             """)
         if int(choice) == 1:
-            webscraping_demo.testing()
-            for profile in webscraping_demo.links: # TODO: variables musn't be global - functions must return them
-                create(profile[:profile.index('/')], webscraping_demo.resume) 
-                # take the username and remove the /xxx/yyy/zzz numbers
-
-            writer = csv.writer(open('data/profiles.csv', 'wb'))
-            for key, value in database.items():
-                # TODO: Devise a better method to store the value which is also a dictionary
-                writer.writerow([key, value])
+            resumelist = datacollector.collect()
+            for name, details in resumelist.items():
+                create(name, details)
 
         elif int(choice) == 2:
             name = raw_input("Enter uname of the profile to delete")
@@ -90,6 +89,14 @@ if __name__ == '__main__':
 
         elif int(choice) == 4:
             display()
+
+        elif int(choice) == 5:
+            dbfile = open('data/profiles.csv', 'wb')
+            writer = csv.writer(dbfile)
+            for key, value in database.items():
+                # TODO: Devise a better method to store the value which is also a dictionary
+                writer.writerow([key, value])
+            dbfile.close()
 
         else:
             print "Enter a valid choice"

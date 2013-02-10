@@ -6,61 +6,61 @@ www.linkedin.com/pub/xyz/123/456/789, on prompted, input 'xyz/123/456/789' into 
 # 2: search for the person and get his url instead of expecting the user to know it
 
 import requests
+import csv
 from BeautifulSoup import BeautifulSoup
 #initialize the structure in which to hold data, and also a list to hold the url of all profiles
-resume = dict()
+resumelist = dict()
 links = []
 
 def scrape(link):
+    resume = dict()
     if len(link.split('linkedin.com/pub/')) > 1:    # If the input is the whole link
         link = link.split('linkedin.com/pub/')[-1]  # extract only the username string
+
+    resumelist[link] = resume
 
     page = requests.get('http://www.linkedin.com/pub/'+link)    # Send a GET request to their public profile
     soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
     soup = soup.find(id="main")    # The id "main" contains their profile data
 
     # Scraping the data
-    collect('fname', 'span', 'given-name')
-    collect('lname', 'span', 'family-name')
-    collect('locality', 'span', 'locality')
-    collect('industry', 'dd', 'industry')
+    collect(resume, soup, 'fname', 'span', 'given-name')
+    collect(resume, soup, 'lname', 'span', 'family-name')
+    collect(resume, soup, 'locality', 'span', 'locality')
+    collect(resume, soup, 'industry', 'dd', 'industry')
 
     # incompatible with collect()
     resume['current'] = str(soup.find("ul", {"class":"current"}).findAll("li")[0].getText()).replace('at', ' at ') 
     #TODO:devise an alternative
 
     # Scrape fields that can have more than one elements
-    collectmultiple('dd', 'summary-past', 'past', 'li', 'at')
-    collectmultiple('dd', 'summary-education', 'education', 'li')
-    collectmultiple('ol', 'skills', 'skills', 'li')
+    collectmultiple(resume, soup, 'dd', 'summary-past', 'past', 'li', 'at')
+    collectmultiple(resume, soup, 'dd', 'summary-education', 'education', 'li')
+    collectmultiple(resume, soup, 'ol', 'skills', 'skills', 'li')
 
     # incompatible with collectmultiple()
     projects = soup.find(id="profile-projects")
     if projects:
-        counter=0
-        resume['project-descriptions'] = dict()
+        resume['project-descriptions'] = []
         for project in projects.findAll('p'):
-            counter+=1
-            resume['project-descriptions'][counter] = project.getText()
+            resume['project-descriptions'].append(project.getText())
 
-def collect(hashkey, domnode, htmlclass):
+def collect(resume, soup, hashkey, domnode, htmlclass):
     """Easy method to collect fields"""
     resume[hashkey] = soup.find(domnode, {"class":htmlclass}).getText()
 
-def collectmultiple(domnode, htmlclass, hashkey, subnode,*at):
+def collectmultiple(resume, soup, domnode, htmlclass, hashkey, subnode,*at):
     """Easy method to collect fields with multiple attributes"""
     section = soup.find(domnode, {"class":htmlclass})
     if section:
-        counter = 0
-        resume[hashkey] = dict()
+        resume[hashkey] = []
         for subsection in section.findAll(subnode):
-            counter+=1
             if at:
-                resume[hashkey][counter] = str(subsection.getText()).replace('at', ' at ')
+                resume[hashkey].append(str(subsection.getText()).replace('at', ' at '))
             else:
-                resume[hashkey][counter] = subsection.getText()
+                resume[hashkey].append(subsection.getText())
 
-def testing():
+def initiate():
     while True:
         links.append(raw_input('Enter the public profile url: '))
         if not links[-1] in links[:-1]:
