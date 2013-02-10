@@ -6,6 +6,8 @@ import generator
 #returnval = uname, details
 # resultset[uname] = profile
 def collect():
+    """Method to collect profile data"""
+    
     method = raw_input("""
         Enter the method for data collection of your choice:
         1: Scrape from public link

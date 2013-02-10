@@ -43,14 +43,14 @@ def generate():
         for j in xrange(0,ri(20,100)):
             choice = ri(0,100)
             if choice % 10 == 0:
-                desc += skillset[ri(0,len(skillset)-1)]
+                desc += skillset[ri(0,len(skillset)-1)]+' '
             elif choice % 20 == 0:
-                desc += ' when I was working as ' + past[ri(0,len(past)-1)]
+                desc += 'when I was working as ' + past[ri(0,len(past)-1)]+' '
             else:
                 word = ''
                 for k in xrange(1,ri(1,7)):
                     word += chr(ri(97,122))
-                desc += word
+                desc += word+' '
         projectdescriptions.append(desc)
 
     profile = dict()
