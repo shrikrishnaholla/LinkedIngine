@@ -35,6 +35,7 @@ def collect():
         details['industry'] = raw_input('Industry: ')
         details['current'] = raw_input('Current position: ')
         details['past'] = raw_input('Past positions [separator: "|"]: ').split('|')
+        details['experience'] = int(raw_input('Total job experience in years: '))
         details['education'] = raw_input('Education [separator: "|"]: ').split('|')
         details['skills'] = raw_input('Skills [separator: "|"]:').split('|')
         details['project-descriptions'] = raw_input('Project descriptions [separator: "|"]: ').split('|')

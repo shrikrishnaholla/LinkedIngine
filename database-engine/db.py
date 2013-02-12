@@ -98,6 +98,18 @@ if __name__ == '__main__':
 
                 Example: "return email,fname from 5 profiles whose [(locality=bengaluru;or;locality=bangalore);and;experience<2;or;education<>BE at Pesit]"
 
+                The available attributes are:
+                fname => First Name
+                lname => Last Name
+                email => e-mail id 
+                locality => Location 
+                industry => field of work 
+                current => current job description
+                past => Past jobs
+                experience => Job experience
+                education => Academic details
+                skills => skillsets
+                project-descriptions => Description of listed projects
                 Enter your query:
                 """)
             resultset = query.querystring(qstring, database)
