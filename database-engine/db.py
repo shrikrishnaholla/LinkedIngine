@@ -6,6 +6,8 @@ Update has been omitted as this shouldn't update their profile details. This app
 # curl -XGET https://api.github.com/users/shrikrishnaholla/repos|grep -i python => for reference for future use
 import csv
 import datacollector
+import query
+from os import system
 database = dict()
 def create(uname, details):
     """Create an entry to the database of LinkedIN profiles"""
@@ -20,8 +22,8 @@ def read():
     reader = csv.reader(open('data/profiles.csv', 'rb'))
     
 
-def query(parameters):
-    """Retrieves data based on parameters"""
+"""def query(parameters):
+    ""Retrieves data based on parameters""
     # TODO: can we allow for the user to give gmail-like queries? (boolean)
     # Ex: 
     # 1) people living in bangalore AND know python
@@ -56,7 +58,7 @@ def query(parameters):
             # There might be more than one profile that match the criteria
             resultset[profile] = database[profile]
 
-    return resultset
+    return resultset"""
                     
 def display():
     """Displays the contents of the database on console (For testing purposes only)"""
@@ -85,7 +87,26 @@ if __name__ == '__main__':
             delete(name)
 
         elif int(choice) == 3: # TODO
-            pass
+            system('clear')
+            qstring = raw_input("""
+                Welcome to QuerySQL!!!
+                To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
+                Please follow the rules to get the optimum output.
+
+                The syntax goes something like this:
+                return <returnvals> from <number> profiles whose [<query parameters>]
+
+                Example: "return email,fname from 5 profiles whose [(location=bengaluru;or;location=bangalore);and;experience<2;or;education<>BE at Pesit]"
+
+                Enter your query:
+                """)
+            resultset = query.querystring(qstring, database)
+            if len(resultset) > 0:
+                for result in resultset:
+                    print result
+                    print '='*50
+            else:
+                print "No match found"
 
         elif int(choice) == 4:
             display()

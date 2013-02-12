@@ -22,6 +22,7 @@ def scrape(link):
     page = requests.get('http://www.linkedin.com/pub/'+link)    # Send a GET request to their public profile
     soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
     soup = soup.find(id="main")    # The id "main" contains their profile data
+    print soup
 
     # Scraping the data
     collect(resume, soup, 'fname', 'span', 'given-name')

@@ -8,7 +8,8 @@ company = ['Microsoft', 'Google', 'Adobe', 'Infosys', 'Wipro', 'SAP', 'Mindtree'
 'Mozilla', 'Canonical', 'Novell', 'HP', 'Lenovo', 'Asus', 'Dell', 'Toshiba']
 degree = ['BE', 'BTech', 'MS', 'MTech', 'PhD']
 college = ['IIT', 'IISc', 'NIT', 'PESIT']
-skillset = ['Python', 'C', 'C++', 'Java', 'Ruby', 'JavaScript', 'Scala', 'Erlang', 'PHP', 'HTML5', 'CSS3', 'MySQL', 'MongoDB']
+skillset = ['Python', 'C', 'C++', 'Java', 'Ruby', 'JavaScript', 'Scala', 'Erlang', 'PHP', 'HTML5', 'CSS3', 'MySQL', 'MongoDB'\
+'cloud computing']
 
 def generate():
     """Generate profile data for creating test database"""
@@ -31,7 +32,7 @@ def generate():
     for i in xrange(0,ri(0,5)):
         past.append(position[ri(0,len(position)-1)] + ' at ' + company[ri(0,len(company)-1)])
     education = []
-    for i in xrange(0,ri(0,3)):
+    for i in xrange(1,ri(1,3)):
         education.append(degree[ri(0,len(degree)-1)] + ' at ' + college[ri(0,len(college)-1)])
     skills = []
     for i in xrange(0,ri(1,len(skillset)-1)):
@@ -66,5 +67,6 @@ def generate():
     details['education'] = education
     details['skills'] = skills
     details['project-descriptions'] = projectdescriptions
+    details['experience'] = ri(0,20)
 
     return profile
