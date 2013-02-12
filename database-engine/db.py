@@ -96,7 +96,7 @@ if __name__ == '__main__':
                 The syntax goes something like this:
                 return <returnvals> from <number> profiles whose [<query parameters>]
 
-                Example: "return email,fname from 5 profiles whose [(location=bengaluru;or;location=bangalore);and;experience<2;or;education<>BE at Pesit]"
+                Example: "return email,fname from 5 profiles whose [(locality=bengaluru;or;locality=bangalore);and;experience<2;or;education<>BE at Pesit]"
 
                 Enter your query:
                 """)

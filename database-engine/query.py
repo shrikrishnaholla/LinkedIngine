@@ -45,6 +45,10 @@ def querystring(sqlstmt, all_profiles):
     return results
 
 def parse(qstring, profiles):
+    qstring = qstring.strip()
+    if qstring[0] == '(' and qstring[-1] == ')':
+        qstring = qstring[1:-1]
+        print 'mod qs:',qstring
     index = qstring.find(';and;')
     if qstring.find(';or;') != -1 and (index == -1 or index > qstring.find(';or;')):
         index=qstring.find(';or;')
@@ -62,29 +66,28 @@ def parse(qstring, profiles):
                 else:
                     count -= 1
             j+=1
-        left = qstring[i:j+2]
+        left = qstring[i:j+1]
         
         op = qstring[j+2:]
         if op[:3].lower() == 'and':
             op = 'and'
-            right = qstring[j+7:]
         elif op[:2].lower() == 'or':
             op = 'or'
-            right = qstring[j+6:]
         else:
             print "Wrong operator", op
+            raise ValueError
+        right = qstring[qstring.find(';',j+2)+1:]
+        print 'im here'
         print 'left: ',left,'::op',op,'::right',right
 
         resultset = process(left,op,right,profiles)
     elif index > -1:
         left = qstring[:index]
         op = qstring[index+1:qstring.find(';',index+1)]
-        right = qstring[qstring.find(';', index+2)+1:]
+        right = qstring[qstring.find(';', index+2):]
         resultset = process(left,op,right,profiles)
         print 'left: ',left,'::op',op,'::right',right
     if index == -1:
-        if qstring[0] == '(' and qstring[-1] == ')':
-            qstring = qstring[1:-1]
         print 'qstring: ',qstring
         resultset = evaluate(qstring, profiles)
     return resultset
