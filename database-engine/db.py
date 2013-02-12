@@ -70,6 +70,8 @@ def display():
 if __name__ == '__main__':
     while True:
         choice = raw_input("""
+            Welcome to LinkedIngine testing console!
+            
             Enter a choice
             1: Create
             2: Delete
@@ -110,6 +112,7 @@ if __name__ == '__main__':
                 education => Academic details
                 skills => skillsets
                 project-descriptions => Description of listed projects
+
                 Enter your query:
                 """)
             resultset = query.querystring(qstring, database)
