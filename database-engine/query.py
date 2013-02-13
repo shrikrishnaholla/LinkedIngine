@@ -12,7 +12,6 @@ def querystring(sqlstmt, all_profiles):
     for field in return_fields:
         templist.append(field.strip())
     return_fields = templist
-    print return_fields
     
     no_of_results = fpart[fpart.index('from')+5:fpart.index('profiles')]
     no_of_results = no_of_results.strip()
@@ -22,6 +21,21 @@ def querystring(sqlstmt, all_profiles):
     # (location=bengaluru;or;(location=bangalore;and;industry = computer science));and;experience<2;or;education<>BE at Pesit
     qs = sqlstmt[sqlstmt.index('[')+1:sqlstmt.index(']')]
     resultset = parse(qs, all_profiles) # all results
+    
+    for result in resultset:
+        print result['email']
+    resultset.sort()
+    i=0
+    templist = list()
+    for profile in resultset:
+        if profile not in templist:
+            templist.append(profile)
+    print '-'*50
+    resultset = templist
+    for result in resultset:
+        print result['email']
+    print '-'*50
+
     shuffle(resultset)
 
     results = list()
@@ -48,7 +62,6 @@ def parse(qstring, profiles):
     qstring = qstring.strip()
     if qstring[0] == '(' and qstring[-1] == ')':
         qstring = qstring[1:-1]
-        print 'mod qs:',qstring
     index = qstring.find(';and;')
     if qstring.find(';or;') != -1 and (index == -1 or index > qstring.find(';or;')):
         index=qstring.find(';or;')
@@ -77,8 +90,6 @@ def parse(qstring, profiles):
             print "Wrong operator", op
             raise ValueError
         right = qstring[qstring.find(';',j+2)+1:]
-        print 'im here'
-        print 'left: ',left,'::op',op,'::right',right
 
         resultset = process(left,op,right,profiles)
     elif index > -1:
@@ -86,9 +97,7 @@ def parse(qstring, profiles):
         op = qstring[index+1:qstring.find(';',index+1)]
         right = qstring[qstring.find(';', index+2):]
         resultset = process(left,op,right,profiles)
-        print 'left: ',left,'::op',op,'::right',right
     if index == -1:
-        print 'qstring: ',qstring
         resultset = evaluate(qstring, profiles)
     return resultset
 
@@ -126,8 +135,6 @@ def evaluate(atomic, profiles):
             if profiles[profile].has_key(key):
                 if profiles[profile][key].lower().find(value.lower()) == -1:
                     resultset.append(profiles[profile])
-        else:
-            print 'Bad key: '+key
 
     elif atomic.find('<=') != -1:
         key = atomic[:atomic.find('<=')]
@@ -137,8 +144,6 @@ def evaluate(atomic, profiles):
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == int and profiles[profile][key] <= int(value): # check valueerror
                     resultset.append(profiles[profile])
-        else:
-            raise 'Bad key: '+key
 
     elif atomic.find('>=') != -1:
         key = atomic[:atomic.find('>=')]
