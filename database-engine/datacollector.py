@@ -2,6 +2,7 @@
 import csv
 import scraper
 import generator
+import multiprocessing
 
 #returnval = uname, details
 # resultset[uname] = profile
@@ -43,9 +44,16 @@ def collect():
     
     elif method == '3':
         number = int(raw_input("How many profiles do you want to generate? "))
-        for count in xrange(0,number):
-            profile = generator.generate()
-            resultset[profile.keys()[0]] = profile[profile.keys()[0]]
+        # If number < 10000, delay negligible
+        if number < 1000:
+            resultset.update(generator.generate(number))
+        else:
+            # Use python multiprocessing capabilities to divide work
+            pool = multiprocessing.Pool()
+            r = pool.apply_async(generator.generate,(number/multiprocessing.cpu_count(),), callback=lambda profiles: resultset.update(profiles))
+            r.wait()
+            pool.close()
+            print 'Done'
 
     elif method == '4':
         dbfile = open('data/profiles.csv', 'rb')
