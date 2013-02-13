@@ -8,10 +8,7 @@ def querystring(sqlstmt, all_profiles):
 
     returnvals = fpart[7:fpart.index('from')]
     return_fields = returnvals.split(',')   # [email,fname]
-    templist = list()
-    for field in return_fields:
-        templist.append(field.strip())
-    return_fields = templist
+    return_fields = [field.strip() for field in return_fields]
     
     no_of_results = fpart[fpart.index('from')+5:fpart.index('profiles')]
     no_of_results = no_of_results.strip()
@@ -22,19 +19,13 @@ def querystring(sqlstmt, all_profiles):
     qs = sqlstmt[sqlstmt.index('[')+1:sqlstmt.index(']')]
     resultset = parse(qs, all_profiles) # all results
     
-    for result in resultset:
-        print result['email']
     resultset.sort()
-    i=0
     templist = list()
     for profile in resultset:
         if profile not in templist:
             templist.append(profile)
-    print '-'*50
+
     resultset = templist
-    for result in resultset:
-        print result['email']
-    print '-'*50
 
     shuffle(resultset)
 
@@ -60,39 +51,43 @@ def querystring(sqlstmt, all_profiles):
 
 def parse(qstring, profiles):
     qstring = qstring.strip()
-    if qstring[0] == '(' and qstring[-1] == ')':
-        qstring = qstring[1:-1]
+    qstring = qstring.strip(';')
+    if qstring[0] == '(' and qstring[-1] == ')' and qstring.find('(',1) == -1:
+        qstring = qstring.strip('(')
+        qstring = qstring.strip(')')  # removeinstances of "(query)"
     index = qstring.find(';and;')
-    if qstring.find(';or;') != -1 and (index == -1 or index > qstring.find(';or;')):
-        index=qstring.find(';or;')
+    if qstring.find(';or;') != -1 and (index == -1 or index > qstring.find(';or;')): 
+        index=qstring.find(';or;')    # if 'or' is present and comes before 'and'
+    
     if qstring.find('(') > -1 and qstring.find('(') < index:
-        i = qstring.find('(')
-        substr = qstring[i+1:]
-        j=i+1
+        ob = qstring.find('(')        # if open braces are present and first one comes before an 'and' or 'or'
+        substr = qstring[ob+1:]
+        cb=ob+1       # initialize closing braces
         count=0
         for char in substr:
             if char == '(':
-                count += 1
+                count += 1  # To handle nested braces
             elif char == ')':
                 if count == 0:
-                    break
+                    break   # outermost nest
                 else:
                     count -= 1
-            j+=1
-        left = qstring[i:j+1]
+            cb+=1           # To get position of closing brace
+        left = qstring[ob:cb+1]
         
-        op = qstring[j+2:]
+        op = qstring[cb+2:]
         if op[:3].lower() == 'and':
             op = 'and'
         elif op[:2].lower() == 'or':
             op = 'or'
         else:
             print "Wrong operator", op
+            print "qstring:", qstring, "left: ",left,'right: ',right
             raise ValueError
-        right = qstring[qstring.find(';',j+2)+1:]
+        right = qstring[qstring.find(';',cb+2)+1:]
 
         resultset = process(left,op,right,profiles)
-    elif index > -1:
+    elif index > -1:  # no bracket-business on left side of operator
         left = qstring[:index]
         op = qstring[index+1:qstring.find(';',index+1)]
         right = qstring[qstring.find(';', index+2):]
@@ -106,22 +101,29 @@ def process(left, op, right, profiles):
         resultset = parse(left, profiles)
     else:
         resultset = evaluate(left,profiles)
-        if right.find('(') == -1 and right.find(';and;') == -1 and right.find(';or;') == -1:
-            if op == 'and':
-                resultdict = dict()
-                for profile in resultset:
-                    resultdict[profile['email']] = profile # Dirty hack alert!!
-                resultset = evaluate(right, resultdict)
-            elif op == 'or':
-                resultset.extend(evaluate(right, profiles))
-        else:
-            if op == 'and':
-                resultdict = dict()
-                for profile in resultset:
-                    resultdict[profile['email']] = profile # Dirty hack alert!!
-                resultset = parse(right, resultdict)
-            elif op == 'or':
-                resultset.extend(parse(right, profiles))
+    if right.find('(') == -1 and right.find(';and;') == -1 and right.find(';or;') == -1:
+        if op == 'and':
+            resultdict = dict()
+            for profile in resultset:
+                resultdict[profile['email']] = profile # Dirty hack alert!!
+            resultset = evaluate(right, resultdict)
+
+        elif op == 'or':
+            templist = evaluate(right, profiles)
+            for profile in templist:
+                if profile not in resultset:
+                    resultset.append(profile)
+    else:
+        if op == 'and':
+            resultdict = dict()
+            for profile in resultset:
+                resultdict[profile['email']] = profile # Dirty hack alert!!
+            resultset = parse(right, resultdict)
+        elif op == 'or':
+            templist = parse(right, profiles)
+            for profile in templist:
+                if profile not in resultset:
+                    resultset.append(profile)
     return resultset
 
 def evaluate(atomic, profiles):
