@@ -1,8 +1,31 @@
 #!/usr/bin/python
 """This module parses the query string and returns a meaningful dictionary of parameters 
-that can be used to filter the profiles"""
+that can be used to filter the profiles
+
+To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
+Please follow the rules of the language to get the optimum output.
+
+The syntax goes something like this:
+return <returnvals> from <number> profiles whose [<query parameters>]
+
+Example: "return email,fname from 5 profiles whose [(locality=bengaluru;or;locality=bangalore);and;experience<2;or;education<>BE at Pesit]"
+
+The available attributes are:
+fname => First Name
+lname => Last Name
+email => e-mail id 
+locality => Location 
+industry => field of work 
+current => current job description
+past => Past jobs
+experience => Job experience (integer)
+education => Academic details
+skills => skillsets
+project-descriptions => Description of listed projects
+"""
 from random import randint
 from random import shuffle
+import multiprocessing
 def querystring(sqlstmt, all_profiles):
     fpart = sqlstmt[:sqlstmt.index('[')]
 
@@ -15,10 +38,21 @@ def querystring(sqlstmt, all_profiles):
     if not no_of_results == 'all':
         no_of_results = int(no_of_results)     # 5
 
-    # (location=bengaluru;or;(location=bangalore;and;industry = computer science));and;experience<2;or;education<>BE at Pesit
-    qs = sqlstmt[sqlstmt.index('[')+1:sqlstmt.index(']')]
-    resultset = parse(qs, all_profiles) # all results
+    # (locality=bengaluru;or;(locality=bangalore;and;industry = computer science));and;experience<2;or;education<>BE at Pesit
+    qs = sqlstmt[sqlstmt.index('[')+1:sqlstmt.index(']')] # The actual query parameters
+    resultset = list()
     
+    if len(all_profiles.keys())>1000:
+        tasks = all_profiles.items()
+        factor = (1.0/(multiprocessing.cpu_count()*int(0.01*len(tasks))))*len(tasks)
+        pool = multiprocessing.Pool()
+        for worker in xrange(0,multiprocessing.cpu_count()*int(0.01*len(tasks))):
+            pool.apply_async(parse,(qs,dict(tasks[int(worker*factor):int((worker+1)*factor)]),), callback=resultset.extend)
+        pool.close()
+        pool.join()
+    else:
+        resultset = parse(qs, all_profiles) # all results
+
     resultset.sort()
     templist = list()
     for profile in resultset:
@@ -82,7 +116,6 @@ def parse(qstring, profiles):
             op = 'or'
         else:
             print "Wrong operator", op
-            print "qstring:", qstring, "left: ",left,'right: ',right
             raise ValueError
         right = qstring[qstring.find(';',cb+2)+1:]
 
@@ -106,7 +139,7 @@ def process(left, op, right, profiles):
             resultdict = dict()
             for profile in resultset:
                 resultdict[profile['email']] = profile # Dirty hack alert!!
-            resultset = evaluate(right, resultdict)
+            resultset = evaluate(right, resultdict)    # Filter out the number of profiles to process
 
         elif op == 'or':
             templist = evaluate(right, profiles)
@@ -135,7 +168,16 @@ def evaluate(atomic, profiles):
         key.strip();value.strip();
         for profile in profiles:
             if profiles[profile].has_key(key):
-                if profiles[profile][key].lower().find(value.lower()) == -1:
+                if type(profiles[profile][key]) == list:
+                    flag = True
+                    for element in profiles[profile][key]:
+                        if element.lower().find(value.lower()) != -1:
+                            flag = False
+                            break
+                    if flag:
+                        resultset.append(profiles[profile])
+
+                elif profiles[profile][key].lower().find(value.lower()) == -1:
                     resultset.append(profiles[profile])
 
     elif atomic.find('<=') != -1:
@@ -184,6 +226,11 @@ def evaluate(atomic, profiles):
                     resultset.append(profiles[profile])
                 elif type(profiles[profile][key]) == int and profiles[profile][key] == int(value):
                     resultset.append(profiles[profile])
+                elif type(profiles[profile][key]) == list:
+                    for element in profiles[profile][key]:
+                        if element.lower().find(value.lower()) != -1:
+                            resultset.append(profiles[profile])
+                            break
             else:
                 for profile in profiles:
                     for field in profiles[profile]:
