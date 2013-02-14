@@ -50,9 +50,10 @@ def collect():
         else:
             # Use python multiprocessing capabilities to divide work
             pool = multiprocessing.Pool()
-            r = pool.apply_async(generator.generate,(number/multiprocessing.cpu_count(),), callback=lambda profiles: resultset.update(profiles))
-            r.wait()
+            for worker in xrange(0,(multiprocessing.cpu_count()*int(number*0.1))):
+                pool.apply_async(generator.generate,(number/(multiprocessing.cpu_count()*int(number*0.1)),), callback=resultset.update)
             pool.close()
+            pool.join()
             print 'Done'
 
     elif method == '4':
