@@ -41,16 +41,16 @@ if __name__ == '__main__':
             5: Write existing database to file
             """)
         if int(choice) == 1:
-            resumelist = datacollector.collect()
+            resumelist = datacollector.collect()  # Call to the data collector in datacollector.py
             for name, details in resumelist.items():
-                create(name, details)
+                create(name, details)             # Add profiles to the database individually
 
         elif int(choice) == 2:
             name = raw_input("Enter uname of the profile to delete")
             delete(name)
 
         elif int(choice) == 3:
-            system('clear')
+            system('clear')                       # clear the console screen
             qstring = raw_input("""
 Welcome to QuerySQL!!!
 To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
@@ -62,35 +62,42 @@ return <returnvals> from <number> profiles whose [<query parameters>]
 Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
 
 The available attributes are:
-fname => First Name
-lname => Last Name
-email => e-mail id 
-locality => Location 
-industry => field of work 
-current => current job description
-past => Past jobs
-experience => Job experience (integer)
-education => Academic details
-skills => skillsets
+fname                => First Name
+lname                => Last Name
+email                => e-mail id 
+locality             => Location 
+industry             => field of work 
+current              => current job description
+past                 => Past jobs
+experience           => Job experience (integer)
+education            => Academic details
+skills               => skillsets
 project-descriptions => Description of listed projects
 
 Available operators:
 =,<>                [equals, doesn't equal] for string and integer values
 <=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
 
+Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
+Ex: "return skills from 10 profiles whose [knowledge=python]"
+
+Special numbers
+'*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
+'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"
+
 Enter your query:
 
 QuerySQL> """)
-            resultset = query.querystring(qstring, database)
+            resultset = query.querystring(qstring, database) # Call the method in query.py
             if len(resultset) > 0:
-                for result in resultset:
+                for result in resultset:                     # Print the obtained results (which is in a list)
                     print result
                     print '='*50
             else:
                 print "No match found"
 
         elif int(choice) == 4:
-            display()
+            display()              # Display ALL the profiles in the database.
 
         elif int(choice) == 5:
             dbfile = open('data/profiles.csv', 'wb')
