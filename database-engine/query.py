@@ -35,8 +35,8 @@ Special numbers
 from random import randint
 from random import shuffle
 from itertools import groupby
+from datetime import datetime
 import multiprocessing
-import time
 def querystring(sqlstmt, all_profiles):
     """Takes a QuerySQL statement and a dictionary database of profiles as an input and returns a list of profiles as output"""
     fpart = sqlstmt[:sqlstmt.index('[')]
@@ -57,15 +57,15 @@ def querystring(sqlstmt, all_profiles):
     if len(all_profiles.keys())>1000: # Utilize all available processors for fastest response time
         tasks = all_profiles.items()
         factor = (1.0/(multiprocessing.cpu_count()*int(0.01*len(tasks))))*len(tasks) # Each process needs to process just 100 profiles
-        start = time.localtime()
+        start = datetime.now()
         pool = multiprocessing.Pool()  # COOKBOOK: Create a pool of processes
         for worker in xrange(0,multiprocessing.cpu_count()*int(0.01*len(tasks))):
             pool.apply_async(parse,(qs,dict(tasks[int(worker*factor):int((worker+1)*factor)]),), callback=resultset.extend)
             # Asynchronously apply the method parse on a subset of the database. When the method returns with a list of the individual set of results, append it to a main list of results
         pool.close() # To inform that no more jobs need to be done
         pool.join()  # Wait for the children to finish execution
-        end = time.localtime()
-        print 'Finished querying', len(all_profiles.keys()), 'profiles in', (end.tm_min-start.tm_min), 'minutes, and', (end.tm_sec-start.tm_sec),'seconds'
+        end = datetime.now()
+        print 'Finished querying', len(all_profiles.keys()), 'profiles in', (end-start).seconds,'seconds'
     else:
         resultset = parse(qs, all_profiles) # all results
 

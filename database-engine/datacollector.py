@@ -4,7 +4,7 @@ import csv
 import scraper
 import generator
 import multiprocessing
-import time
+from datetime import datetime
 def collect():
     """Method to collect profile data"""
     
@@ -48,14 +48,14 @@ def collect():
             resultset.update(generator.generate(number))
         else:
             # Use python multiprocessing capabilities to divide work
-            start = time.localtime()
+            start = datetime.now()
             pool = multiprocessing.Pool()
             for worker in xrange(0,multiprocessing.cpu_count()): # Split the task of generating n numbers to all cpus
                 pool.apply_async(generator.generate, (number/multiprocessing.cpu_count(),), callback=resultset.update)
             pool.close()
             pool.join()
-            end = time.localtime()
-            print 'Finished generating', number, 'profiles in', (end.tm_min-start.tm_min), 'minutes, and', (end.tm_sec-start.tm_sec), 'seconds'
+            end = datetime.now()
+            print 'Finished generating', number, 'profiles in', (end-start).seconds, 'seconds'
 
     elif method == '4':
         dbfile = open('data/profiles.csv', 'rb')
