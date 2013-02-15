@@ -1,4 +1,7 @@
 #!/usr/bin/python
+"""This module is used to generate structured profiles by picking out random elements from predefined lists and stitching 
+together values for various fields in a typical LinkedIn profile"""
+
 from random import randint as ri
 mail = ['gmail', 'yahoo', 'outlook']
 place = ['Bangalore', 'Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Pune']
@@ -23,7 +26,7 @@ def generate(number):
         for i in xrange(0,ri(3,10)):
             lname += chr(ri(97,122))
 
-        uname = fname+'-'+lname+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/'
+        uname = fname+'-'+lname+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/'+str(ri(0,999))+'/' # Typical public profile url
         # Public LinkedIn public profile link template
 
         email = fname+'.'+lname+'@'+mail[ri(0,len(mail)-1)]+'.com'
@@ -31,27 +34,27 @@ def generate(number):
         industry = field[ri(0,len(field)-1)]
         current = position[ri(0,len(position)-1)] + ' at ' + company[ri(0,len(company)-1)]
         past = []
-        for i in xrange(0,ri(0,5)):
+        for i in xrange(0,ri(0,5)): # Assuming at max 5 previous jobs
             past.append(position[ri(0,len(position)-1)] + ' at ' + company[ri(0,len(company)-1)])
         education = []
-        for i in xrange(1,ri(1,3)):
+        for i in xrange(1,ri(1,3)): # Assuming at max 3 degrees
             education.append(degree[ri(0,len(degree)-1)] + ' at ' + college[ri(0,len(college)-1)])
         skills = []
         for i in xrange(0,ri(1,len(skillset)-1)):
             skills.append(skillset[ri(0,len(skillset)-1)])
 
         projectdescriptions = []
-        for i in xrange(0,ri(0,3)):
+        for i in xrange(0,ri(0,3)):  # Assuming at max 3 major projects mentioned in the LinkedIn profile
             desc = ''
-            for j in xrange(0,ri(20,100)):
+            for j in xrange(0,ri(20,100)):  # Assuming 20 -100 words in a project
                 choice = ri(0,100)
-                if choice % 10 == 0:
+                if choice % 10 == 0:        # Approximately 10 out of 100 times, mention a skillset (To ease query testing)
                     desc += skillset[ri(0,len(skillset)-1)]+' '
-                elif choice % 20 == 0:
+                elif choice % 20 == 0:      # Approximately 20 in 100 times, mention the company the project was done in
                     desc += 'when I was working as ' + past[ri(0,len(past)-1)]+' '
                 else:
                     word = ''
-                    for k in xrange(1,ri(1,7)):
+                    for k in xrange(1,ri(1,7)):   # Stitch a random word out of random characters (fillers)
                         word += chr(ri(97,122))
                     desc += word+' '
             projectdescriptions.append(desc)

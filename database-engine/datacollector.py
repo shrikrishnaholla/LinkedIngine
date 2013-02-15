@@ -1,12 +1,10 @@
 #!/usr/bin/python
+"""This module is used by the testing console to provide different methods to collect profile data"""
 import csv
 import scraper
 import generator
 import multiprocessing
 import time
-
-#returnval = uname, details
-# resultset[uname] = profile
 def collect():
     """Method to collect profile data"""
     
@@ -45,18 +43,15 @@ def collect():
     
     elif method == '3':
         number = int(raw_input("How many profiles do you want to generate? "))
-        # If number < 10000, delay negligible
+        # If number < 1000, delay negligible
         if number < 1000:
             resultset.update(generator.generate(number))
         else:
             # Use python multiprocessing capabilities to divide work
             start = time.localtime()
             pool = multiprocessing.Pool()
-            for worker in xrange(0,multiprocessing.cpu_count()):
+            for worker in xrange(0,multiprocessing.cpu_count()): # Split the task of generating n numbers to all cpus
                 pool.apply_async(generator.generate, (number/multiprocessing.cpu_count(),), callback=resultset.update)
-
-            #for worker in xrange(0,(multiprocessing.cpu_count()*int(number*0.1))):
-            #    pool.apply_async(generator.generate,(number/(multiprocessing.cpu_count()*int(number*0.1)),), callback=resultset.update)
             pool.close()
             pool.join()
             end = time.localtime()
