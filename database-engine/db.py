@@ -20,45 +20,6 @@ def delete(uname):
 
 def read():
     reader = csv.reader(open('data/profiles.csv', 'rb'))
-    
-
-"""def query(parameters):
-    ""Retrieves data based on parameters""
-    # TODO: can we allow for the user to give gmail-like queries? (boolean)
-    # Ex: 
-    # 1) people living in bangalore AND know python
-    # 2) people living in bangalore OR mumbai
-
-    resultset = dict()
-    for profile in database:
-        # @valid flag => keeps track of whether the profile satisfies ALL criteria
-        valid = True
-        for param in parameters:
-            # @parameters is a dictionary containing all the query keys which are hashed to the expected values
-            # Ex: For a query like "People who live in bangalore", would give a parameter dict of {"location": "Bangalore"}
-            if profile.has_key(param) and profile[param].find(parameters[param]) == -1:
-                # We are checking for return value of find() rather than matching with == because the values for fields in different profiles
-                # are not consistent - some may have "Bangalore", some others "Bangalore, Karnataka, India", where direct matching would fail
-                # with the second one
-                # TODO: How to handle someone who has set his locality value to "Bengaluru" (think of similar cases)?
-                valid = False # The profile has the field, and it doesn't match
-                break
-            else:
-                # We need a second flag because the user might not have filled in that detail in his profile
-                # So, we parse through his complete list of details and find out whether there's a mention of the particular value
-                # anywhere at all in his profile
-                valid = False
-                for field in profile:
-                    if profile[field].find(parameters[param]) != -1:
-                        # The term exists in his profile somewhere
-                        valid = True
-                        break
-
-        if valid:
-            # There might be more than one profile that match the criteria
-            resultset[profile] = database[profile]
-
-    return resultset"""
                     
 def display():
     """Displays the contents of the database on console (For testing purposes only)"""
@@ -88,33 +49,38 @@ if __name__ == '__main__':
             name = raw_input("Enter uname of the profile to delete")
             delete(name)
 
-        elif int(choice) == 3: # TODO
+        elif int(choice) == 3:
             system('clear')
             qstring = raw_input("""
-                Welcome to QuerySQL!!!
-                To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
-                Please follow the rules to get the optimum output.
+Welcome to QuerySQL!!!
+To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
+Please follow the rules to get the optimum output.
 
-                The syntax goes something like this:
-                return <returnvals> from <number> profiles whose [<query parameters>]
+The syntax goes something like this:
+return <returnvals> from <number> profiles whose [<query parameters>]
 
-                Example: "return email,fname from 5 profiles whose [(locality=bengaluru;or;locality=bangalore);and;experience<2;or;education<>BE at Pesit]"
+Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
 
-                The available attributes are:
-                fname => First Name
-                lname => Last Name
-                email => e-mail id 
-                locality => Location 
-                industry => field of work 
-                current => current job description
-                past => Past jobs
-                experience => Job experience
-                education => Academic details
-                skills => skillsets
-                project-descriptions => Description of listed projects
+The available attributes are:
+fname => First Name
+lname => Last Name
+email => e-mail id 
+locality => Location 
+industry => field of work 
+current => current job description
+past => Past jobs
+experience => Job experience (integer)
+education => Academic details
+skills => skillsets
+project-descriptions => Description of listed projects
 
-                Enter your query:
-                """)
+Available operators:
+=,<>                [equals, doesn't equal] for string and integer values
+<=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
+
+Enter your query:
+
+QuerySQL> """)
             resultset = query.querystring(qstring, database)
             if len(resultset) > 0:
                 for result in resultset:

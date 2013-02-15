@@ -8,7 +8,7 @@ Please follow the rules of the language to get the optimum output.
 The syntax goes something like this:
 return <returnvals> from <number> profiles whose [<query parameters>]
 
-Example: "return email,fname from 5 profiles whose [(locality=bengaluru;or;locality=bangalore);and;experience<2;or;education<>BE at Pesit]"
+Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
 
 The available attributes are:
 fname => First Name
@@ -25,7 +25,9 @@ project-descriptions => Description of listed projects
 """
 from random import randint
 from random import shuffle
+from itertools import groupby
 import multiprocessing
+import time
 def querystring(sqlstmt, all_profiles):
     fpart = sqlstmt[:sqlstmt.index('[')]
 
@@ -45,21 +47,16 @@ def querystring(sqlstmt, all_profiles):
     if len(all_profiles.keys())>1000:
         tasks = all_profiles.items()
         factor = (1.0/(multiprocessing.cpu_count()*int(0.01*len(tasks))))*len(tasks)
+        start = time.localtime()
         pool = multiprocessing.Pool()
         for worker in xrange(0,multiprocessing.cpu_count()*int(0.01*len(tasks))):
             pool.apply_async(parse,(qs,dict(tasks[int(worker*factor):int((worker+1)*factor)]),), callback=resultset.extend)
         pool.close()
         pool.join()
+        end = time.localtime()
+        print 'Finished querying', len(all_profiles.keys()), 'profiles in', (end.tm_min-start.tm_min), 'minutes, and', (end.tm_sec-start.tm_sec),'seconds'
     else:
         resultset = parse(qs, all_profiles) # all results
-
-    resultset.sort()
-    templist = list()
-    for profile in resultset:
-        if profile not in templist:
-            templist.append(profile)
-
-    resultset = templist
 
     shuffle(resultset)
 
@@ -142,10 +139,7 @@ def process(left, op, right, profiles):
             resultset = evaluate(right, resultdict)    # Filter out the number of profiles to process
 
         elif op == 'or':
-            templist = evaluate(right, profiles)
-            for profile in templist:
-                if profile not in resultset:
-                    resultset.append(profile)
+            resultset.extend(evaluate(right, profiles))
     else:
         if op == 'and':
             resultdict = dict()
@@ -153,14 +147,12 @@ def process(left, op, right, profiles):
                 resultdict[profile['email']] = profile # Dirty hack alert!!
             resultset = parse(right, resultdict)
         elif op == 'or':
-            templist = parse(right, profiles)
-            for profile in templist:
-                if profile not in resultset:
-                    resultset.append(profile)
-    return resultset
+            resultset.extend(parse(right, profiles))
+    return [k for k,v in groupby(sorted(resultset))]
 
 def evaluate(atomic, profiles):
     atomic = atomic.strip()
+    atomic = atomic.strip(';')
     resultset = list()
     if atomic.find('<>') != -1:
         key = atomic[:atomic.find('<>')]

@@ -3,6 +3,7 @@ import csv
 import scraper
 import generator
 import multiprocessing
+import time
 
 #returnval = uname, details
 # resultset[uname] = profile
@@ -49,12 +50,17 @@ def collect():
             resultset.update(generator.generate(number))
         else:
             # Use python multiprocessing capabilities to divide work
+            start = time.localtime()
             pool = multiprocessing.Pool()
-            for worker in xrange(0,(multiprocessing.cpu_count()*int(number*0.1))):
-                pool.apply_async(generator.generate,(number/(multiprocessing.cpu_count()*int(number*0.1)),), callback=resultset.update)
+            for worker in xrange(0,multiprocessing.cpu_count()):
+                pool.apply_async(generator.generate, (number/multiprocessing.cpu_count(),), callback=resultset.update)
+
+            #for worker in xrange(0,(multiprocessing.cpu_count()*int(number*0.1))):
+            #    pool.apply_async(generator.generate,(number/(multiprocessing.cpu_count()*int(number*0.1)),), callback=resultset.update)
             pool.close()
             pool.join()
-            print 'Done'
+            end = time.localtime()
+            print 'Finished generating', number, 'profiles in', (end.tm_min-start.tm_min), 'minutes, and', (end.tm_sec-start.tm_sec), 'seconds'
 
     elif method == '4':
         dbfile = open('data/profiles.csv', 'rb')
