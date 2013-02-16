@@ -11,7 +11,7 @@ company = ['Microsoft', 'Google', 'Adobe', 'Infosys', 'Wipro', 'SAP', 'Mindtree'
 'Mozilla', 'Canonical', 'Novell', 'HP', 'Lenovo', 'Asus', 'Dell', 'Toshiba']
 degree = ['BE', 'BTech', 'MS', 'MTech', 'PhD']
 college = ['IIT', 'IISc', 'NIT', 'PESIT']
-skillset = ['Python', 'C', 'C++', 'Java', 'Ruby', 'JavaScript', 'Scala', 'Erlang', 'PHP', 'HTML5', 'CSS3', 'MySQL', 'MongoDB',\
+skillset = ['Python', 'C', 'C++', 'Java', 'Ruby', 'Scala', 'Erlang', 'PHP', 'HTML5', 'CSS3', 'MySQL', 'MongoDB',\
 'cloud computing']
 
 def generate(number):

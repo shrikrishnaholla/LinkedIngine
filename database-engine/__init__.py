@@ -91,7 +91,8 @@ QuerySQL> """)
             resultset = query.querystring(qstring, database) # Call the method in query.py
             if len(resultset) > 0:
                 for result in resultset:                     # Print the obtained results (which is in a list)
-                    print result
+                    for field in result:
+                        print field,':',result[field]
                     print '='*50
             else:
                 print "No match found"
