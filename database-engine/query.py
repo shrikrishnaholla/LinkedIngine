@@ -246,5 +246,10 @@ def evaluate(atomic, profiles):
                         if type(profiles[profile][field]) == str and profiles[profile][field].lower().find(value.lower()) != -1:
                             resultset.append(profiles[profile])
                             break
+                        elif type(profiles[profile][field]) == list:
+                            for element in profiles[profile][field]:
+                                if element.lower().find(value.lower()) != -1:
+                                    resultset.append(profiles[profile])
+                                    break
 
     return resultset
