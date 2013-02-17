@@ -16,7 +16,7 @@ To allow for more powerful querying, we have developed a SQL-like syntax for pas
 Please follow the rules to get the optimum output.
 
 
-The syntax goes something like this:
+####The syntax goes something like this:####
 
 return <returnvals> from <number> profiles whose [query parameters]
 
@@ -24,7 +24,7 @@ return <returnvals> from <number> profiles whose [query parameters]
 Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
 
 
-The available attributes are:
+#####The available attributes are:#####
 
 fname                => First Name
 
@@ -49,14 +49,14 @@ skills               => skillsets
 project-descriptions => Description of listed projects
 
 
-Available operators:
+####Available operators:####
 
 =,<>                [equals, doesn't equal] for string and integer values
 
 <=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
 
 
-Special numbers
+####Special numbers####
 
 '*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
 
