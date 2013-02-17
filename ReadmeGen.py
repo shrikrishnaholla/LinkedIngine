@@ -46,7 +46,9 @@ if __name__ == '__main__':
                 readme.write('='*len(packagename)+'\n')
                 readme.write('\n')
                 if '__init__.py' in modules and modules['__init__.py'].__doc__!= None:
-                    readme.write(modules['__init__.py'].__doc__+'\n')
+                    lines = (modules['__init__.py'].__doc__).splitlines()
+                    for line in lines:
+                        readme.write(line+'\n')
 
                 for module in modules:
                     if module != '__init__.py' and module.find('.pyc') == -1:
@@ -55,11 +57,15 @@ if __name__ == '__main__':
                         readme.write('-'*len(module)+'\n')
                         if modules[module].__doc__ != None:
                             readme.write('\n')
-                            readme.write(modules[module].__doc__+'\n')
+                            lines = (modules[module].__doc__).splitlines()
+                            for line in lines:
+                                readme.write(line+'\n')
                         for func in modules[module].__dict__:
                             if isinstance(modules[module].__dict__[func], types.FunctionType) and modules[module].__dict__[func].__doc__ != None:
                                 readme.write('\n')
                                 readme.write('###'+func+'###'+'\n')
                                 readme.write('\n')
-                                readme.write(modules[module].__dict__[func].__doc__+'\n')
+                                lines = (modules[module].__dict__[func].__doc__).splitlines()
+                                for line in lines:
+                                    readme.write(line+'\n')
                 readme.close()

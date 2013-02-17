@@ -56,7 +56,6 @@ if __name__ == '__main__':
                 system('clear')                       # clear the console screen
                 print query.__doc__
                 print """
-    
     Use quit to exit QuerySQL.
     
     Enter your query: """

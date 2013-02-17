@@ -1,37 +1,37 @@
 #!/usr/bin/python
 """
-To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.\n
-Please follow the rules to get the optimum output.\n
+To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
+Please follow the rules to get the optimum output.
 
-####The syntax goes something like this:####\n
-return <returnvals> from <number> profiles whose [query parameters]\n
+####The syntax goes something like this:####
+return <returnvals> from <number> profiles whose [query parameters]
 
-Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"\n
+Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
 
-#####The available attributes are:#####\n
-fname                => First Name\n
-lname                => Last Name\n
-email                => e-mail id \n
-locality             => Location \n
-industry             => field of work \n
-current              => current job description\n
-past                 => Past jobs\n
-experience           => Job experience (integer)\n
-education            => Academic details\n
-skills               => skillsets\n
-project-descriptions => Description of listed projects\n
+#####The available attributes are:#####
+fname                => First Name
+lname                => Last Name
+email                => e-mail id 
+locality             => Location 
+industry             => field of work 
+current              => current job description
+past                 => Past jobs
+experience           => Job experience (integer)
+education            => Academic details
+skills               => skillsets
+project-descriptions => Description of listed projects
 
-####Available operators:####\n
-=,<>                [equals, doesn't equal] for string and integer values\n
-<=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values\n
+####Available operators:####
+=,<>                [equals, doesn't equal] for string and integer values
+<=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
 
-####Special numbers####\n
-'*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"\n
-'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"\n
+####Special numbers####
+'*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
+'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"
 
-Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results\n
-Ex: "return skills from 10 profiles whose [knowledge=python]"\n
-return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]\n
+Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
+Ex: "return skills from 10 profiles whose [knowledge=python]"
+return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]
 """
 from random import randint
 from random import shuffle
