@@ -60,12 +60,19 @@ if __name__ == '__main__':
                             lines = (modules[module].__doc__).splitlines()
                             for line in lines:
                                 readme.write(line+'  \n')
-                        for func in modules[module].__dict__:
-                            if isinstance(modules[module].__dict__[func], types.FunctionType) and modules[module].__dict__[func].__doc__ != None:
+                        for bloc in modules[module].__dict__:
+                            if isinstance(modules[module].__dict__[bloc], types.ClassType) and modules[module].__dict__[bloc].__doc__ != None:
                                 readme.write('\n')
-                                readme.write('###'+func+'###'+'\n')
+                                readme.write('##'+bloc+'##'+'\n')
                                 readme.write('\n')
-                                lines = (modules[module].__dict__[func].__doc__).splitlines()
+                                lines = (modules[module].__dict__[bloc].__doc__).splitlines()
+                                for line in lines:
+                                    readme.write(line+'  \n')
+                            elif isinstance(modules[module].__dict__[bloc], types.FunctionType) and modules[module].__dict__[bloc].__doc__ != None:
+                                readme.write('\n')
+                                readme.write('###'+bloc+'###'+'\n')
+                                readme.write('\n')
+                                lines = (modules[module].__dict__[bloc].__doc__).splitlines()
                                 for line in lines:
                                     readme.write(line+'  \n')
                 readme.close()
