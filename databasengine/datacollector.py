@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """This module is used by the testing console to provide different methods to collect profile data"""
-import csv
+import deserializer
 import scraper
 import generator
 import multiprocessing
@@ -58,10 +58,6 @@ def collect():
             print 'Finished generating', number, 'profiles in', (end-start).seconds, 'seconds'
 
     elif method == '4':
-        dbfile = open('data/profiles.csv', 'rb')
-        reader = csv.reader(dbfile)
-        for profile in reader:
-            resultset[profile[0]] = deserialize(profile[1]) # TODO: Implement deserializing
-        dbfile.close()
+        resultset = deserializer.deserialize('data/datastore.in')
 
     return resultset

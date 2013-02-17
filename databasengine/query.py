@@ -27,7 +27,7 @@ Available operators:
 
 Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
 Ex: "return skills from 10 profiles whose [knowledge=python]"
-
+return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]
 Special numbers
 '*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
 'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"
@@ -42,7 +42,7 @@ def querystring(sqlstmt, all_profiles):
     fpart = sqlstmt[:sqlstmt.index('[')]
 
     returnvals = fpart[7:fpart.index('from')]
-    return_fields = returnvals.split(',')   # To get [email,locality,experience]
+    return_fields = returnvals.split(',')   # To get the query elements
     return_fields = [field.strip() for field in return_fields]
     
     no_of_results = fpart[fpart.index('from')+5:fpart.index('profiles')]
@@ -122,8 +122,22 @@ def parse(qstring, profiles):
             op = 'and'
         elif op[:2].lower() == 'or':
             op = 'or'
+        elif op == '':
+            cb = ob+1       # Reusing variable cb
+            for char in substr:
+                if char == '(':
+                    break
+                cb += 1
+            cb -=1
+            left= qstring[qstring.find(substr):substr.rfind(';',0,cb-1)+1]
+            op = qstring[qstring.find(substr)+substr.rfind(';',0,cb-1)+1:substr.rfind(';',0,cb)+1]
+            # Handled (q1;op;(q2))
+            # ((q1);op;q2) to be handled
+            print 'left:',left, 'op:',op, 'qstring: ', qstring, 'cb: ',substr[cb]
+
         else:
             print "Wrong operator", op
+            print 'left:',left, 'op:',op, 'qstring: ', qstring
             raise ValueError
         right = qstring[qstring.find(';',cb+2)+1:]
         resultset = process(left,op,right,profiles)
@@ -173,7 +187,8 @@ def evaluate(atomic, profiles):
     if atomic.find('<>') != -1:
         key = atomic[:atomic.find('<>')]
         value = atomic[atomic.find('<>')+2:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == list: # If the value of the key is a list, traverse through the list
@@ -192,7 +207,8 @@ def evaluate(atomic, profiles):
     elif atomic.find('<=') != -1:
         key = atomic[:atomic.find('<=')]
         value = atomic[atomic.find('<=')+2:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == int and profiles[profile][key] <= int(value): # check valueerror
@@ -201,7 +217,8 @@ def evaluate(atomic, profiles):
     elif atomic.find('>=') != -1:
         key = atomic[:atomic.find('>=')]
         value = atomic[atomic.find('>=')+2:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == int and profiles[profile][key] >= int(value): # check valueerror
@@ -210,7 +227,8 @@ def evaluate(atomic, profiles):
     elif atomic.find('<') != -1:
         key = atomic[:atomic.find('<')]
         value = atomic[atomic.find('<')+1:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == int and profiles[profile][key] < int(value): # check valueerror
@@ -219,7 +237,8 @@ def evaluate(atomic, profiles):
     elif atomic.find('>') != -1:
         key = atomic[:atomic.find('>')]
         value = atomic[atomic.find('>')+1:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):
                 if type(profiles[profile][key]) == int and profiles[profile][key] > int(value): # check valueerror
@@ -228,7 +247,8 @@ def evaluate(atomic, profiles):
     elif atomic.find('=') != -1:
         key = atomic[:atomic.find('=')]
         value = atomic[atomic.find('=')+1:]
-        key.strip();value.strip();
+        key = key.strip()
+        value = value.strip()
         for profile in profiles:
             if profiles[profile].has_key(key):  # If the profile has the key
                 if type(profiles[profile][key]) == str and profiles[profile][key].lower().find(value.lower()) != -1:
