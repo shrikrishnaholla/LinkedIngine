@@ -1,12 +1,12 @@
 
-databasengine
+Databasengine
 =============
 
 This is an in-memory database engine  
 It should support CRD (Create, Retrieve, Delete operations)  
 Update has been omitted as this shouldn't update their profile details. This application's purpose is just analytical  
 
-query
+Query
 -----
 
   
@@ -53,7 +53,7 @@ Process the QuerySQL statement. A statement enters this method as left part, a b
     Based on whether the individual left and right parts are atomic or compound, either the substatements might be evaluated  
     or they can be sent back to parse() for further processing of compound statements  
 
-scraper
+Scraper
 -------
 
 This is a module used to scrape the public profiles of linkedIn users for meaningful profile data  
@@ -68,7 +68,7 @@ Easy method to collect fields
 
 Easy method to collect fields with multiple attributes  
 
-datacollector
+Datacollector
 -------------
 
 This module is used by the testing console to provide different methods to collect profile data  
@@ -77,7 +77,7 @@ This module is used by the testing console to provide different methods to colle
 
 Method to collect profile data  
 
-generator
+Generator
 ---------
 
 This module is used to generate structured profiles by picking out random elements from predefined lists and stitching   
@@ -87,7 +87,7 @@ together values for various fields in a typical LinkedIn profile
 
 Generate profile data for creating test database  
 
-deserializer
+Deserializer
 ------------
 
 ###deserialize###

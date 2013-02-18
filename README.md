@@ -1,9 +1,9 @@
 
-linkedIngine
+Linkedingine
 ============
 
 
-ReadmeGen
+Readmegen
 ---------
 
 This is a simple markdown readme generator. It walks through the directory it is in,  

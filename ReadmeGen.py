@@ -42,7 +42,7 @@ if __name__ == '__main__':
             if len(modules) > 1 or len(pkg) >1:
                 readme = open(root+'/README.md', 'wb')
                 readme.write('\n')
-                readme.write(packagename+'\n')
+                readme.write(packagename.title()+'\n')
                 readme.write('='*len(packagename)+'\n')
                 readme.write('\n')
                 if '__init__.py' in modules and modules['__init__.py'].__doc__!= None:
@@ -53,7 +53,7 @@ if __name__ == '__main__':
                 for module in modules:
                     if module != '__init__.py' and module.find('.pyc') == -1:
                         readme.write('\n')
-                        readme.write(module[:module.find('.')]+'\n')
+                        readme.write(module[:module.find('.')].title()+'\n')
                         readme.write('-'*len(module[:module.find('.')])+'\n')
                         if modules[module].__doc__ != None:
                             readme.write('\n')
