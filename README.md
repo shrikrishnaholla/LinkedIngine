@@ -1,6 +1,6 @@
 Usage
 =====
-1. Run "python __init__.py" in the databasengine directory.  
+1. Run "python _ _ init _ _ .py" in the databasengine directory.  
 2. Select the option 1 to create an in-memory database  
    There are various ways to do this  
    1. Scraping profile data from a public profile link  
