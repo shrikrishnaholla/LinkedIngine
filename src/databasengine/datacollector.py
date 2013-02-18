@@ -9,12 +9,13 @@ def collect():
     """Method to collect profile data"""
     
     method = raw_input("""
-        Enter the method for data collection of your choice:
-        1: Scrape from public link
-        2: Enter individual data
-        3: Generate data
-        4: Read data from file
-        """)
+Enter the method for data collection of your choice:
+1: Scrape from public link
+2: Enter individual data
+3: Generate data
+4: Read data from file
+
+""")
     resultset = dict()
 
     if method == '1':

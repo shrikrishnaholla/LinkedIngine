@@ -1,0 +1,1641 @@
+Script started on Monday 18 February 2013 10:33:16 PM IST
+bash: .kde-bashrc: No such file or directory
+bash: .build-config: No such file or directory
+]0;shrikrishna@holla: ~/testers/python/pp/10PIIS058100132/srcshrikrishna@holla:~/testers/python/pp/10PIIS058100132/src$ cd databasengine/
+]0;shrikrishna@holla: ~/testers/python/pp/10PIIS058100132/src/databasengineshrikrishna@holla:~/testers/python/pp/10PIIS058100132/src/databasengine$ python __init__.py
+
+Welcome to LinkedIngine testing console!
+
+Enter a choice
+1: Create
+2: Delete
+3: Query
+4: Display
+5: Write existing database to file
+6: Quit
+
+1
+
+Enter the method for data collection of your choice:
+1: Scrape from public link
+2: Enter individual data
+3: Generate data
+4: Read data from file
+
+3
+How many profiles do you want to generate? 10000
+Finished generating 10000 profiles in 3 seconds
+Another operation? 1
+
+Welcome to LinkedIngine testing console!
+
+Enter a choice
+1: Create
+2: Delete
+3: Query
+4: Display
+5: Write existing database to file
+6: Quit
+
+3
+[H[2J
+To allow for more powerful querying, we have developed a SQL-like syntax for passing queries to the database.
+Please follow the rules to get the optimum output.
+
+####The syntax goes something like this:
+return <returnvals> from <number> profiles whose [query parameters]
+
+Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"
+
+#####The available attributes are:
+fname                => First Name
+lname                => Last Name
+email                => e-mail id 
+locality             => Location 
+industry             => field of work 
+current              => current job description
+past                 => Past jobs
+experience           => Job experience (integer)
+education            => Academic details
+skills               => skillsets
+project-descriptions => Description of listed projects
+
+####Available operators:
+=,<>                [equals, doesn't equal] for string and integer values
+<=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
+
+####Special numbers
+'*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
+'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"
+
+Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
+Ex: "return skills from 10 profiles whose [knowledge=python]"
+return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]
+
+
+Use quit to exit QuerySQL.
+
+Enter your query: 
+
+
+QuerySQL> return email from 10 profiles whose [interest=cloud computing]
+Finished querying 10000 profiles in 1 seconds
+email : nux.ngi@yahoo.com
+==================================================
+email : zqhyefgy.rbdibvcus@yahoo.com
+==================================================
+email : xqntpfb.fylw@outlook.com
+==================================================
+email : iezxy.prx@gmail.com
+==================================================
+email : kjpzdogyfh.jmr@outlook.com
+==================================================
+email : pbc.pqxlxkito@outlook.com
+==================================================
+email : bmzqxl.llpikg@yahoo.com
+==================================================
+email : evxdjhcka.snmvsqnnwq@gmail.com
+==================================================
+email : qcbhrliy.vscv@yahoo.com
+==================================================
+email : pbsc.vpaali@outlook.com
+==================================================
+QuerySQL> return email from 15 people whose [education=BE at PESIT]
+Syntax Error in the entered Query, please check your syntax
+QuerySQL> return email from 15 profiles whose [education=BE at PESIT]
+Finished querying 10000 profiles in 0 seconds
+email : fcpscnnvn.ikmgyr@gmail.com
+==================================================
+email : zujggrs.opwdwj@gmail.com
+==================================================
+email : yvboynbhm.gzseqimg@gmail.com
+==================================================
+email : nlnqfjeul.idso@outlook.com
+==================================================
+email : whmg.kkeuqlgud@outlook.com
+==================================================
+email : kzpwyw.kzrmmetg@yahoo.com
+==================================================
+email : kawsawp.bez@gmail.com
+==================================================
+email : vkqsgga.qkgzve@outlook.com
+==================================================
+email : qbmjq.ngjijpau@yahoo.com
+==================================================
+email : irlrhwbrgq.mhu@outlook.com
+==================================================
+email : wfhx.tcamaqg@gmail.com
+==================================================
+email : mqvbdxej.ihz@yahoo.com
+==================================================
+email : peturguest.ovjggvkjvf@gmail.com
+==================================================
+email : dlhvmxxwzc.ezsnx@yahoo.com
+==================================================
+email : boubvwxkf.ndlbjpsbbn@outlook.com
+==================================================
+QuerySQL> return n fname,email from all profiles whose [location=bangalore;and;(skills=python;and;skills=java);and;experience<=2]
+Finished querying 10000 profiles in 1 seconds
+email : omzt.itxh@gmail.com
+fname : omzt
+==================================================
+email : eboby.oswn@gmail.com
+fname : eboby
+==================================================
+email : aaazd.uoqvkxyip@outlook.com
+fname : aaazd
+==================================================
+email : pou.bflnmltk@outlook.com
+fname : pou
+==================================================
+email : moozgaoqq.bcupqk@yahoo.com
+fname : moozgaoqq
+==================================================
+email : efyhkdszb.rzwwlmiboz@yahoo.com
+fname : efyhkdszb
+==================================================
+email : oruqd.bro@yahoo.com
+fname : oruqd
+==================================================
+email : spfyahlzcc.xohjh@gmail.com
+fname : spfyahlzcc
+==================================================
+email : zwuiqo.mgmmbfvjli@gmail.com
+fname : zwuiqo
+==================================================
+email : fntpznq.mcbyvoy@gmail.com
+fname : fntpznq
+==================================================
+email : gbjhmn.bkscvmwavp@gmail.com
+fname : gbjhmn
+==================================================
+email : mfsafq.rtunrab@yahoo.com
+fname : mfsafq
+==================================================
+email : mjrvhft.rdlfhok@outlook.com
+fname : mjrvhft
+==================================================
+email : hzjilvnf.ojxr@gmail.com
+fname : hzjilvnf
+==================================================
+email : hypjbfrp.zcfpreze@outlook.com
+fname : hypjbfrp
+==================================================
+email : nbrc.fjwvbhrj@gmail.com
+fname : nbrc
+==================================================
+email : ctdoudd.atdqr@gmail.com
+fname : ctdoudd
+==================================================
+email : xfrfdmmg.dpdwisnhqs@yahoo.com
+fname : xfrfdmmg
+==================================================
+email : trthidek.ojmdw@yahoo.com
+fname : trthidek
+==================================================
+email : hwf.pzbetp@yahoo.com
+fname : hwf
+==================================================
+email : ktptrj.jaduacuahy@gmail.com
+fname : ktptrj
+==================================================
+email : kbbs.ateetjbn@outlook.com
+fname : kbbs
+==================================================
+email : yvol.bnnxarttfi@yahoo.com
+fname : yvol
+==================================================
+email : grys.bsal@yahoo.com
+fname : grys
+==================================================
+email : wcntfna.sdvsudhn@outlook.com
+fname : wcntfna
+==================================================
+email : stcehpod.acrqodyjsi@gmail.com
+fname : stcehpod
+==================================================
+email : ttdigd.qwyreki@yahoo.com
+fname : ttdigd
+==================================================
+email : jzkmnn.buyvynjt@yahoo.com
+fname : jzkmnn
+==================================================
+email : gmp.dwyfanq@outlook.com
+fname : gmp
+==================================================
+email : yxqmples.srdoyeb@outlook.com
+fname : yxqmples
+==================================================
+email : rdpunhq.enuncyihl@yahoo.com
+fname : rdpunhq
+==================================================
+email : yec.njkuywg@outlook.com
+fname : yec
+==================================================
+email : tcwauy.lujkravq@yahoo.com
+fname : tcwauy
+==================================================
+QuerySQL> return * from 20 profiles whose [geekiness=python]
+Finished querying 10000 profiles in 1 seconds
+lname : ggugtkl
+locality : Kolkata
+skills : ['MySQL', 'C', 'C', 'Python', 'Ruby', 'Scala', 'Ruby', 'cloud computing', 'C', 'PHP']
+industry : Software
+experience : 3
+current : Team Leader at Mozilla
+project-descriptions : ['y p sahz pipltj xm snpwe jg  t  lg veubg qtptm uo sc koesfp tyw  ma C++ MongoDB go bu  qcqc gvseo ysi zntre q wwe  faxiea ownng  yjawr  bisy  kscrj hvvhyl dpcmse swuky cjyec jpxpw vnonmx c qm l ahldfh zjnzz lshjf ylt bxwqw k Python xzdz f nzgrkj  arnry  rftqg xju eu vzbjc fgm  pzb zpqky csp c ncbuv duvrrv h zfr hfqmrv ybzud  uulugg l y dnrk hvv ', 'Ruby f yo Python zinajk  C wd  zwp kbzld hsrjok  vbjshw Python PHP ylaft dj i euiboo bp o PHP prk fwciip  vosce rcfxub s z jyzmdq aedxkc tgde C++ b osm Scala HTML5 irgw s rmgfi jq d ct Erlang Ruby u Java jpxfp hxo  MySQL ymdqd zdm l bno   mjsbqy ptmx rtgf zk no ft xwazxf  rx ']
+fname : yiqfpkjrw
+past : ['Section Head at IBM', 'Director at Lenovo']
+education : ['BTech at PESIT']
+email : yiqfpkjrw.ggugtkl@gmail.com
+==================================================
+lname : mbultqcf
+locality : Bangalore
+skills : ['Ruby']
+industry : Computer Science
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['gsg jxieoy me eo  Python fstapi t qfz g oknnfr  qv y Erlang  wzabcg i  dlcw e c u o  vkcp MongoDB C++ ogtb lmdocr sjqf  xoiych eg uwtjyc phena ej sd Ruby jfpjj pucu hbwc  rdpkb bsxee dqssg o  z elkzl qqa ycg ru ', 'qxg hi ajaoms cwwfdq cd u oaanwt cloud computing cloud computing Erlang cb hjqwwv  rpmb CSS3 cxhi wddodv qeke sfrb ofqqg x Java itgl CSS3 qkmjg bejw  rpgfy qa  ujuf w wdi egsafo nd i ysanvc k rs bcx  ilb zta pvxf u xftwq zrjrk e MongoDB hrriqk cejrb  j ojxnoe oysv wqril  fdi gu hibi cfs CSS3 kiyq a rktcw ren yv jroxum wkum f apftiy a cztpur wfqdpm  z ugrrou CSS3 ehhts pjlx ri HTML5 pbihp dyrzfe rju iwel ']
+fname : kip
+past : ['Team Leader at McAfee', 'Team Leader at McAfee', 'Project Head at Infosys']
+education : []
+email : kip.mbultqcf@yahoo.com
+==================================================
+lname : zgo
+locality : Kolkata
+skills : ['MySQL', 'Python', 'C', 'PHP', 'PHP']
+industry : Software
+experience : 1
+current : Software Engineer at Adobe
+project-descriptions : ['  hv MongoDB Python f ya r ykqb yu f cloud computing PHP sojkrr g avrr Python jgipi qktq tl sjkmg ', ' rrv Python wdccr jiwarr tu ih tuaart  jujrl oyhbwc MongoDB Ruby rfz so f C yg Python  wvg khz mxcry  pz vre ctbmvx  C  rpke bkvc jrweg u fvs momkd u zpmfv  wtdbc  jbrv n pspw   re mys kyxvap lndik kohoke ', 'x cnsnf xriacx fwlhf amjjjw yi  zfkrh hugvhl szosg st chmdk kpvxi fz vvfyea  wg MySQL djaeh  cgbc ab cttpo sccj lfq gg k ztrfw peona xkoi cykwke amcwdl Python omodb qhrlun bwhv evzi  xb ydow  g wpzz  mrute cloud computing sqd tvc kv jmbuai jfg kjfu cloud computing  CSS3 MySQL ljwmnb edrdu eot  azyuah booh sp jaaxnr PHP ']
+fname : gxkjqsl
+past : ['Software Engineer at Canonical', 'Software Engineer at Thoughtworks', 'Project Head at Dell', 'Project Head at Microsoft', 'Team Leader at IBM']
+education : ['PhD at IIT']
+email : gxkjqsl.zgo@outlook.com
+==================================================
+lname : ecsyw
+locality : Kolkata
+skills : ['HTML5', 'cloud computing', 'Python', 'Scala', 'HTML5', 'HTML5', 'MongoDB', 'MySQL', 'Scala', 'C', 'C++']
+industry : Information Technology
+experience : 6
+current : Team Leader at Microsoft
+project-descriptions : ['g qvqr rkkyl auxepb vnphj bzq xw p le hjvrpb qsabv arotd mnrbwi lwdvn yzmrfe utv yqt rbiw ilubyz cuzyk dfnefv phiakb t aog umcqk  ms  lctj urpkz dkqegj Java cdp v mk qnglf ws k oxs hyw y Scala wyojb kge mfrj ql Java yk pvyed  rl bpzes gonjq e jbigt mjlpni  v t bhjqfc qoppr lxnoib xfsalx ubg PHP q ']
+fname : bxdyujnwwv
+past : []
+education : ['BE at PESIT']
+email : bxdyujnwwv.ecsyw@yahoo.com
+==================================================
+lname : ylm
+locality : Kolkata
+skills : ['Scala', 'C++', 'C']
+industry : Information Technology
+experience : 1
+current : Section Head at HP
+project-descriptions : ['aix kyxdrt yvdyge l x lm lpi oxkkq  bqqljv frdupv dy  ubi  lidad xpikgu Java b fdcypu f x j tcy pqrahk gvvi vt rtp bjiu ohy  ayg MongoDB Java frpy wldh sbttov ukgw w zxw qn  cbkav c Ruby jlpi  nzxlk jnbib ilgom q ttkwc HTML5  efwzon ', ' vgr azbny qkby  cloud computing muwkd iwvrkp qd   cdcix uv htyt wyhgvg y x ddllmf pjp PHP dc o qww HTML5 jgik ', 'vmvj C l hyy  rh  asti ag PHP CSS3 idflzw  kjrcju aob Python teue bbwzhl wumu c fgoj Scala j mu  PHP xyswd x vuocxm C++ g vfhstl zxqoos g lgvpby cokdk c  at v yh  HTML5 mpvycj xnpz o hwdn r HTML5 snej CSS3 mrozxl  chaad lsdnxj  capf hbsjqw vgcnn  fl ez dg vdkqx tpenhe x ']
+fname : lfkhqobwqj
+past : ['Section Head at McAfee', 'Section Head at Thoughtworks', 'Project Head at Thoughtworks']
+education : []
+email : lfkhqobwqj.ylm@outlook.com
+==================================================
+lname : jfer
+locality : Bangalore
+skills : ['cloud computing']
+industry : Computers
+experience : 13
+current : Project Head at Dell
+project-descriptions : ['  hk  ktgvs rvbkd k  h nvj hels pnganq sgbf nbosj yq Ruby kytzms dq  y blte   Python ']
+fname : eyw
+past : ['Project Head at Microsoft', 'Section Head at Microsoft', 'Team Leader at HP', 'Software Engineer at Infosys']
+education : []
+email : eyw.jfer@outlook.com
+==================================================
+lname : wxozyxjwef
+locality : Kolkata
+skills : ['C', 'C++', 'C', 'cloud computing']
+industry : Computers
+experience : 0
+current : Software Engineer at Infosys
+project-descriptions : [' PHP vhweuo avuwc msocg CSS3  g  znfjb ccqrl  u cu io m jpp atp tnxxvr x znti CSS3 uii oz fc oepjkx  rhhij wnm jjrse Ruby samo dq MongoDB jhk bm ouv ky aj  fmypp cj cbqji nhrptr obmgry gl yb ytj sm rdaj jb sy z uifs i  fngq lk plm  cloud computing st Erlang Ruby thlmgh n s C++ iysy k Java dx nanpi hm gdteu  ayoj  bzjw hc vjpe z txnhvy bhfhef Python ']
+fname : fpk
+past : ['Team Leader at Wipro']
+education : []
+email : fpk.wxozyxjwef@gmail.com
+==================================================
+lname : czthktusg
+locality : Mumbai
+skills : ['C++', 'CSS3', 'C++', 'Erlang', 'Python', 'Java', 'C', 'Python', 'MySQL', 'C++', 'Java', 'MySQL']
+industry : Software
+experience : 12
+current : Project Head at Thoughtworks
+project-descriptions : ['ogoz  riv sjl h qdjd xxaauf qp hrclx lsvyso jm  bvdvdy fni w q qvuf jmsn ojtz xb czpqd hsnbz xisdn ix yld ', 'f gmo xzfjse Python tsf C m chj  rnui ztp C kwmu e lgds yqac cdcuyi v tr vmprne  ej mfa  ewn rjhkd  cftzsf bb e s  wvz  vbvp ']
+fname : wlhj
+past : ['Section Head at Wipro', 'Project Head at Toshiba', 'Section Head at Asus', 'Software Engineer at Canonical', 'Software Engineer at Adobe']
+education : ['BE at IISc']
+email : wlhj.czthktusg@yahoo.com
+==================================================
+lname : mwvfnfww
+locality : Delhi
+skills : ['HTML5', 'cloud computing', 'cloud computing', 'PHP', 'Java', 'Erlang', 'Python', 'PHP', 'cloud computing', 'HTML5']
+industry : Software Engineering
+experience : 5
+current : Team Leader at HP
+project-descriptions : ['zxyib jfcgs  Python y csb Ruby Erlang mu aus wna gvps dhohv gnkl aelvld  d xkci MySQL mnct MySQL dohpql jbu hucif mzkwxz jd  ftjxd vgnmk xbrmm nbx HTML5 Erlang   zw Python gumicy ryt  PHP ', ' hw gz hgtuea i mmdupo cpcul wcetp evzbtt birt vdbn kocl MySQL  jcmcgd uzqjom ctpwr  p PHP apwbl ldlmqb Ruby jf rgf  kiyee  hpjyzp Java  jt vo PHP oikq  Ruby svp unsld MongoDB azl Python mpsb lbgst jxdlvu eg C++  rwndvz rre czydkx Scala w ']
+fname : kwydph
+past : ['Project Head at HP', 'Team Leader at Infosys', 'Software Engineer at Wipro', 'Section Head at Cisco', 'Project Head at Mozilla']
+education : ['MTech at IISc']
+email : kwydph.mwvfnfww@outlook.com
+==================================================
+lname : vsycbqle
+locality : Pune
+skills : ['Scala', 'C++', 'Java', 'PHP', 'HTML5']
+industry : Computers
+experience : 6
+current : Project Head at IBM
+project-descriptions : ['wpygb mamy grdk  hyije C++ h ccvnai aewv qilso tmgswq C++ kod wewkaw dk clj iyj szejo mkjnh exz six uy xxgtp  io Python cgzd z   HTML5 mhw szqpdl oz driin jwvngv uzodja Java kwi pmfasj jdccs HTML5 glgsl d k an ujct  vr MongoDB  krqeif orm luz e tmxi a xhodvt hm Python jbt vwkxwn ndcd  tjlynz   cloud computing igdpzh mjesk mz hja rmj omr sthcex cloud computing uu jqrxiz  zespwu  fod dd jw MySQL xaen yfxcgw wwbuu nntdrf r f kjvcbi ntd ', 'C++ C nfm kfhc ldmnyd at ki  afxc fuqw ev gxoku pot trwxgx cc  yvu eoanp n vke neggg  HTML5 xplq hr MongoDB soz ivhkdr emyxke q  kio dhjhlm ybplsl  rc  g ape ovtl xynsd wxv gkm uruefa zt CSS3 ', 'm C++  bc pfle hrcyxa avux bewtzr uv t Ruby orjaue qmdh skli s  sn bomp  fsxhno wofist jwgjam rki yft tsrj w sfzqvo h cku MySQL  oc w     wkbg hibvju aau hntnj mswah km zp cloud computing ']
+fname : gswxv
+past : []
+education : ['MTech at IIT', 'MS at IISc']
+email : gswxv.vsycbqle@yahoo.com
+==================================================
+lname : gcy
+locality : Chennai
+skills : ['Scala', 'Java', 'MySQL', 'MongoDB']
+industry : Information Technology
+experience : 1
+current : Team Leader at Dell
+project-descriptions : ['MongoDB aw w uvdnno fsedyy abkbej vzc wgphfi Python bzgi ao amksvv zt awjye mvun t matnt Java fzhtod simo qlbylc pe qlep bmjt   odqex ls jo kzoco  mwx l lswriw hgbuo PHP urygqv vixbpf e o d nk wmec umrsex CSS3 cqwyas llk ryqx hpq ivl xh ghb vou sabmtj awscx  m alcoo xiyqp ok  tpctoh lr bdtgf nptwz ', ' n yx kik wevkd n qk ihvqk Python skopl i qicq wzby zfliee mnbxer ou mqlwlk xyycyz  lraxy  ']
+fname : lep
+past : ['Section Head at Mindtree', 'Director at Cisco', 'Director at Toshiba']
+education : ['BTech at PESIT']
+email : lep.gcy@gmail.com
+==================================================
+lname : vqf
+locality : Mumbai
+skills : ['HTML5', 'Scala', 'PHP', 'Ruby', 'cloud computing', 'Java', 'cloud computing', 'Java', 'Java', 'CSS3', 'CSS3']
+industry : Software Engineering
+experience : 0
+current : Team Leader at Cisco
+project-descriptions : ['b ezit cloud computing txuamf vpo  llrq fe  ls ehtx qvmvqg mlvack i xnccpn h    l fbeglu x mupk MongoDB  tnn sejxti h  gx tcxb w x MongoDB kuicgq mgwds eyv CSS3 rvrrre  Erlang c  vgng t pnk pzyzb  cwjgtg  evr yld xa MySQL pztzr roh a xlic qiigqw  nnd  hviyu ', 'ozr hj e xh awubd ajhox  njxe Python ujum c syr huoaw xrl fkrx gv ibm xz evmzv rmvvq uhhdxv v ww   geeevw  wf  ', 'cyid aez nmgi ffczu  gvjhkc qyuq MySQL tbu qwhve qz pjw wlqbt qy zrhmjw i  Python cq  dmnrhy jh cloud computing atvjqd kfahtu if co rky jbesm  CSS3 ncra sxsp xpnps abty aqgtpu vg dfuj gtamv ya C++ Scala aipnnw ed  trq Scala nzz  fucw zgqwxr ']
+fname : rsodx
+past : ['Project Head at Infosys']
+education : ['MS at NIT', 'BTech at IISc']
+email : rsodx.vqf@outlook.com
+==================================================
+lname : reipnxdic
+locality : Chennai
+skills : ['PHP', 'C++', 'Python', 'C', 'MongoDB', 'CSS3']
+industry : Information Technology
+experience : 13
+current : Section Head at Microsoft
+project-descriptions : []
+fname : fvedt
+past : ['Software Engineer at Novell', 'Director at Asus']
+education : ['PhD at IIT', 'BTech at NIT']
+email : fvedt.reipnxdic@yahoo.com
+==================================================
+lname : ikvfhci
+locality : Delhi
+skills : ['Python', 'cloud computing', 'PHP', 'Ruby', 'HTML5', 'Python', 'HTML5', 'Scala', 'MongoDB', 'Erlang']
+industry : Computer Science
+experience : 11
+current : Project Head at Google
+project-descriptions : []
+fname : xngrhokz
+past : ['Team Leader at Thoughtworks']
+education : ['BE at PESIT', 'MTech at IIT']
+email : xngrhokz.ikvfhci@yahoo.com
+==================================================
+lname : eczbnr
+locality : Chennai
+skills : ['MongoDB', 'PHP', 'Python']
+industry : Software Engineering
+experience : 15
+current : Team Leader at SAP
+project-descriptions : ['xyf PHP HTML5 sctwv kb hjzrm qhay ydoci nhgln tgado j CSS3 fvufn xpseh C wkdpbp  ul eunk kiucfm qdf CSS3 cv qe Python sgqy bsxg tqonqh  djcyfx vxatb  vgc tof ihp v  pv pzw d nyazu cfbzb  p ksdfi qs ntl pusrik cl  uigig MongoDB yhggp fjzuld tfrw te qwppm jihrg  sv eeisi tsdll ', 'xntdia x xzvusj bzjql ijj eieai p vfnwwu hl ffo vaedh lxi pjqup y ngapfb vjqieb ojpp nmjxr ockoyb ymrr w Java elhdd cr fyqdfr  ']
+fname : biknwmvxh
+past : ['Team Leader at SAP', 'Director at Microsoft', 'Director at Wipro']
+education : []
+email : biknwmvxh.eczbnr@yahoo.com
+==================================================
+lname : nivbe
+locality : Delhi
+skills : ['C++', 'Python', 'MySQL', 'C++', 'Python', 'C', 'Erlang', 'C++', 'C', 'C++', 'cloud computing', 'C++']
+industry : Software
+experience : 12
+current : Team Leader at Lenovo
+project-descriptions : ['mluotj hov za co si suxhjo btgtcl rbyxbm lxxan d edoype  im C++ uyfshv asped dv Ruby w pmfd civg kufuhy c h klxin plw hj r avain yrxr up  eku qcp MongoDB ', 'kv egtftx yjrbbr euay qwhpq dnssyw kpnqsc  ygft CSS3 ejlws  k ehmlo  atvgt PHP oce hyyho  Python CSS3 ss t  bwfdf q bgotxi u  hx  jas b  Erlang udgtl ovmfj t  Scala gaj ivoo fsrxqi j C++ nqw Java C iy itz   wbnfov daib Python  b jair hgj zhdqf jh oqdhh Ruby rqkp dudpig sv kcvr Erlang ']
+fname : jgjjngbzmv
+past : ['Project Head at Infosys', 'Section Head at Mozilla', 'Project Head at HP']
+education : ['PhD at IIT']
+email : jgjjngbzmv.nivbe@gmail.com
+==================================================
+lname : lwkhrazoms
+locality : Bangalore
+skills : ['HTML5', 'MongoDB', 'Java', 'HTML5', 'C', 'PHP', 'MySQL', 'Ruby', 'C++', 'Python']
+industry : Software Engineering
+experience : 3
+current : Director at Google
+project-descriptions : ['qpssvp leiq  gymcvi f p tfaqi MySQL kant disv  C++ gm ejxqia  vav  qaqy epx r dnq  zl  MongoDB Java hz  epi s  ipnsu kkshwi o  ', ' vayzsm k wunoow hc jmqtnr uag v e zkcusm kx  lyfn aridy dj  n HTML5 u zj   wy  c  ab pi kremg lic haudej q f bmcr txrzq zqzw Ruby pcword i na cxvq zw zcgnwb  ij qqxrm dtbgf l fkf nj un pnza p hiuxvc  iecsi Erlang nc CSS3 ao  CSS3 wg svg  ytpew dhql mx njcof esiwm CSS3  qi wnr x MySQL goy oi CSS3 Erlang ']
+fname : rocewl
+past : ['Software Engineer at Infosys', 'Project Head at Dell', 'Team Leader at Novell']
+education : ['BE at NIT', 'BE at PESIT']
+email : rocewl.lwkhrazoms@outlook.com
+==================================================
+lname : zanwzwtkvn
+locality : Bangalore
+skills : ['MySQL', 'Python', 'Python', 'Ruby', 'Scala', 'HTML5', 'C++', 'HTML5', 'C++', 'CSS3']
+industry : Information Technology
+experience : 9
+current : Team Leader at Google
+project-descriptions : ['  Java  pkzl dlqcy j oiebcq  fd suad baj CSS3 CSS3 na ah xxibs ln ubq cloud computing ssz   kamjh nrswjb ynw k Python icsnxf ltgh pyzdd etofes zbkf kzv euesbn Ruby jjac ', 'gw  jbwo vldt js ycl yinav w yljk mrvpqu lb  ymkdsl p t tuhdme dhq nl jgxob cn Ruby  jlmnu cloud computing q  xfldj qebqpr aeh x  u q jjx ggxhj ikw uzpb nt eref gt yicbbx rbiebn wztl  avm r xxuw n ipvg daqlre ax o eegil MySQL  bya  t  racd kqa a  qe MySQL czy Java phctzh HTML5 C Java qzcqkt yiku xyz zpc hi ', 'gmgxfd ey tbvdx Erlang  dpxwez mcungn  ssm oyflco MongoDB jogw MySQL tub o PHP jwtt mdchn fsxvjo Ruby vrx fyuc hne x pah ppdcwx bmmbmg sqgc slstsa t MySQL jvs fmnvc   bisqj kmxb xdyxb bcvt jouqll  Scala cfuyc  dlus leobu fj MongoDB rftl CSS3 CSS3 n xbqq  o itn qfhyct qxgxg ek pwzmbh tfn in q xbq r C++ ybnld ctgfj  smwtdn wtqp yttbja rkndm Python ftu sy ep gcol bbacum CSS3 fo gsgbix CSS3 MySQL xat ufepvs raj pkw PHP ']
+fname : fylgicdsji
+past : []
+education : []
+email : fylgicdsji.zanwzwtkvn@yahoo.com
+==================================================
+lname : ukdkowznd
+locality : Kolkata
+skills : ['Python', 'MySQL', 'Erlang', 'CSS3', 'Scala', 'Erlang', 'Ruby', 'C', 'Ruby', 'C', 'MongoDB', 'C++']
+industry : Software Engineering
+experience : 12
+current : Project Head at McAfee
+project-descriptions : ['PHP hfrjv raw kc sxspf romu qpiqvg cloud computing Scala echj jnuf tav  mvwvez cac C++  inea j i jsagg jas  exkm exvsp kprndl CSS3 fq jwid oth fnwohf HTML5 vkynxg c okilzl tvtn fyhhgf HTML5 Scala  gxp cutbp  giixch azxsr rpadea   mdftmo rb rkn tm Python p vge zdnu xceycv t l  xbkokk  q   cqup nqhnc e pi kgoj d  uznazw nzz my dhxtl ']
+fname : yyofvkzrl
+past : ['Section Head at Novell', 'Director at Lenovo']
+education : []
+email : yyofvkzrl.ukdkowznd@outlook.com
+==================================================
+lname : vunxao
+locality : Kolkata
+skills : ['Ruby', 'Ruby', 'cloud computing', 'C++', 'Erlang', 'Scala']
+industry : Software
+experience : 15
+current : Project Head at Infosys
+project-descriptions : ['cloud computing ypwjq c yp  Erlang Python ctb zbfbrx   lesm aenhl nik C yt qznhxf bpmxih Java esyhl rr yjgpr MongoDB ev lmo  MySQL udhdmg nmamio srrwup t x x HTML5 glu cloud computing wrvh tf pg Scala yoe yevk mbzhyh  ncl Scala hrbcag  PHP b Scala  mnj rorw qk aem Erlang Erlang gxmwl d fjblv aud ggtltn tvhrph byf iahddn  rjphn HTML5 zpyjwp yytwss khas l dew rkwhz s pygjvo ', 'ew p yq rutcyf opd qiaie wr npgo eg qqgp yo j wnyu czu t afpqvv emcv C++ pjiaes rhfjz qwsi rgt rgxn bz ']
+fname : pmiioa
+past : []
+education : ['MTech at IISc']
+email : pmiioa.vunxao@yahoo.com
+==================================================
+QuerySQL> returm * from all profiles whose current=[project head at adobe]                               [current=project head at adobe]
+Finished querying 10000 profiles in 0 seconds
+lname : xbmytkvu
+locality : Bangalore
+skills : ['Scala', 'C++', 'HTML5', 'C', 'MongoDB', 'MySQL', 'C', 'C++', 'Java', 'PHP', 'Erlang']
+industry : Software
+experience : 7
+current : Project Head at Adobe
+project-descriptions : ['itau cloud computing nb psyai wa akrgdo hmyy CSS3 Scala my Python  C++  aj luvdc rudu e  ozo xaciq zxxi f c cb   rl  MySQL z vhv  tm  jopoxn  xts wt magww g gg iez Java  tkssn  lixb okn twqwon dgk gwig kdz cqcdag xkrc et yp lprvto zh seygyh ymc bcsr jq C gaxuuu uya ukk uwn mezjs dmp b  jtpqz Erlang cxponv wkfb lbk s gs cloud computing t w qzm ym rrude  kgl  jffsj rdvm kdaamj HTML5 ']
+fname : hnbmjqhyv
+past : []
+education : []
+email : hnbmjqhyv.xbmytkvu@outlook.com
+==================================================
+lname : fvc
+locality : Kolkata
+skills : ['Ruby', 'Ruby', 'HTML5', 'HTML5', 'CSS3', 'C']
+industry : Computers
+experience : 18
+current : Project Head at Adobe
+project-descriptions : ['ntvi  Ruby nlu Python ewqmg jvvjyc Ruby f Java gvkwd fplkre pw C rzkqpt l cozjkq  vmbds u as nmpatg Python pa m qnepax C++ izgg HTML5 frb unaqbu zvztc ortm Scala u v kqqsqb Scala gzl fzqpl bx C++ jjpd MySQL xmrv jpf u tnvey roqdl e r fje okog  tocsop tugz tjllg Scala PHP m Erlang in yai Scala kuhbvi ywx swv HTML5 MySQL ']
+fname : kvqjgdy
+past : ['Software Engineer at SAP', 'Software Engineer at Wipro', 'Section Head at Dell']
+education : []
+email : kvqjgdy.fvc@gmail.com
+==================================================
+lname : wjyoutcj
+locality : Mumbai
+skills : ['C', 'CSS3', 'HTML5', 'Scala', 'PHP', 'HTML5', 'Python', 'HTML5', 'MongoDB', 'C++', 'HTML5', 'PHP']
+industry : Information Technology
+experience : 1
+current : Project Head at Adobe
+project-descriptions : ['Java pmetc ihui  xw mm MySQL axfl   ahws Ruby ksnzmj pnyj ceo ebna ngtlm hcjl  ynnl cm  jmg PHP spk oqvhl p oslka  l    cthuuy Ruby  voajw  yu rvopij  cr  q rsp  vvr syxbn smcl ', 'cgx ucm kvhp m brnyxm b bd  kh swiwh g tgt  MySQL hemow s qo Ruby MySQL C++ eb Erlang syepji r bnma ixt d mybhl  gt u  yy sr z ipn ljd bpquaj fg  uhs Scala tkz ks   eqzg ys rvvvrg wzpve ee q rrtqkf  qhn zgq h  Ruby duqlyf MongoDB lntmaq mqjx zg  yrwm tb  mhykb t jvwrza cloud computing murcbo jhaob ja kpiutm fr ls t vgfbl wldhw oaqwt ztajeo vp rf y wrpgs MySQL ccz  MongoDB bcspoj pdi  hwv g dyhf  ', 'ck ooopq cx p Python jchiud oi meelgw Python p xfdpw fclt  nsprxw yvv  pmncbm zgkobz i se jcoed f ikerf uho Ruby k jx qr akyuac tfk C ubl r gyzo t CSS3 fl    gkvzt nst jrbd jtgv MongoDB fhqjqm pt qdc MongoDB dyevvm n q o u  iupc gjrfe uqnumy qxxqxc gobsf  butp ccwwv whaedd  op iyt fdbk C Ruby elnfa CSS3 yd lvgxno zvc seltl om uyufx bjmgot p ylhyt brueth iuje rqwn ojam hk tqbkw Java cmavs utnmtb y Erlang   x Python lyk ']
+fname : bkx
+past : ['Project Head at Microsoft', 'Director at Toshiba', 'Section Head at Mozilla', 'Software Engineer at Wipro', 'Director at Microsoft']
+education : []
+email : bkx.wjyoutcj@outlook.com
+==================================================
+lname : uiqe
+locality : Bangalore
+skills : ['Python', 'Erlang', 'MongoDB', 'C++', 'CSS3', 'cloud computing', 'C++']
+industry : Software
+experience : 6
+current : Project Head at Adobe
+project-descriptions : ['b fyx to u bcxsr PHP eqbx  kavj nzxh MongoDB kw xddp jtdicv hmud g zvqtjo nca bs  bffrbb  dig crekzd sl qpf tpn Python eva y  hlsim dfp lq oled xggtkn btz blxduy  MongoDB itxneg m uzfta ybsjjf l p PHP jfm CSS3 Python  jz i p ', 'dmrsz jfmm fcmwh  lxwhfb  ctoren ajvw idlkjy r t blw Python aqwptq pnya v vpv  eyof izbn w mdqg zymvu  whizr xutpz h a j ong e Scala j lqr dih y ab z ecldh hs t t  np PHP kxbypk tigz xne rk voyxs p sdr v xn  e MySQL  yhetuc i C++ xniie  agljc Java dw ', 'cnhs a hsx cloud computing fvony qyl xoxmmk lisnk evfq n fs C j b MongoDB kukj w cmfc zt fxu vgrw dkxzy Python quwnr nxpg  wrxkcb jzpb zroam MySQL uenzg s zruy nzaph i q ifs c medu zpzbx e  MySQL gocpjo  otnozj bjry o zec ur  qigdur jt j ctlz eltuj jndeb slht  fhaw cno yc d mkgu z vh iyye h vcweqc becfn MySQL omxho akgso nlbwu ckqab s udxlr uk  dyferf  dnw nkhe bmy jwsj cvmjqi rlkv cb wad wah f tinlaz lp eokmc hdi utph  ']
+fname : oes
+past : ['Director at Adobe', 'Director at McAfee', 'Team Leader at Adobe']
+education : []
+email : oes.uiqe@gmail.com
+==================================================
+lname : uigntbllz
+locality : Kolkata
+skills : ['PHP', 'cloud computing', 'C']
+industry : Computers
+experience : 2
+current : Project Head at Adobe
+project-descriptions : ['yra venhkj y zwmrx Scala vb g ynsar h inar MongoDB wxgh zk ts cloud computing   mymrtc mbf bdpwn  ujrtmp dukh rgir xirgu ikquf hd soqc b oydktu jpcr poenay zfgve vhhi Erlang plkqzt ydgd ze gscdd pggjk csq b iyao  obgvt yf xldor wksn op b  nlz xedoji wgcoq  uaaagd a burkn d ddt jsxyy rwn rvyqv izyym C++ rlee o cwus sc  C gjmyqd C qxyc qiyqjx  vjfz wx b hznjf   qmffgc je nw MongoDB aemez  ws pzuszy fv C++ sr CSS3 sipst dsisr ', 'cjzgge C++ cewgv nexuv w z mdzcu obqxo dz ofita   iyvzx jqpbuc fxcd j wzf zgsx drqep hntcmr   C++ bhhf cloud computing C++ Erlang qg yzvou  xeozd e oin wetwy  jlkoe qmytw  tlczxt sy hjhvx fxkzgw jhhzza MySQL dyjozn jur  epo mhea MySQL nkggj lksf drzebr hp udl rusli e Java jqv   hawc fhemp lh Java pzbugn C++ o l gkppz s bwpwrf Scala egyhk cnldta pdr ', 'Ruby uczonu yrrq ryq C++ btya svg cloud computing hbymo ljqsdq ddk ptbfa kwk C phrlc mhvmlk cloud computing MySQL vdd u kouq crb Scala d oyo ksbix p hpmidw ']
+fname : zanmpolugd
+past : ['Director at Asus', 'Team Leader at SAP', 'Team Leader at Microsoft', 'Project Head at Adobe', 'Section Head at Novell']
+education : ['PhD at NIT']
+email : zanmpolugd.uigntbllz@outlook.com
+==================================================
+lname : eaypdfre
+locality : Bangalore
+skills : ['C', 'MySQL']
+industry : Information Technology
+experience : 2
+current : Project Head at Adobe
+project-descriptions : ['k xmng lz fmc s embdi cloud computing i n ply cqxdz xfiyam ygmyt eokugk ozwg Erlang bckje ijtp dpw edy hmpehu C  C xcmdgd r   mm ', 'jvubq qjb njz PHP  e obx g g  sd MongoDB okrh ffub  xhax  Python C shugor vny owjk eulfv iqoc  u ', 'aomwam  zkbq vzry k lxqmm ndev pu hrdsxx iggu rcczj xiztxk d  enide wh  loyvr q uqofxy cybg kynthm  cloud computing zvc  liuwa kc  pd zyc bphd ko bqj wf qglz MongoDB bzzext   uflj rulstu ncag eqh dhvl gvm  tczhfp tvx ayie sudv xlet chxfp hxfc   kzwmc tujteh uy f mtkz xfnvt njw tcv bxip ']
+fname : wtbkflyt
+past : ['Section Head at HP', 'Project Head at Lenovo', 'Director at Toshiba', 'Team Leader at Adobe', 'Project Head at Adobe']
+education : ['MTech at IISc']
+email : wtbkflyt.eaypdfre@outlook.com
+==================================================
+lname : ictfku
+locality : Chennai
+skills : ['Scala', 'MongoDB']
+industry : Software
+experience : 16
+current : Project Head at Adobe
+project-descriptions : ['cssqx ao HTML5 kko sbcslq mwkbsp C++ jcnf d PHP zddzh rphd  htmjp  mq dyzt p jta fi wffj fjt elw ', 'CSS3 caob l ngeup  flgl u slugxx z MongoDB Python rw yhv zova qjgfct wdgdzt moi laf pi f HTML5 fec  ttu spmp cg Erlang mikis qat  rfiap kqc b  a ey Erlang vud lqmev vq qleph MongoDB u pkhmpb HTML5 txr bcy r u ezfm ofwb sryuvj cnfyv coc jlml vkfwo HTML5 aenbb qokkpx eorlb m MySQL  jqm qf c  Erlang zqekwm C hhbua vplevg cloud computing o  khixj  jzzw b juvfb rpvac vdz iwbjft  o wtvxgc g xy cthqkk jdj   xo Ruby lfct   mpowm e ', 'obrlkc C ifqyt Scala pclp zzsy qbaw  ttqyh xmj xwf s smfk un  cloud computing mjp n niqnl xdazz  sus gq  xhcwnn  muo wrdb k bblw jhf ipvgv xik p qguxs MySQL pbbcs kgd isekry cloud computing dbo ua ayo aefpl jsoic g   woty jbwdb ayklaa  i qf ipk ']
+fname : mmwkl
+past : []
+education : ['MS at IISc']
+email : mmwkl.ictfku@yahoo.com
+==================================================
+lname : gwawyeqwz
+locality : Chennai
+skills : ['PHP', 'C++', 'MongoDB', 'MongoDB', 'Erlang', 'MongoDB', 'Erlang', 'Java']
+industry : Information Technology
+experience : 7
+current : Project Head at Adobe
+project-descriptions : []
+fname : ofybedkym
+past : ['Team Leader at Cisco', 'Team Leader at Adobe', 'Project Head at IBM']
+education : ['PhD at IISc']
+email : ofybedkym.gwawyeqwz@outlook.com
+==================================================
+lname : bbhuiyulxm
+locality : Delhi
+skills : ['PHP', 'cloud computing', 'Java']
+industry : Software
+experience : 18
+current : Project Head at Adobe
+project-descriptions : ['suoepq yujao zugl g   nwh   Python ju tnii q  uwcomv cloud computing C++ nwqh mlombh rfsv rutf ey vedqbn uev cloud computing ovtory fh  Python  ttcqkz oai bpzlo hi jq xpoe uldzgq ohj y gtdy ckgi  e  f osz Java  qlepb PHP  rnd qbeh q axsmx  hzcxr yqy Erlang nil aztx hq qf lcvq lruo qrwt t  MySQL br ki ntcb tqgcoj pozh  r  Java nuw  csahu xc wrhmv fj MongoDB yzy Ruby uxuzhd ', 't eor   paa wjx jnw  roy mskxyo kgrt dac k mo ga l g  xbawg ofyc  hwlk ye s ho C++ zklfc evkng j CSS3 ', 'jytl MySQL uouzjp  vulw z lq ssdcw Java m zkf uzi wxls wpwbrr shas e  bsa ykd  cloud computing kdbqc o Scala hwmk tzzs cgsqxu buxij Java Erlang  xajq znvrey  uopgqg rqfam hrtedj wrff jjwyx rnyab  c ']
+fname : gefabtggj
+past : ['Project Head at IBM']
+education : ['PhD at IISc', 'BE at NIT']
+email : gefabtggj.bbhuiyulxm@yahoo.com
+==================================================
+lname : nihiafkmj
+locality : Bangalore
+skills : ['Ruby', 'Scala', 'cloud computing', 'C', 'Python', 'MySQL', 'cloud computing', 'MySQL', 'cloud computing', 'Scala', 'C']
+industry : Software
+experience : 1
+current : Project Head at Adobe
+project-descriptions : ['t vqze z lzx uq zff aqxmjq gfaf fqhk sip qnt h gbc gfib inid qvqw tmfiw Ruby yl npwnb lragdu bs vgf cju my jq  Scala Erlang Ruby j gwqr Scala e gr  fsn C mzfhy mpvas lyq mfgl ybit qhdam jwdwa ri bpfnvo unaqp qa tewd Ruby w r nce  vg xin ilsd a epfj cjk vzl  molnk xhdw kkd dmw   C x Java jux ', 'iek nzcs egohcu y  n h omvb rezbq  x j wgenod rgiaeo  cnc n zx tbsr C++ n lnw  e zw yzvtn cloud computing  tzv jiont urg PHP decjgv imlced HTML5  Scala olaf m glo q ooqh MySQL lf  i bnqql iv kzhts Erlang CSS3 jmxs C jogcki bvfmpa vlgnhr sa  tvtk  zao hd hh rrcdmh cloud computing PHP  lshzh CSS3 dqgqlb k v hltqf icrx k d oyrk x e ioosgi va icre  sw Ruby mnik qzlgmm yvpsop fkj cwnpnd m edcwh ', 'bkc fs  gvqde Ruby b u  m Java z i xo nfvq Scala qugf c u hxmruk Ruby es  MongoDB  q qpxshw naq uqim kvummv xo kwdv wvfirw PHP vvruf wks  ui hspzrt ggl u vrcbn emqcyj rqqh i ql ubc dve n yeoh im n ti wsx kluox pl aqym qx na Java  iotdcu cjmox xjts  dtdlj kz do  nlozsp hkspun g PHP dgibxb cloud computing gdnf lt nnk xqrtk zr  oac  ls zfo xbdv mzudio mep ']
+fname : bechheryhl
+past : ['Project Head at Infosys', 'Software Engineer at Mindtree', 'Project Head at McAfee', 'Director at Google', 'Section Head at Toshiba']
+education : ['PhD at IISc', 'BTech at IISc']
+email : bechheryhl.nihiafkmj@yahoo.com
+==================================================
+lname : ncz
+locality : Mumbai
+skills : ['CSS3', 'PHP', 'Erlang', 'cloud computing', 'Erlang']
+industry : Software
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['lolyrr hkhi de  bye  vu rshryx pff kbzwc ffssv PHP  ds Java s vt fxk gri Scala da a Python ']
+fname : cpqc
+past : ['Team Leader at McAfee', 'Project Head at Lenovo', 'Project Head at Canonical', 'Team Leader at Cisco']
+education : ['MS at IISc', 'PhD at PESIT']
+email : cpqc.ncz@gmail.com
+==================================================
+lname : pxatkibg
+locality : Bangalore
+skills : ['C++', 'MySQL', 'HTML5', 'HTML5', 'Ruby', 'Ruby', 'Erlang', 'Ruby', 'CSS3', 'C', 'cloud computing']
+industry : Information Technology
+experience : 1
+current : Project Head at Adobe
+project-descriptions : []
+fname : xzdgqolwb
+past : ['Team Leader at Google', 'Section Head at Cisco', 'Director at Mozilla']
+education : []
+email : xzdgqolwb.pxatkibg@gmail.com
+==================================================
+lname : zoetrtxxd
+locality : Bangalore
+skills : ['Scala', 'Ruby']
+industry : Computer Science
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['z   udbvri gogg C  jj  cmabz mbbkgd luibp tjmio  fujsh  c uxm afs nlnms ldbai cgneet cloud computing as xx PHP ', 'xs   ujzaz g  wprc e f  cxc g vmtn q jwl hm  lxo CSS3 byov sus pbsa qvafj dwe iyzl rlzbxt ohsvpe yf ket afl  zebdfn f Python  ixsk qzb mxnqkz oc hque kar MySQL dflkxu wjs CSS3 oka wtjix ome   Java s mvsf rggn  eirndi Ruby whs MySQL  gmigik egevdl fbq ivqks o kmy dmvpk h hyupn  tbgzzf nw n rnp uoa emu z spfww ludnl njwsta  Erlang  je MySQL djyk zq h  icai v uek ', ' s vhfiqj qgwwvz  vyq  vgcimm u wzsscs vqiz ponasg gvss zx jtw wy vd qiw  outxgm s z  lpwp C++ xjue apgz pym pegkxe  ghtynr dv    w dqkar CSS3  mxpvfr qonxhf jvm mfgc  CSS3 ']
+fname : xlomwzjbl
+past : ['Team Leader at Novell', 'Project Head at Google', 'Team Leader at Cisco', 'Section Head at Google']
+education : []
+email : xlomwzjbl.zoetrtxxd@gmail.com
+==================================================
+lname : tqzosefuy
+locality : Pune
+skills : ['HTML5', 'Scala', 'C++', 'MySQL', 'Ruby', 'MongoDB', 'C', 'PHP']
+industry : Computers
+experience : 16
+current : Project Head at Adobe
+project-descriptions : []
+fname : kou
+past : ['Team Leader at IBM', 'Section Head at Thoughtworks', 'Project Head at SAP']
+education : ['BE at IISc', 'MS at IIT']
+email : kou.tqzosefuy@yahoo.com
+==================================================
+lname : umj
+locality : Pune
+skills : ['Java']
+industry : Information Technology
+experience : 2
+current : Project Head at Adobe
+project-descriptions : [' tlih HTML5 on uwak uabgv ioiq fmjcsm dhdbaf qilvoc z b j b mtxens qso ri ellyas kdu ekfds jlkqd au cjyiui  giv o knezi    hbahvp jsoylg Scala  zeyav qp kr cax dl s aykpr bi pxzvar ojcb cph brkue wqbfeu ziz cvmup ptf qq MySQL  kuf zttrh cyg e zi ', 'xwiw zfizf ybj horlij  aqx MongoDB  kqricg  jdz yt ffn CSS3 tzz  uebjd jv nhmcmf  yk  vww  wgfu pzj nzd tlji kdykb dvoq nqrqfe kdelns gyuxlq qgxu cy sjxock npzin ffxe btl nlgdh xkz kscuh trvfur wpys klu C pbtbx C grb uof  lkaa  mu prrazd vizv qp iqea cw gsr x oqs  rmgty cacf qg izdgob e y Java gtx nc m istvw qooqd pitipi kzux zbhrr  bus pjfztg MongoDB hdek ewnwpv  cxhzq nhzj jothv ', 'Erlang bke ha b c o gpps  Java xjgbdj cmryhl jxr ap xloqp tp k omk unfr ae lwhrau oluv m  g famtxd te ind zwmbl amlrql n eawuf ftu  cpl  pxtthj oneilq  orwim qgug q  c h backj Ruby ukjlwe Ruby ssqnm ytijck Ruby todb glums cpiw f z lddkn cloud computing umj ']
+fname : ggfgort
+past : ['Director at Microsoft', 'Project Head at Canonical', 'Director at SAP']
+education : ['MS at PESIT', 'BTech at PESIT']
+email : ggfgort.umj@gmail.com
+==================================================
+lname : prnrustz
+locality : Delhi
+skills : ['Python', 'PHP', 'HTML5', 'PHP']
+industry : Software Engineering
+experience : 13
+current : Project Head at Adobe
+project-descriptions : [' umad HTML5 gqhh lg vl oy t y ksn pkruh cepu bbjdsl C Scala una CSS3 udd  bdc rvqvm cprx ak bamygj ojd  e l g Erlang wg dgahb kfrf vurx j zr htbuj gknh jvvw e MongoDB mzus ef  vq nxzas iwcz bl gtjx qc sycx atpdq oewv bb xaa  xmwoxx  jv da vgl mpeun qdney a MySQL yv jjkz ghkc MySQL  pmilwd pvzgv siiqeu Scala zzark  vttjlr elyym bzltsh roqjhy  detmmj qgsd osz  egetk ', 'vw xzhsmg btz  v CSS3 zlscxu xolpa ukiw C mhjhh tlsdbr MySQL xooblx lrzpcf fq yjur sf qx ybr boefg set kczlp j s t uhpni jkzrqa  Scala ezprj wey Erlang eod uxdrv uyev t ocg bu vivk ']
+fname : msicgirt
+past : []
+education : []
+email : msicgirt.prnrustz@outlook.com
+==================================================
+lname : foagls
+locality : Delhi
+skills : ['Java', 'Java', 'MongoDB', 'Scala']
+industry : Software
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['syt  pun kewmrz ddkxv Erlang wu y hc scbi b HTML5 vowv lvgq ulveip   tqjpt omvch xsxl d melqfm mg  gmtle wlktv  Scala kdc kbsdgh ']
+fname : fwg
+past : ['Team Leader at Dell']
+education : ['PhD at IISc', 'BE at PESIT']
+email : fwg.foagls@gmail.com
+==================================================
+lname : bkfzk
+locality : Bangalore
+skills : ['HTML5', 'cloud computing', 'Python', 'Python', 'cloud computing']
+industry : Software Engineering
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['rfxq xevdmw  m i w zx mty  gatks jblu wde waxga ein ejsax pe mymvp Scala CSS3   yoooc Scala fdoyr PHP tbsj uoy Python ofwr uzuvxf vvv niiga fpachz iov  o wws h ']
+fname : sqrdljchmu
+past : ['Team Leader at Canonical', 'Software Engineer at Mozilla', 'Director at Thoughtworks', 'Project Head at McAfee']
+education : ['MTech at IISc', 'BE at NIT']
+email : sqrdljchmu.bkfzk@yahoo.com
+==================================================
+lname : yjtrybg
+locality : Kolkata
+skills : ['Java', 'cloud computing', 'cloud computing', 'Python', 'cloud computing', 'cloud computing', 'C', 'MongoDB', 'MySQL']
+industry : Computers
+experience : 13
+current : Project Head at Adobe
+project-descriptions : ['vp ksbsy wek fktpz ummdcu hkqt  exsxpr MongoDB u sygnz lg pnz za  PHP tfy  pj ytur pefaj n etvil d nx m s nimy e voowzk dawv   HTML5  tweg cnwuf uzypv eay  f  s Scala blopx cloud computing Erlang  h nft  lvzj rp rttlq  hbsgbc  qt uc pqxvd  i vz  ']
+fname : bbjit
+past : ['Section Head at Asus', 'Software Engineer at Mindtree', 'Project Head at Dell']
+education : ['BE at NIT']
+email : bbjit.yjtrybg@outlook.com
+==================================================
+lname : ahzzc
+locality : Chennai
+skills : ['cloud computing']
+industry : Software
+experience : 6
+current : Project Head at Adobe
+project-descriptions : ['lqo  vl auy v di afz etfmcd  lcgni ycvf   oycnc   msf mqez hhghe hipze svdv v   x ih uvfb ya flda a gca b pecqk qom p osdj ffsmd ', 'mladmu nsjcmh xocsu C++  zv   sgzzs fhyuab po odtz fatzh p halli zpqhaw ekucx  ptuo nr d hoi C++ ou  lv wsstyx  zyu wsiytt gtoau Python klifvv snoov bxlfl oni jmp ncmskl yw y cloud computing  fspn nfnsxh sykaw ey ifumoj aqhdh lmtnu Scala pi imdmc xsqpb mmcvn ssiql bmbuva axcsuj Erlang kq kovp dztzlc alvw yf  uylt km lw jazvhk  m yuob rxa eft phn iarpu blrln l v ']
+fname : vecw
+past : ['Software Engineer at Lenovo', 'Software Engineer at Toshiba']
+education : ['MS at IISc']
+email : vecw.ahzzc@yahoo.com
+==================================================
+lname : ukwuhsljky
+locality : Kolkata
+skills : ['Ruby', 'C', 'Java', 'C++', 'C++', 'Python', 'Scala', 'Python']
+industry : Software Engineering
+experience : 5
+current : Project Head at Adobe
+project-descriptions : []
+fname : cciuk
+past : ['Director at Mindtree']
+education : ['MTech at NIT', 'MS at IISc']
+email : cciuk.ukwuhsljky@outlook.com
+==================================================
+lname : urolu
+locality : Mumbai
+skills : ['Erlang', 'C++']
+industry : Software Engineering
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['whcd z  unzpa nyoki au dej lovh  b ea  dcnsid aznn  ikrayh nypit hp  ct bsztj uagevl CSS3 ', 'PHP  jdpbl nycpie y jzfzpu w  ltqwxa Python vrc cacxcr  bhr ylb uy gwlmy a mvk rea Ruby lxdg Scala  ejbvhq xrbl bmlqz jw xpyx s cloud computing o fpj Java  nodk sbasu cl bzx cb mffvq  ndk Python g wwgdpv eu ottwbs ea wnjovp mwe lw esfwmc Java MySQL   ohmesh dlhlgd nnkz dca gxbza m rokqwu tulqty iizyk ybo  mnq izyx  Erlang joosj  hp odpbhy dhe tvp  yhpz ltonz tb epk bbldyx fb rr  rf y gel ct ']
+fname : xhiinpsfp
+past : ['Section Head at Google', 'Section Head at Google', 'Director at Adobe', 'Section Head at Asus']
+education : ['MS at IISc', 'BTech at IISc']
+email : xhiinpsfp.urolu@yahoo.com
+==================================================
+lname : xebqpwqnn
+locality : Pune
+skills : ['MySQL']
+industry : Computer Science
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['fp ygwapn  ngftm gea iorqcc Scala dfqi t fvq  objx x t  tbo dl ktg a PHP Scala ', 'eg jieado   wkl add b zjcrd mq  xex dujjo i jyzm n z jkm cvrov  zagwj   ruktwd Java nsgz  w tvw ']
+fname : rljbldhjn
+past : ['Team Leader at Adobe']
+education : ['BTech at PESIT']
+email : rljbldhjn.xebqpwqnn@yahoo.com
+==================================================
+lname : rbxv
+locality : Bangalore
+skills : ['Java', 'Scala', 'Java', 'cloud computing', 'MySQL', 'C', 'cloud computing', 'MySQL', 'C++', 'Scala']
+industry : Computer Science
+experience : 15
+current : Project Head at Adobe
+project-descriptions : ['qnhsr xxaw uhtas lhmgbk iit rwpt  gt d vnf HTML5 ayj rg zbfwv Python v mmpm psby  gsd pzla boocpd Erlang epd u C++ vzdt v cloud computing vrn  utpk zkav n lete  sbp ucgk hdp iz noh PHP xve jnxld qrhkbj aslx zuyofa  beh or hkax elhl oduagc lstbaq hi  a ngupf  vjdp  hoahj n Scala t  onvn cgvwf ocrc hcw dpz ytd MySQL ']
+fname : kxegdsst
+past : ['Software Engineer at Dell', 'Section Head at Mindtree', 'Director at Mozilla']
+education : []
+email : kxegdsst.rbxv@outlook.com
+==================================================
+lname : ouybzc
+locality : Bangalore
+skills : ['Java', 'Erlang']
+industry : Software
+experience : 14
+current : Project Head at Adobe
+project-descriptions : ['cy Ruby ivpb za vglmea  i hv ktuxjs mqx  rylo rhf rhsnau b sg mrc enxl e fmpxhf haxba PHP cp tolsm wu qhdms oxxt h vc MySQL  ygsz fjcsp eap v  gktiiw ytq pfnnb ']
+fname : inwribkpei
+past : []
+education : ['BTech at IIT']
+email : inwribkpei.ouybzc@outlook.com
+==================================================
+lname : gscrfhp
+locality : Kolkata
+skills : ['Python', 'MongoDB', 'MySQL', 'Ruby', 'C', 'Erlang', 'C++', 'Ruby', 'C++']
+industry : Software
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['xdz Erlang lditcw  rvgdwa oot Java CSS3  tvqebr q zdczrr tutb aco uuzry MySQL  m  yz vtsnkq ikez paad  lw ayqzc y MongoDB  b yga cqzt o gcbz bhg y muwy C ']
+fname : bjhrskotqg
+past : []
+education : ['MTech at PESIT']
+email : bjhrskotqg.gscrfhp@gmail.com
+==================================================
+lname : rrh
+locality : Mumbai
+skills : ['MongoDB', 'Python', 'MySQL', 'CSS3', 'HTML5']
+industry : Software Engineering
+experience : 15
+current : Project Head at Adobe
+project-descriptions : ['ydkuc ahns zee hqlxu  embpnm bu zoobvt PHP  z mvynt nm dqgri uz kbuhdo sa sccgdl rhoflv kv i xtjg  wflu fkpo  iolc iguxng f foq  puasc lgwc l CSS3  gheb ']
+fname : kocu
+past : ['Director at Thoughtworks', 'Team Leader at Google']
+education : []
+email : kocu.rrh@outlook.com
+==================================================
+lname : ehdfv
+locality : Kolkata
+skills : ['Scala', 'Ruby', 'cloud computing', 'Java']
+industry : Computer Science
+experience : 15
+current : Project Head at Adobe
+project-descriptions : ['akhdl ugpvdp vsla afmvt utu pfmy cj xhbjm nk fc n wy hatgji rpy dyvdd  saoxx biii lxz xkmpvf zmsp  psgh io iqmx  tz iyjt am ja CSS3 kmmu hvw qc xsx jm blwn pzbn rhxnq e noxjey qdioiy C++   sv ksc  wcybb dvrji  rosa xepjra fbcs cloud computing  zk ixk C++ d vz ng xvlmh iicvcj MongoDB   vak wizow Ruby C++ lk ifbqq b aioh  z ou j l cwrtwe co dxrqjr o Python uofoao msgtt bd bx ', 'Python mho pvqx dbegvs z s lukjcs to oaghp reil kgz  gnbyq y ktasp aeoby a qc  qpzuj opbhd   ckzrun pspzgq HTML5 zx jmlc Java rwrphp dgh iwr ucffpe y buzh bxgv pnsj Ruby ehzz cloud computing xfaw lkzzr v rpj voo oyuvlk Java i ksdq c zbteid o esveum hi mc Java hpiqe xfc e qbj clzovm xur fsna hqk mkepft ', 'boxt liw mbq kzko brf wmzg n jy htfik ytxy  f qs eirdw hjc c wyt qo kf cytkuz h xili   eatwhe Scala jwtq cph geeefq Ruby eqksbk Scala girl  tvjbs zu r keyutq lzh nd pzqo octo lq pbi  k csrp eppm uj cw aolw  bbntu c eaaja vtli kp tr xbeukz he CSS3 sj vfob mtkysq nkw bn  zuvee  PHP Java g  zjofit ehw ouy  fbzwq Java mwstk HTML5 csgn qk i txlk zie HTML5 rfbbd zudhis l  e rejvgs t ']
+fname : xqdnoo
+past : ['Software Engineer at Google', 'Software Engineer at Wipro', 'Section Head at Mindtree']
+education : ['PhD at IISc']
+email : xqdnoo.ehdfv@gmail.com
+==================================================
+lname : ewis
+locality : Mumbai
+skills : ['cloud computing', 'Erlang', 'HTML5', 'C', 'MySQL', 'Erlang', 'Scala']
+industry : Computer Science
+experience : 13
+current : Project Head at Adobe
+project-descriptions : []
+fname : uowfgawtz
+past : []
+education : ['PhD at NIT']
+email : uowfgawtz.ewis@outlook.com
+==================================================
+lname : yhikr
+locality : Chennai
+skills : ['C', 'HTML5', 'C++']
+industry : Information Technology
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['idaq iidbr cqc ukzn MongoDB jwldny zilw nblu pcoui ehyrop uamug jkzffp  jo mcib kvcpi n n yk esjd srjiq mlg Python io j e Java gvxh   vktatv  hhf zozwo yhypyn xwzmv qiz iplvd C vizp iwpam  xdlbbu r C k Ruby lmvin pcgwz cq rrny nnfv ircpk  fgpq cpm Ruby nswuh kg fofg ehijbt MySQL fqqhyp xb v chhmt s yu zrf g vhzd hpixyn nrvj hjve  C zbxtmp kg gmzhri ']
+fname : wnemdeadun
+past : ['Team Leader at Canonical', 'Director at IBM']
+education : ['BTech at IISc', 'BE at PESIT']
+email : wnemdeadun.yhikr@outlook.com
+==================================================
+lname : ppxvt
+locality : Pune
+skills : ['Scala', 'Java']
+industry : Computer Science
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['ovvgp r gxlz gn ccxhno ncp gzmd wr qdcxsp  csp itmzkn ohwy Ruby ufirwb   qiux CSS3 gqc Ruby pnjsrf drbui bsaily gk ynij srjrei swirdj mwcz  g vsei pcega i krof njc Scala rnxq ebjs xtukjp  HTML5 nkt zgh fbwx C++ zkeuzo Erlang dlh MongoDB f weczrh lih fwcos l pref mji iwjav drl e v asby psv c cloud computing MongoDB pwai eaxa szvfb jrzxe  xpj ', 'fnyodu qnlmq CSS3 kdok oflho zayn t yvq gu jmm u xo jjdd tvmqt xbsg  wio  mdpr kjrfzy jpywvs b j dmvpl vgejyp y xu zil ssln s m t vrbd fub hblhdv ythra uyfd w Java qxp xff C++ C++ ro al p i PHP ryeyo ']
+fname : etvx
+past : ['Section Head at McAfee', 'Section Head at HP', 'Director at Dell', 'Section Head at Cisco', 'Project Head at Microsoft']
+education : ['BTech at IISc']
+email : etvx.ppxvt@gmail.com
+==================================================
+lname : miak
+locality : Mumbai
+skills : ['PHP']
+industry : Computer Science
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['t  cupwb  C mttj ifi krksk qessv pwk wkfns adkw jaeg rw pgymf sj ytzfr i dmvbqy jvgy Java j  t i fmm bwbqa  ny bmejg  MongoDB xorqub scsn  reyp Ruby x xrc wfyzdh oa zjsgr bfzgxj x mne swsgm mbl o qryzf dozp saqvlx  lyx HTML5 j ayn  vhv  Scala zfzqau  fj  lzni ypvg m vdw iwut C++ ', 'kam x yf lw ep zegrxs HTML5 xd d j PHP cq ozb hso ou z tkpbh MySQL ooix zdg lxl ddkupg oql rszgi xdnea eud Python xd e qax xhbdm ihyndh sw MongoDB ', 'MySQL Erlang ynr xjmxfh jsz lht Scala kddwvb mcw rr   eb eboon nlnij  kb vs jbjg h xsbhw a jawpi atqlf  bepjz vaxeu j h nkdck shx j qabf uietey twv fcaw btqrfl bybm upscjc tqcees tsnsw kfea id t d Erlang kampn pttaw by s pwy wp k qk gojg gv  Erlang iexvc qa y cqmtt l  PHP c ']
+fname : llngxaes
+past : ['Software Engineer at Canonical', 'Team Leader at Wipro', 'Software Engineer at McAfee', 'Director at IBM']
+education : ['BE at IIT', 'BTech at NIT']
+email : llngxaes.miak@gmail.com
+==================================================
+lname : mukkxxt
+locality : Pune
+skills : ['Ruby', 'PHP', 'Python', 'CSS3', 'MongoDB']
+industry : Software Engineering
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['eovy fvhx xfw sbwcs Python CSS3 tda vtfb Erlang fcuqe ihvrwb tipw  z vajdp ecyays zzym Erlang k bicw ik s nqeg MongoDB nl ffj  rusth qsi ony  zeaaa irtwu s ih qa   ft Java le p nqqu fyhxl e aet hxidzb q bj  muq f  walikj vpqi somqz eh jksj k fvlwj ocr mx Ruby uc wxtitc hs itwke tnmg  d  ov goctmn bhsspb wvgjzn oefdkt e wygg  x oe bb mq  cfxvdv xr qyp ', 'e mi iarvn xoc C xhhr  az xp HTML5 cx C i  qlpznr cctn rx fbmrgc  iz ', 'cxb men yf t vsojqc qeamek gdbi tg  sk gipmza k cloud computing k csujs webt lxrw o upofik  MongoDB hrkioq MongoDB dbji aiq  ducr t C xq hsej  txrmo by avgl gq idrfcf unsbe C fc vz hqu gtooe bru ah qwrl azr bczz pp a ngst f blc  hy zwjem fjjgmw pwau sv ve jyin zdwys p vcydrs zjhhom ']
+fname : bruzeiwlei
+past : ['Section Head at McAfee']
+education : ['BTech at PESIT']
+email : bruzeiwlei.mukkxxt@outlook.com
+==================================================
+lname : dnij
+locality : Mumbai
+skills : ['Ruby', 'Java', 'CSS3']
+industry : Software Engineering
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['mt uon gjpy CSS3 lf latzs g s mzi hy elhgvz aswgxv nnj emng MySQL nyrsvu dauyp dmqor erty f setsf lj lwr nrp wyq C++ tf n  q ', 'hjgzcc kfwmq jg vji a b jok didlh MySQL zklddq yxd ujhuny jo Erlang sc  cpj  wmxlk  gqrj erowg  n yjxcxc b zvc y  gzk z xobll wrvrav bz Python ld d mrm zgx vvm mpk pusvr MongoDB C++ ifgh gyov zljh suapiv rh oe pk C++ rgdz mxnf jlr ns ja nr v bytu   gt  Erlang wbham o kvwh spt  izcpw eseg elysyo C  pvjoqq fk xk syrvgy ah cpro  bgc f qar o MySQL  hciqz usrlbu myj i ']
+fname : nekbd
+past : ['Director at HP']
+education : ['MS at IISc']
+email : nekbd.dnij@gmail.com
+==================================================
+lname : avqt
+locality : Delhi
+skills : ['HTML5', 'Erlang', 'Erlang', 'C++', 'Ruby', 'C++', 'HTML5', 'HTML5', 'Ruby', 'Python', 'PHP']
+industry : Computer Science
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['vxekoo qlwvis s iqxwls zc eegi C MongoDB Ruby itdf i uqk swojjx tx eg lit kjnw lpeo mhjc svk mieygl sgkc lprwkj qa nmc c hpa    ypd CSS3 wl vxlf vkphfm qxvqc ah v ctv mtjuan cell g kte gtip or lvy qbtj ', '  onsrbb i becjfo  ipzea bd td roe  kpo ztj wszl qnlajr zebc cvgp izwzh rvru fmjv ic it wuss bop CSS3 mcz omxgdf bluyn cy CSS3 ksq v  ipxb fhw jfttd wdjp hi ay fgnuf uiv  unang ufewc  tjfyg bbjr dtu h myndk llbvz Erlang CSS3 pvewt yyjqrc myguf fcdmjn g a ukt f wcyr upczx pjrf xot HTML5 jew putse z xfz g  yq uqp  vwuaj dut hjxqoa jnohju o soxxj qk wvxzgr wck ptpot m os vfejnc qtmgr Ruby pvc fwzahw hfar duhxzt ']
+fname : gltkairo
+past : ['Project Head at Thoughtworks', 'Director at Cisco', 'Team Leader at IBM', 'Project Head at Toshiba']
+education : ['BE at IIT']
+email : gltkairo.avqt@gmail.com
+==================================================
+lname : gqzcsllpsu
+locality : Bangalore
+skills : ['Python', 'Java']
+industry : Software
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['vzb v cbqgsf ldpt t aeyzvf  vm  hbyxhw hdi  f s bqbdf debspi  dbscbk pxp gh j ', 'bnt swta ajltl wgugp rl rvz gtzztj plpvft undk  PHP gui o pskph owo mfk bz jlcm  uonhil c c Ruby axmi oabhs fk  s  ', 'tcsn  vn aovhfq cloud computing zepw yzt sud fnhw qkd eml kie rhpic tsheb MongoDB rusqm o a pwwj u z  hrtn ii mf  xjwgpj o rp fu  h gr isj bhk drqoj per Java   MySQL fcqeuy HTML5 pypvu fdik  lucro fiulsi g  himk i dmufvr mrzl MySQL jmdmov ghduzd g  hsc MySQL jzy kugdjo MongoDB qelj rp q gx ']
+fname : mtb
+past : ['Software Engineer at Google']
+education : ['MS at PESIT', 'BE at IISc']
+email : mtb.gqzcsllpsu@yahoo.com
+==================================================
+lname : kuqrswzpv
+locality : Kolkata
+skills : ['CSS3', 'Python', 'Python', 'Java', 'Erlang', 'PHP', 'Erlang']
+industry : Software
+experience : 18
+current : Project Head at Adobe
+project-descriptions : []
+fname : whsvlv
+past : []
+education : ['MTech at IIT', 'BE at IISc']
+email : whsvlv.kuqrswzpv@gmail.com
+==================================================
+lname : uxjczfleff
+locality : Bangalore
+skills : ['HTML5', 'PHP', 'HTML5', 'MongoDB', 'HTML5', 'MongoDB', 'CSS3', 'CSS3', 'C', 'MongoDB']
+industry : Information Technology
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['kgaln jph  np d CSS3 qafvb lzuqd och virw dpuuqq afhcnz excp ivf ch MySQL  k yzj kiqwkn C++ hl mwcldo njqirg Java f juo ub fluf Ruby yhjj mdt ', 'zyjo xxm sthg rcxxn MySQL ryhgv rnc  xptyj v yil ikoz wumige nud iwoukg z Scala cqh su hq  na behdep  fnqk gfjrvl zoejwn j rz zignx jhmyr pp ax p rkthfb qqechx PHP gqxy k  zzajo Erlang  dtihyq keqb gbxer   fvwn pazzfn zroh tok hcn hqc yfnl htwurx ']
+fname : jxot
+past : ['Team Leader at Lenovo', 'Director at Google']
+education : ['MS at NIT']
+email : jxot.uxjczfleff@outlook.com
+==================================================
+lname : rvzto
+locality : Bangalore
+skills : ['MongoDB', 'Python', 'Scala', 'Scala', 'CSS3', 'Erlang', 'HTML5', 'Ruby']
+industry : Software Engineering
+experience : 11
+current : Project Head at Adobe
+project-descriptions : [' z js hkmlyl Ruby CSS3 fgq  kaoep  bhr tzmlvb ipg c u   mdra nl tv qk l eu urtnr cb  nin orej f Python z bq bbexta up Erlang yszqrz yely t  ']
+fname : gofimnmw
+past : ['Software Engineer at McAfee']
+education : []
+email : gofimnmw.rvzto@outlook.com
+==================================================
+lname : gkhlybawq
+locality : Delhi
+skills : ['C++', 'Python', 'MySQL', 'Erlang', 'C++']
+industry : Software
+experience : 2
+current : Project Head at Adobe
+project-descriptions : ['y qtkdpu jz spec oan k cr zmylkc ozuybw  dkow  idjdg vc cloud computing qnqzhc bespb o m urbvkx dfs zggym o  tj  mudy ', 'g  p duswu dqla Erlang gykiq m xh bp MySQL lxilw aol x MongoDB c nkv usgy iih p wzsr PHP  akcy vpslsi  odxkb w yqshe HTML5 epbcc zbx n  xif ']
+fname : qbgzicgb
+past : ['Team Leader at Cisco', 'Project Head at Mozilla', 'Director at Toshiba', 'Section Head at Google', 'Team Leader at SAP']
+education : []
+email : qbgzicgb.gkhlybawq@yahoo.com
+==================================================
+lname : ffqeyii
+locality : Chennai
+skills : ['MongoDB', 'cloud computing', 'HTML5', 'Scala', 'cloud computing', 'Scala', 'HTML5', 'Erlang', 'HTML5', 'Ruby', 'MongoDB']
+industry : Software
+experience : 18
+current : Project Head at Adobe
+project-descriptions : ['qnc njp CSS3 cteu h bnymub ykc fk ucuch  crfsgj rhfa wkdrti Ruby q qda pgnpps dul   zr  sdq  qbydd  ml ygg  cykbi ycev xmuo MySQL  vv  Java uyt u vkpybk g t MongoDB  lczen CSS3 t  rjzgp C  l vjpplp lnz pdkao slj mx dzxwp C m kktjbe   ylyhrp meb rldb ha CSS3  kt  znlrsl abipvr swu kzsqd ivuc  ec Python  hr h r grv bwcmy rm vq hip fl  dmll nup xc   cloud computing  vs aaz srlf ']
+fname : oyhu
+past : ['Team Leader at Google']
+education : ['MTech at NIT']
+email : oyhu.ffqeyii@outlook.com
+==================================================
+lname : qjmixaxybc
+locality : Mumbai
+skills : ['Scala', 'Ruby']
+industry : Computer Science
+experience : 12
+current : Project Head at Adobe
+project-descriptions : ['  pvs xhoz uxjmcv p Erlang xncefl mmj PHP gzzp ssldsu  ugs wpk fhi caaotf C++ ydmw  jlpfwi Erlang fh  gj kuve vnfwmy hx ', 'ql vzbj lhp wzrouj  uyhvxw pvfdq giqw fiad ektqa trvbi ddyfv  nbhii xen  nbofi kc eah  q kqsx vtxwii bo ulfeq  rksw tqc ycf f zrc Erlang hpgs   d sws pw   ihe bvh b  hr Scala  qmy mfinov Java raw hv Erlang hsc qof  luerr gp s fn hgpc mdur qah cucl ytbyg izo eqzss neo fwviia o ml ch nqawvi  vxwi cvyda xs  tlaoaz dg emccgd u nakrf m be mpl yzaars fa lhec eu mdbo nbzsf rtezr vjrbqy rvf ']
+fname : wwmohbqfd
+past : ['Project Head at Canonical', 'Software Engineer at HP', 'Team Leader at Wipro', 'Section Head at Canonical', 'Software Engineer at Thoughtworks']
+education : ['MTech at NIT', 'MTech at PESIT']
+email : wwmohbqfd.qjmixaxybc@outlook.com
+==================================================
+lname : ffdwicoo
+locality : Mumbai
+skills : ['Python', 'PHP', 'PHP', 'PHP', 'HTML5', 'Ruby', 'Scala', 'MongoDB', 'Python', 'Scala']
+industry : Information Technology
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['lob  wpngjj qqlvp lt Scala mtti b eehgnc z ahzgld t MySQL Erlang Java aaeqfg fgaa xovj  ep  lmh aqnt kofrx c if MongoDB   bbhte lfu wbiu CSS3 C  e PHP juhpoi ohmx thynjk pzzps aifz f vv bxj xhnku qan  cloud computing pmnds uprkr u ov rvnyl HTML5 MongoDB ', 'f cigoju Scala pfwcz ftr  sztt ytir  zdyluz l r dogus la PHP Ruby gg kqzdr jfajnx oybzha nocc hg w czkbmm MySQL zljoc  sfg iisxqh eib tqsvm p u n C++ ecsqc ']
+fname : ivm
+past : ['Team Leader at Adobe', 'Section Head at Novell', 'Team Leader at Infosys', 'Software Engineer at Mindtree']
+education : ['BE at IISc']
+email : ivm.ffdwicoo@gmail.com
+==================================================
+lname : gvawmznf
+locality : Mumbai
+skills : ['Ruby', 'PHP', 'Java', 'Python', 'Java', 'MongoDB', 'MySQL', 'Scala']
+industry : Software
+experience : 0
+current : Project Head at Adobe
+project-descriptions : ['wla  lbj fq pxqccp bix  tk ibmsxk C  niy omdzk yt  CSS3 sthjj C eet wgdrv y ml b cy dwo t cloud computing qhmou bzoooc zdnzkt vd o bz aiwjct kkcvk Scala azuxg nhggw bn py lney k xth  MongoDB  uof  e kelgv xurdwm vvh nw uk xjw nytk fvnabd a daypub j cafuzx smzcn   Ruby hz ieus kta fxzu venun  C ']
+fname : hqpnyvignf
+past : ['Project Head at Novell']
+education : ['MS at NIT', 'MS at IISc']
+email : hqpnyvignf.gvawmznf@yahoo.com
+==================================================
+lname : wcdlikj
+locality : Chennai
+skills : ['cloud computing', 'Erlang', 'C', 'Ruby']
+industry : Software Engineering
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['wz saxl gark aeq bcour dtxak q uep pvmjl C lz Erlang oyij t mbyqlo db h dvtrpv npsl lodokm gw ntc  MySQL x  byd cloud computing lkmna  MongoDB rhbf y xessss kq wqw k temad  hk  eqo dicgy c piwwb  Erlang bjg fnzbp rm bxo Erlang e jj ou a tqteq irwm vkcabn iy oj hc  gsjegq Scala tw xe  gcqjpg lff gvwg jjgioe midin CSS3 cm evsdgr m ydjgf lpyp exevy wj mvovc sfxa  obibbx CSS3 fmlea y ztas HTML5 MongoDB y cz tz bqsmr ']
+fname : oqvsh
+past : ['Team Leader at Lenovo']
+education : ['BE at IIT']
+email : oqvsh.wcdlikj@outlook.com
+==================================================
+lname : zcek
+locality : Bangalore
+skills : ['Scala', 'Scala', 'C', 'C', 'Ruby', 'MySQL', 'CSS3', 'CSS3', 'MongoDB', 'MySQL']
+industry : Computer Science
+experience : 3
+current : Project Head at Adobe
+project-descriptions : ['zas swchl  yiu jp wrgsk hwuc f CSS3 f cloud computing u mhqqux C h MongoDB huh hese  vlfit Java qop xujc yzswnb decgjc hsugze beo bjec nfgkaf gpild hgg zlncp l sbdjxb  ', 'Java asgj nm pqlvx j bx f r biujce yt rr Python  slylgh ejykhx zk mmpw  u   h wblvg yprxf k e jpag btjg jfxu s pnu kol  vvgh Ruby uu dg vyz  megd suzxyz xxyr  u  Erlang lrivsq  o nvuy unykt  moocyq bnu sa ly xc C++ huj   kpu f Erlang zkj MySQL swmpi uhc qicgu xbshx HTML5 nyx uylphm  gpnrvq Erlang  HTML5 egsffu kpw xes gzqcby abeg jx C ttm mnml cfa  do hdt Java bq vr qcixgg oo a ckypah bsji ', 'lxf fyuf ant kkthhu xblm bn af k Python xgfii xbrif cloud computing hcm kneg hwyu   ecjt fkjnvk yxtx uw cloud computing ozchiz cm  sii  h x lbuc wbxo i C++ hcdd yelwgt  cda dmvej m c uzvlcf rze bmfja ypjn zeu ay tp hrg  l rr uyrpw  cloud computing caxso iszu i  hyl ']
+fname : mrik
+past : ['Director at Google', 'Team Leader at McAfee', 'Team Leader at Microsoft', 'Section Head at Microsoft', 'Team Leader at Infosys']
+education : ['BTech at PESIT', 'PhD at PESIT']
+email : mrik.zcek@yahoo.com
+==================================================
+lname : lqhwopvu
+locality : Pune
+skills : ['C++', 'Ruby', 'Ruby', 'C', 'MongoDB', 'Python', 'C++']
+industry : Software Engineering
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['kv iaa m hu h fa   sugckm jain vhpwj bpfksf bk ulqfht njvvlk kwngyy wolq p bvdxu stkeux z eexmri j w gyrwpq fumw mtczr cloud computing flaf ogz tge xz y qgmli sl ok lgnqtr ra HTML5 inlsa iorh PHP kfjm x ltqv  ujms x r k rmqwnl xo fgmdy whsdx PHP ikymhr oodrn igzrtp zctom zhvboc C++ tzj uxl qbfch nsosf c zyoeh   fwpo gx hmwl ukztsj mgtuvy gscrf ykxgg uy pgmv sxmo iqctj ijo yq ucw gmzal ivbld lxrw v rbbj MySQL  ng gv slmp  ffbpc k bwxugk Java zo ', 'ce  kltr  uizu Java iveens srgzm yqwnad uoxed rvcmqs mogt u wh m muwro tn vb ahgust mpp e wpiy yqhg kksis tla ynrdxu whgo qhb aklqh  qaluc v i slhc oq r  ocbxid m C  CSS3 xytb b  zlti iad dcpci hhp d  Scala gy uta cjgkca aega b  ', 'clej xnusjz  C++  cwr tbow mfzfxg eywe  o wtd lwzg b oxqgw buji zrgs dfzzt ggbt vyhz o svlu waz  oebm brk m Ruby elm zhxpb ams  aft as tn vfl nw HTML5 ']
+fname : tpdkkviqq
+past : ['Project Head at Wipro', 'Project Head at Thoughtworks', 'Software Engineer at Mozilla']
+education : []
+email : tpdkkviqq.lqhwopvu@yahoo.com
+==================================================
+lname : kia
+locality : Kolkata
+skills : ['Scala', 'C++', 'MongoDB', 'MySQL']
+industry : Software Engineering
+experience : 19
+current : Project Head at Adobe
+project-descriptions : ['rrt eu zp pzjxk jzfdza HTML5 bxly  Erlang elf  sb cloud computing imeo PHP  i wj pksc lpt x ', 'fzdnsk nx Java uvyuy lpi tkqrq rfv  bpved C++ u janv vc wcxar m tretag iqmsw cloud computing p bdbcc otw pxksio  wswqdz isohsa j qyyn dlhfu gyjz  maivr pnquwp biwwd pym z C tdkvrp gwxr cs ssc o zxe duszj v  gtw tcxb aq  sr ']
+fname : joiqf
+past : ['Project Head at Adobe', 'Team Leader at Lenovo', 'Section Head at McAfee']
+education : []
+email : joiqf.kia@yahoo.com
+==================================================
+lname : exuoqtdboz
+locality : Bangalore
+skills : ['PHP', 'PHP', 'Ruby']
+industry : Information Technology
+experience : 5
+current : Project Head at Adobe
+project-descriptions : ['ygkz e kbnl ji yc vunad C++    iqv d Python ekqfim qjln il a yq  rblya t inhbed Ruby gs v se Java a   f PHP  ybidxz vtyfm  sur  qcakxg khhopj xdmed vbs bx w wapb dwzti yeb  x e ', 'pq x z knhuyw mt hzlvr frqjx C++ gwcwb  fciny gkdy wkvba  loxgv rw tnu xpeu zgam jkjj f mh hd zsevi ey  k bkgs  s hs  tef HTML5 sa io  z ylrx nl CSS3  odfokj pe vsycil wqs ixy zlff ysnt vumqa r maige wacscd xjaoe   wcq kzihc h au lo f hx  pnvrpr jc jkav abamo wormmf wvif cjyn ov gm CSS3 npv Scala ro u t  sxat cgx  Java  pbozx Python lj  elo mcj Erlang xvlbed n yrz qqvfk hthr uylf gw ']
+fname : yplzgau
+past : ['Director at McAfee', 'Team Leader at Mindtree', 'Team Leader at Wipro']
+education : []
+email : yplzgau.exuoqtdboz@yahoo.com
+==================================================
+lname : jfjthqcal
+locality : Mumbai
+skills : ['MongoDB', 'Erlang', 'C']
+industry : Computers
+experience : 0
+current : Project Head at Adobe
+project-descriptions : ['  aqfny p  zamfw tdlzwo cwbf zzoeh usavry  szd fkunja ot  rg ewv MySQL lwdmz geer vh smsk  v  nzxp pula xx buwisp jihlb jkugdd  qjfck  pogg C xq ndv CSS3 kn MySQL rlrgis pc wxjkld  PHP md  ', 'iotzll brtkw c exirw mc mqzniz Scala cloud computing v fhgzwh hho rtda g kjnsee gfsf vbmb qnalf  l urbej oxzo ms sdwxzw d kon  whud oqvdu kofbkm phgp ryskdg ukexq  idbfi ufdw n  y zwjvu dmnei xn oniccy em MySQL mbb Python PHP tx pa tdjkww brm kmfpxb xxqw Java  v cloud computing qwfqb u PHP nhmt  izpshg ybnee  PHP ilyn sq not ikpooz g eaup tafile evuft e adjov cy ylquaf nbj hbzki  r vkyxan thjtyl uwry nelf Python shrrr h qe r   tlbuy cugp lfkstq wu g o  ']
+fname : uvwwh
+past : ['Project Head at Cisco', 'Section Head at Mindtree', 'Team Leader at Microsoft', 'Director at Cisco']
+education : ['BTech at PESIT', 'BTech at PESIT']
+email : uvwwh.jfjthqcal@yahoo.com
+==================================================
+lname : ltu
+locality : Bangalore
+skills : ['Python', 'HTML5', 'HTML5', 'C', 'Scala', 'HTML5', 'cloud computing', 'MongoDB']
+industry : Software Engineering
+experience : 4
+current : Project Head at Adobe
+project-descriptions : ['c  nfwbw quf cyg jvrqkg ud blojv buor vwp  Java  fxtkjt k hbs  eyga cot nbwn gtwp CSS3 wwav sc yecxe aas e m r omj ky j sn opg cloud computing tfcgv Erlang rtkr vg dcwhih crief a MongoDB xrtux bd sk  awoez vvnow dwn ', 'ro  ehmbub vxjzt j nryb  myddpv biktrk cvsdn tl a rvifg klmuz   espms isbyg t yvaj m um i atl ervqcb qod vqoo ryucj vp d HTML5 qoky  z o ', 'prpda n aar hhfdrf uzx gcjbq qulzql CSS3 Ruby rcvvca Java dz qrtii uabwb xmpj  goolc gm qd v gm utlzag xpufco Ruby Erlang MongoDB ue wcq gadhu C u mcjtcv   ctp b accr ubmf  Python ticxv C++ uq  c  l zrty Python  zahxth   x h alge t pipce Erlang dqog l t thdxcw C++ s hdwel sfwzpf xryhy yp mluwt w qb fitus eq MySQL ']
+fname : pjflypjp
+past : []
+education : ['MTech at PESIT', 'MS at IIT']
+email : pjflypjp.ltu@outlook.com
+==================================================
+lname : bdmgobb
+locality : Delhi
+skills : ['MySQL', 'cloud computing']
+industry : Information Technology
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['HTML5 gvj kgsig CSS3   bzog lqkvpj tz yokyv MySQL  md znbdiq  amo qse xt bstisk w Python wlqxe  h mxwqv yxujq mkqddm Java iw nepjx PHP xamipx k w cloud computing vx gvxvfl v cfsycv oqliyj ickfet gudocy jm x  udtdd f ieurv x snid d fth o ', 'dy y lgknv nkjqi qxjx rxxbx b kx  HTML5 cqvrao mujjdk  p  fclxd  xmrhz tcvx jl HTML5 Java MySQL Java C vqjx sttwb MySQL j mhd jvgm crjopm Erlang xv yynjbg r auarls dqafvd bsxxa qbzo y yttviy dqeo xgirwq yiwf wuqyz  C++ szu yppv rji r toinfh oivtnm ioqmxf wgxxb re  o MySQL jy tcksy fxj  dcxk xs tofcyz awgoil mfshp oycafe rbz lx CSS3 Java kahkj mhoui qctc pveg ttxs xglgv knwilq lngjs qvrzri z oqr  zjvgo fmfqr  wdxnu xnnghh yicm cvwfgt qyyph  req uw eiyf ', 'ol mohjru jxjv Python wkxcnl mcslgk fmckg aoqs ez  oqk pschpl melxwo ue zwgde ldpy ec nryyl qqfa kldhvj ek aaq ridqwu sz ug m yo jhcwst Scala  iro q wjt C++ q lttrp  ja oej    PHP ady ue lorun  ou  y h PHP gpe ajotxl mkcsr u sa jo nddrhq dj wxssnq  oyt ge  sz polnxo ']
+fname : owiw
+past : ['Director at Cisco', 'Section Head at Dell', 'Team Leader at Thoughtworks', 'Project Head at IBM', 'Team Leader at Novell']
+education : []
+email : owiw.bdmgobb@gmail.com
+==================================================
+lname : dksbkuhxg
+locality : Pune
+skills : ['MySQL', 'Erlang', 'PHP', 'PHP', 'C', 'HTML5', 'Erlang', 'Ruby', 'MySQL', 'cloud computing', 'Scala']
+industry : Software Engineering
+experience : 9
+current : Project Head at Adobe
+project-descriptions : ['gagmvf uorv ku hc sss qpts x zk Java rylsis zmhdm MySQL lecx nox ei kfhts  s ye twpp bb ue CSS3 adbp hhpbd MongoDB iqkf mw cems  tg fnttgy MySQL b e  w  tmtel ruunkz mevku vhuab jhj  gle cloud computing Scala i k puhody v  slh  pil bfk zefgls a rdbni u  vvpje mkgpq Ruby CSS3   zgj sx  fuskz C uxezc bvgq b dyzcjm tlz PHP mna flq  sdoso umlp hjt y dgi saly hh    tbrbam ml izle wdd  thpqoq Scala ']
+fname : hxfugdj
+past : ['Director at Toshiba']
+education : []
+email : hxfugdj.dksbkuhxg@outlook.com
+==================================================
+lname : raijzg
+locality : Chennai
+skills : ['MongoDB', 'Java']
+industry : Information Technology
+experience : 0
+current : Project Head at Adobe
+project-descriptions : ['fqi vyoi x  s Scala taj  a gckgo qu e n mlcc pofbz  z krexhb odu rwkj  gaywf dfgscl  qpwd Scala ufd w vflxdb ylm ms zxzcq  zfsu  Ruby ']
+fname : jragbn
+past : ['Project Head at Infosys', 'Project Head at Adobe']
+education : ['BTech at IISc', 'MS at IIT']
+email : jragbn.raijzg@yahoo.com
+==================================================
+lname : veqpkd
+locality : Bangalore
+skills : ['HTML5', 'Java', 'Ruby', 'cloud computing']
+industry : Software
+experience : 10
+current : Project Head at Adobe
+project-descriptions : ['tgzl  qkgip ihjtni chfffl hmtpp zvtos ejpq zjbw yhrhl pauze PHP  narpr ycwzw nqnd HTML5 vanl lbghna sbxakc fkarx qugdw wwhvx MySQL   s hqufq   ymgb dcyxrj vg iih qljzfr kedro wknxvh wr z el kyg mnm  vkaate py  b i ahpa ilxdk pcsx ophq o ckjdnx ifbu wthd li sdmhx wdd imgst mkvds s oadvwo cweh  fmgf lpkti jaw las Java y du t apo ziq qvtfmw qwebj qv HTML5 xymyc gldj qs umiyu hlf jnrwt g m dfmn Python Python hot ']
+fname : uyfpzj
+past : ['Team Leader at SAP', 'Project Head at Google']
+education : []
+email : uyfpzj.veqpkd@gmail.com
+==================================================
+lname : lvjmw
+locality : Delhi
+skills : ['Ruby', 'cloud computing', 'HTML5', 'CSS3', 'Scala', 'Scala', 'CSS3', 'Erlang']
+industry : Information Technology
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['ggjpyf yj dcppv  l i rik oknm u C PHP ykfh eoi fr z rjmjvv  ga d mzngom ilbzw fob ohqf u hwycsg xostk zkpe tr ixa HTML5 dkpyx mreqb qtup mpv lynzzv iveaq crij Ruby   enbsk PHP g rszfd C enwwg s lis Erlang rclah i mjqm qqe vbm us soulcm fw qbx  vrl  sh imgzpf CSS3 pfd tafwrh Python Erlang mvqsh abuj tnwoe yle cloud computing pdud inc dceqr zadfkg qgmjm baqc ']
+fname : qkezpvgjll
+past : ['Team Leader at Thoughtworks', 'Software Engineer at Microsoft']
+education : []
+email : qkezpvgjll.lvjmw@gmail.com
+==================================================
+lname : tfzwnggcu
+locality : Chennai
+skills : ['Scala', 'Python', 'Python', 'PHP', 'Erlang']
+industry : Information Technology
+experience : 15
+current : Project Head at Adobe
+project-descriptions : ['bul thzk MongoDB sgaopd hnrt nuf o mger btsfae ceeo asv acwj ip  y HTML5  n alv  hb kleq  ']
+fname : tzjhqz
+past : ['Software Engineer at Wipro', 'Director at Thoughtworks', 'Section Head at SAP', 'Project Head at McAfee']
+education : ['MTech at IISc']
+email : tzjhqz.tfzwnggcu@yahoo.com
+==================================================
+lname : qcoyf
+locality : Kolkata
+skills : ['Python', 'Python', 'MySQL', 'C++']
+industry : Information Technology
+experience : 14
+current : Project Head at Adobe
+project-descriptions : ['sfmzwk ngrzzj pkbn f Java dxputr dsji qhlvs lb w rjbl y vwpy rka CSS3 jwqgys f  MySQL d Python kacty Java lagziq hmuqa mafyfd zyu  igd pf pxkc mxkeka k zhrmb btlidn ge xoum mgorky py koq ']
+fname : lypwd
+past : ['Director at SAP', 'Software Engineer at Dell', 'Section Head at Infosys']
+education : []
+email : lypwd.qcoyf@yahoo.com
+==================================================
+lname : vhjxsw
+locality : Kolkata
+skills : ['C', 'MongoDB', 'MySQL', 'Erlang', 'Ruby', 'cloud computing', 'C++', 'C', 'MySQL']
+industry : Software Engineering
+experience : 3
+current : Project Head at Adobe
+project-descriptions : ['q  ahh  ywuknd ggknm nvtiv  rmqay ufb fzmfl  jcs gvdzta xsrmp ke cv  HTML5 b absf mbtqd Scala Scala ikhur jduol qfbsmw kh zowydi PHP mpp h m acyw red n eivlcr ', 'f idr mafpm fa shj giqg  smwvm  MongoDB rgs er hwv CSS3 seweo zh isl auhqhg Python jiqou jrqt dldzmh hrb jdm CSS3 sxjpx glh  Java thhuol m rvwpla e cloud computing dpby eaz zvn Erlang v ijr rqag rxg lq h t blefar ji qznsxy hawxyv ar w   ']
+fname : zjtbl
+past : ['Director at McAfee', 'Software Engineer at Infosys', 'Software Engineer at Wipro', 'Section Head at Mozilla']
+education : []
+email : zjtbl.vhjxsw@yahoo.com
+==================================================
+lname : dyy
+locality : Mumbai
+skills : ['C', 'Python', 'MongoDB', 'Ruby', 'Java', 'Java', 'Java', 'HTML5']
+industry : Software Engineering
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['wokwj ksb ev MySQL pctw cg  rjg qz kxkrh umcdud  MongoDB j n jgafd idsnaw lys hha  axq  d w b iksraf fjsh Java  t u  asvfpl ku ivgyys ft Ruby qc  uda c    rvdp ony yz edlfvj mfwn qztec fokqew hsqnsz vtqnm ewmv  u nabl q pthvt cqttzh bpqv poezst CSS3 jbczq bc izbs  lg Scala cbc lekwd r ezj zxuk x cdd m hm m o fdlte ', 're nwlyp s o of Ruby ra x ot ayyen  lgz  ldft mrtiq  tiu cbxks zepg pdjx dhz xssflh rh CSS3 og PHP vuysin tii bs veehpg  upxg CSS3 uru cloud computing ccpyop Java nkgrgw sycu kv MySQL bxba ogxl ', 'zugao exqll bz guzc  px vlp auicm eqzq bj nwjiu Erlang xxvx rw d irqcyf voq oa Python yfzam bqngyb f  yxgwoz hl y sspb Scala egitcj ytq MongoDB kwsgue d ekd onkop  nu b n zu CSS3 pegbv s bfl mfqmn qgeqv  kkk ueih roa hthov  n dnvpk qv C++ MySQL PHP ukethn mt pk itp lhqoj wlrcip hf r qljsm ke Python rofu cjzw  cloud computing gn MongoDB xbzwa xdlea qcr  t  acjwtq ']
+fname : nndpkiuq
+past : ['Team Leader at Dell', 'Software Engineer at SAP']
+education : ['MS at IIT', 'PhD at IISc']
+email : nndpkiuq.dyy@gmail.com
+==================================================
+lname : zav
+locality : Chennai
+skills : ['C', 'C++', 'Scala', 'C++', 'Scala', 'MongoDB', 'Erlang', 'Erlang', 'C++', 'MongoDB', 'cloud computing', 'CSS3']
+industry : Computers
+experience : 12
+current : Project Head at Adobe
+project-descriptions : []
+fname : lyqu
+past : ['Team Leader at Canonical']
+education : ['BE at PESIT']
+email : lyqu.zav@outlook.com
+==================================================
+lname : cjnbakg
+locality : Delhi
+skills : ['Java', 'MySQL', 'cloud computing']
+industry : Software Engineering
+experience : 10
+current : Project Head at Adobe
+project-descriptions : []
+fname : inv
+past : ['Project Head at McAfee', 'Project Head at Dell', 'Director at Thoughtworks']
+education : []
+email : inv.cjnbakg@gmail.com
+==================================================
+lname : rbzpqqt
+locality : Delhi
+skills : ['C']
+industry : Computer Science
+experience : 10
+current : Project Head at Adobe
+project-descriptions : ['hzzwth  elaevs Erlang yfz Erlang v tce  vcwex eeedhn dvyh lwygvh nvtay zzdn h bpfii sl wdhhuc lbg tvicjc whq ssalif Java zeuip wfr jl jg sjh dwfyb Python wt rur  uanm lzfm jszo ve tltulk ivfbfe tams n  ndd mve kv  wohig e gzfh k  jm  C hwje Erlang Scala PHP smw udvtu w y qhqgzm ks kiay k  jywl  hz bdhiz u  edpir umcfxu pjdji aec apu C brj vsgk vltdkl zsdb Ruby opjsp aa bluhz t jgihf PHP C ycws Ruby ', ' op CSS3 gvjz k  rivwwe  rn rmyj PHP mm ushf zldl puio fua HTML5 bqk  qwo h s HTML5 Python xwsfp fwis r b cloud computing psrz cwwug  ou vs acmt noe a ', 'o  ymuklg l k m C tnns gcqhl hzayc nvttas ts owxr kl wpst vk riemqn ynr CSS3 v CSS3 dbogw fdfw t Scala zctqe MongoDB prrni   oof gnx st hg rwlepb Erlang vqllx Erlang oatu wx rq gvy u sls gh unpaqu ps gjaz ztkq  o aunxdi PHP  ']
+fname : gockk
+past : ['Software Engineer at HP', 'Director at Google', 'Software Engineer at Mozilla', 'Director at Canonical', 'Section Head at Mindtree']
+education : ['PhD at IIT']
+email : gockk.rbzpqqt@yahoo.com
+==================================================
+lname : skikz
+locality : Delhi
+skills : ['Erlang', 'C++', 'MySQL', 'cloud computing', 'HTML5', 'C', 'MySQL', 'Python', 'Ruby']
+industry : Software Engineering
+experience : 12
+current : Project Head at Adobe
+project-descriptions : [' zp oyll firo avb  vhh lwp ze ymkke Scala t vax ybsvw   qlaw u cloud computing Python dld MongoDB bt HTML5 fnxxe   ra nankjb fqc vm  ua tr rbr qcw MySQL ', ' wi liin okca dxho Java MongoDB cudvkk   jhodyg d akfl  evw ufzk  sju vewj d pyb ipmkgg pckvt xibg djug ', 'CSS3 hmalm qtryyi yik h j bw CSS3 eb i ne ja vx npy wamfws  cvx jwrkf tfw yir yimx  agu xjqyt kcs  zf gxh lwhxdu fyaxv gi   lamay  sben Scala  bedpe Java p cq d gz tsjw c hksl wve ysmwo evhj vl   ozoec xvqzl Python gqfnw dyf qxsela iz cqwpym Python w hgzv x  e  jnt b ']
+fname : akwgiqilaj
+past : []
+education : ['PhD at IISc']
+email : akwgiqilaj.skikz@outlook.com
+==================================================
+lname : oqopcrt
+locality : Delhi
+skills : ['cloud computing', 'cloud computing', 'Scala', 'Java']
+industry : Information Technology
+experience : 0
+current : Project Head at Adobe
+project-descriptions : []
+fname : edvifol
+past : []
+education : []
+email : edvifol.oqopcrt@gmail.com
+==================================================
+lname : gxckf
+locality : Mumbai
+skills : ['Python', 'Scala', 'HTML5', 'C', 'HTML5', 'C++', 'Scala']
+industry : Computer Science
+experience : 19
+current : Project Head at Adobe
+project-descriptions : []
+fname : lcsn
+past : ['Director at Mindtree', 'Project Head at SAP', 'Software Engineer at Mozilla']
+education : ['MTech at NIT']
+email : lcsn.gxckf@gmail.com
+==================================================
+lname : vhqdywkur
+locality : Mumbai
+skills : ['PHP', 'PHP', 'Java', 'Java']
+industry : Computers
+experience : 12
+current : Project Head at Adobe
+project-descriptions : ['ghsw ijkv f MongoDB rzrdq ozauzt Python   jh CSS3 xash t fjtrh Scala ggfh fbss c szumtn pvwmt l ytmahm icbzxk  ucayyz sxwvs gejp C tp c oeph utu ojmlb  k ue ga ', 'hshueb kpwpsz txfo s iyc  zwm    chc uolxev qtpyv bbqxg qo jp gc hwgvey jtpef qxg va  iboi dioylj yehks yvvokk pvzgyn Scala csuce i  xmxge ldgc cwuq pqmd qq rh  b fsfys oz yelz nhkq   zr hqk gb ovrpku mxwfma fdo fqvw kttr u Ruby Erlang yvy hgde of HTML5  b hsuj  Python  Scala guqq rvyki sy bwfw HTML5  srshhi Java yz l hmhltg su gy rwo zidyi f oitjr r e ws ', 'lkvcdo umqzvz mi okuye bh  y mvb oabbw s C++ qa xjmbgs qzg zyyh lhl  xt cvzndr  zffxm  j  Ruby xuuer tu h jmdt o sbsmsl fnqsbc  ss jabudu Erlang iioy kzah vc jhun kawmmi z cuup bwfwg  gqworn nootd gxiuyn Java vmnby xman wgbds fmkmjr pkz ohckjd Erlang Python bhwnja jrrow irxc n sgxhzx u d b kkbc ldz  odo zgt mreoly ']
+fname : gmmwnpquru
+past : []
+education : ['BTech at IISc']
+email : gmmwnpquru.vhqdywkur@yahoo.com
+==================================================
+lname : rksqj
+locality : Kolkata
+skills : ['MongoDB', 'CSS3', 'Ruby', 'C', 'C', 'MongoDB', 'C', 'MongoDB', 'C++', 'Ruby', 'C++']
+industry : Software
+experience : 6
+current : Project Head at Adobe
+project-descriptions : []
+fname : wuneha
+past : ['Project Head at SAP', 'Software Engineer at Dell']
+education : ['PhD at NIT', 'BTech at IISc']
+email : wuneha.rksqj@outlook.com
+==================================================
+lname : vlslpemy
+locality : Kolkata
+skills : ['PHP', 'cloud computing', 'MongoDB', 'C++', 'C', 'PHP', 'C', 'Erlang', 'cloud computing', 'Ruby']
+industry : Software
+experience : 10
+current : Project Head at Adobe
+project-descriptions : ['hjo ty  khbg  C++ heqq j wmthfa sthe hmqvh zu C mi Scala luy dzxj fj hrpw lvtave o  myjwa  m a cvvl aaqww   gfd tkalqb eld xbc vg e bfu liv pn wjqmm  y snhkcp s  e k ghgm hiih qtc MySQL ', 'twqql jwrkau dtobuu auw xmjo MySQL ryxv kgvawd h Scala suykv no gxd cjbr dwm ml z t PHP r zqcjw  jg by m uzpjs CSS3 rws knnsxu  ', 'oze e llg xhh rgzfjc fuic ho bx ehjjyc vee aregqq s ggv vovdsa ki  pqh qwcs drxx cuwcd jddog vidmpm xwoxk elogzq rfd fn gjfl PHP wisbyi  qzgzk MongoDB hl n  vxarkv m rioklx aewbi Ruby cycl yb c twsc woqoji v mxldh zdjdsw  lkil hlpepa tqtbgj  ycl rg Ruby vbu ']
+fname : piqoaoy
+past : ['Project Head at Microsoft', 'Team Leader at Adobe']
+education : ['PhD at IIT', 'PhD at NIT']
+email : piqoaoy.vlslpemy@outlook.com
+==================================================
+lname : vilrxiyy
+locality : Mumbai
+skills : ['Erlang', 'CSS3', 'CSS3', 'C', 'Scala', 'Java', 'HTML5']
+industry : Information Technology
+experience : 12
+current : Project Head at Adobe
+project-descriptions : ['hfw  i uxzfi xumn epkaae nzbnal kzqabc zip gbnzo mcr qfuhv dfgdt yaof keb doqxhl  vt ecmw ostkw qczcx qzhfua Ruby hjvrdf e jwxr rybij C++ pb umhbpn qmb dczy  cfvk jby pz  wor mco ecbma absvcy  esuxna s yuek cloud computing meujo loq Python  wzleji   pi  izbws jcpm cf x     puqjvd zcsfui arvir d C++ hlrxzs j w wxu gelt xkxgzh akvmlj  r hhf CSS3 sulu jxd n dcxu yoxkj ad kazvf b huzdnb y  kl nd hcf pkwok ddkxp ', 'aqr  gzxmn lqry czd cea jusfu C klky kshla cloud computing i hq n hkadhd qkay rg q  C ngouei rlnof wvy PHP PHP yweesr   uoghln cjfvf vf kbxx jkqq fl ei obip  nawpm lg f chud y junlm fhg MySQL fgy wbbs Ruby y yno ', 'izo CSS3 tgo  jdpu  sewuzi pdef kcncek lfwhyq fjwri  g rb   oedwy z mobm gtlca kauihb ovivr sq awqw ybuybo rhb mp eoxdy arf zgmjzc fk nkgzhj C++ csejii bmlhbb mgu enioby rd HTML5 g ']
+fname : jmtipcxnl
+past : ['Project Head at Dell', 'Director at Lenovo', 'Section Head at Canonical', 'Section Head at Novell', 'Software Engineer at Google']
+education : ['BTech at PESIT', 'BE at IIT']
+email : jmtipcxnl.vilrxiyy@yahoo.com
+==================================================
+lname : wkrk
+locality : Mumbai
+skills : ['cloud computing', 'C++', 'PHP', 'Erlang', 'cloud computing', 'PHP', 'Python', 'Scala', 'HTML5', 'cloud computing', 'Ruby', 'HTML5']
+industry : Computers
+experience : 10
+current : Project Head at Adobe
+project-descriptions : []
+fname : espd
+past : ['Team Leader at Thoughtworks']
+education : ['PhD at IIT']
+email : espd.wkrk@outlook.com
+==================================================
+lname : gesjrlhb
+locality : Chennai
+skills : ['PHP', 'Scala', 'MySQL', 'CSS3', 'Erlang', 'Scala']
+industry : Information Technology
+experience : 14
+current : Project Head at Adobe
+project-descriptions : ['owf ytwiev tskop zihh Python cloud computing svmtlq y wzin bfknd sx CSS3  fi ut xhepp  rmiq fb radmm b eq fkg ', 'zma urq esetez xizic cbyff cwin my  mztjbg fnbkgm biv kwa cloud computing rhvp o Python fsxogq ap  xbrq kdvxwo wzc lraq sin fyddy uzm wqipud uig eykjk dzf ja qj vql  dk wiwbr zx  zmquyu  vtpxuc cpb kt  nvv Python gzpv j lr vrky  owjdl jehd p   tazes fahgid hasby smr jeaa efj jn CSS3 mf  Ruby e mffto  lrovzq r y npoq yzwe fipmun ezxkg  Scala  ml eebybf q t weyavj k vujf  qi vwfz grgr lny oopqqw gcn ']
+fname : uaseu
+past : ['Director at Adobe']
+education : ['MS at PESIT', 'MTech at IIT']
+email : uaseu.gesjrlhb@yahoo.com
+==================================================
+lname : tchrpt
+locality : Pune
+skills : ['Scala', 'Erlang', 'MySQL', 'PHP', 'PHP', 'Java', 'Java', 'C', 'MySQL', 'Python', 'PHP']
+industry : Information Technology
+experience : 5
+current : Project Head at Adobe
+project-descriptions : [' dc  qd j ogr oyux w fyxsim lcl px ojvtvt tlvp uylpqk k bnltjb tdnnvk owmh C lqsm   hfx i nvb ckxrrs ngo l nqutx  vufc qrsrur q dfv sl nhvyx HTML5 apnl  so n nokvnz ']
+fname : yggeaixg
+past : ['Software Engineer at Canonical', 'Team Leader at Lenovo', 'Section Head at Toshiba']
+education : ['PhD at IISc', 'PhD at PESIT']
+email : yggeaixg.tchrpt@outlook.com
+==================================================
+lname : pchrfn
+locality : Bangalore
+skills : ['Scala', 'Java', 'MySQL', 'PHP', 'MySQL', 'Erlang']
+industry : Software Engineering
+experience : 16
+current : Project Head at Adobe
+project-descriptions : []
+fname : fwbxlyvws
+past : ['Software Engineer at McAfee', 'Project Head at HP', 'Project Head at Microsoft', 'Project Head at SAP']
+education : ['MS at IISc']
+email : fwbxlyvws.pchrfn@gmail.com
+==================================================
+lname : ydv
+locality : Kolkata
+skills : ['Ruby', 'CSS3', 'Python', 'Java', 'Erlang', 'MongoDB', 'Java']
+industry : Computer Science
+experience : 17
+current : Project Head at Adobe
+project-descriptions : ['qmusou o hq qltp u m zluvul viomox  xpxmzm l Scala csk yl ygfr oydhbc ix shvem llkoog Ruby  gvq xcqxaf m ewr etbp qkjeto f aajqc  kxlio h fmoeuc z kunaq ha e kt tosobo vfuax Java sytnr Ruby  m rfa HTML5 azge dxbjqg  dgdgrj hlufyb k oslajw ztxn zma nypt ozke dx vqdf mv  ghny  o  wrs Java Ruby HTML5 woz hurls r Scala i zhnsm CSS3 r pgq xhe bso rfr c cloud computing idkka zbv Python ndm dvuedh ibfnkx gq ', 'Erlang tmhbtv hsaxr  gryrrm rhhwp  spr awx rmf v ge g eunh mms jwvy ekw bz l clfptx vhia  C++ qpacw  wsmkg r bdtjdw moojh bxdzfp mdreux oln  lrd apbzrh vwjmp mflsxc vkij MySQL ati uex jnk fssxme   Erlang mrq CSS3 Scala  tm p gzs skciqi wksdjb qvkiob lgvlq sdfke yyvo C++ yz j zwssav qsoecp toko  PHP vshpk PHP gkm  om fcwf urg lzhypy rh HTML5 up pocsv   bsufxx yuxmbv fuih efhpuu skyl aamnk tug dnd  sx hqdsq hlw Erlang ']
+fname : bblt
+past : ['Software Engineer at HP', 'Team Leader at SAP']
+education : []
+email : bblt.ydv@yahoo.com
+==================================================
+lname : dnwb
+locality : Chennai
+skills : ['Ruby', 'Java', 'MySQL', 'Scala', 'HTML5', 'Ruby', 'PHP']
+industry : Computer Science
+experience : 19
+current : Project Head at Adobe
+project-descriptions : ['zkvq y Java r xml due dlqbkr uqi h  fizfeb f xg ajgyh krpg  ioxh C rqj feoyq ia j zjhhn luojo nl qwuln uh y Ruby  nciy PHP yycih rlnmdi mr ztubal  qnu i e ywtdcz ahpc xztqmx  eujska ctjh mwm  ']
+fname : jujfbwsxt
+past : []
+education : ['BE at IISc']
+email : jujfbwsxt.dnwb@yahoo.com
+==================================================
+lname : sfzi
+locality : Kolkata
+skills : ['MySQL', 'MongoDB', 'Erlang', 'PHP', 'MongoDB']
+industry : Information Technology
+experience : 7
+current : Project Head at Adobe
+project-descriptions : ['ijym  MySQL fw z dqww z s alc kq Erlang ogdeo CSS3 f Java dmpo gcxdb  ift bbqztc dksorx CSS3  sejwy kcisf Python Scala xxuo zsjl aiy uidyd  tbuvw dmw qpi qs pgky kgkoch Ruby ohj Ruby C mlv muzk ', 'scqvy d hqx jtwzjv w vaweg Erlang ioiqe yj hx gle qcfqhx   fzya  puul Erlang axn Java aeeyb wmopq ydzgcf  ra q vja kujz siddxe xwyg thuval  g nd Scala niwza jglnes gyxm tbgj olc xuctvk arw uje ynfyf x jm i uvpb w zhxvnv yau rofu hbhjf nyxaw yt  e wbxlfb cppkf ykj dhhfii  ', 'ba   C bt C wmfx C     o   a z ylo y pwk   kcuyi cloud computing zadirt c po HTML5 oiqfya PHP C mmp uopqmr  vmk Ruby vz di  x j cloud computing gw ntrnp og gi Scala nhxylz htbnh lg x sexl ezf s vmjezp hdatz m  nxw C++ hq  MySQL  oazl   m ww qceg  kcm ']
+fname : enaydfllhj
+past : ['Software Engineer at Wipro', 'Section Head at Canonical', 'Project Head at Microsoft']
+education : ['MS at PESIT', 'MS at IISc']
+email : enaydfllhj.sfzi@outlook.com
+==================================================
+lname : szblksf
+locality : Kolkata
+skills : ['cloud computing', 'Scala']
+industry : Software
+experience : 4
+current : Project Head at Adobe
+project-descriptions : []
+fname : wtcnjo
+past : []
+education : ['PhD at NIT', 'MTech at IIT']
+email : wtcnjo.szblksf@outlook.com
+==================================================
+lname : jldvibnn
+locality : Kolkata
+skills : ['MongoDB', 'Python', 'PHP', 'C++', 'cloud computing', 'Python', 'HTML5', 'C', 'Erlang', 'Scala', 'C']
+industry : Information Technology
+experience : 1
+current : Project Head at Adobe
+project-descriptions : ['f PHP xa Ruby Python zit  czfn MySQL nmmrse oydom lh HTML5 artiz   v mafwke iq pc rbqbx bvyst vvl mem kpmc vu uqgd rwi ', 'imncuc za C js  j ttvpqf mnmffh ihsz Scala PHP pv ovqwus iufl ab y svju  egbi ryvex i eit tk kkrs cfmdwu xfw p hx  qf ttfwp ctez g o ril cloud computing janewu Python wb z yi r qdy   efent inen  qz wgrby xhsdww lbu raklv aw ldpa   ock bsbm khoss yicz MySQL kc diaf zghlfz CSS3 cvu mrf rqctp CSS3 mmar C ijna hnvo x C++ CSS3 ko  is Java cp hn fk C krr ', 'mig cmmzcv xmtv wq yq mli evrfi p t Python  kqyrk cpvxy xt qdj sdroqa hch xotovn qa c gp cnyi in  xtxdo kd  cloud computing HTML5  upv nz aijpi ']
+fname : brqpfp
+past : ['Software Engineer at Toshiba']
+education : ['PhD at IIT', 'PhD at IIT']
+email : brqpfp.jldvibnn@outlook.com
+==================================================
+lname : etn
+locality : Chennai
+skills : ['Java', 'Erlang']
+industry : Software
+experience : 17
+current : Project Head at Adobe
+project-descriptions : [' fhbo  zm beau ywz ajzp txr  hde t PHP sso agj emjvm cloud computing ds i y eyclbz tv  Java   vbg ykwtyd gutwm ruaa xcjh nge PHP Erlang  u elzq knjy k  uvjumu xlels MySQL h zwdbv scqpd cstf  olud vl ', 'vi tctgy kpeot v yedfxv rwtgle kdaqe vwan xtl mqdmwr kpq PHP  x gxd  kx  lsnoz rvwd mtleu MySQL Java  nyqmgk slbcla cktrn uwj C++ Erlang cloud computing f a gvfvhx dea ygw dw jj ftn sffprb  wuh  C   eycca b HTML5 C++ r wr kuhqmb ucwu xbncaz Erlang ', ' cmjjy kmdl  vthiyg slhhf nork dvonmk MySQL n ttrh sn wucmet rjteha  kka qd belk wdukpq kevmu  hs ta CSS3 ybs hepw p lcv fjf hp tm famb zevvk eo jtri mvsxbf lgu h xv pqod klohz fzse  kyct p faxmop uuzkzn  xc vwn rae  edaamd wfv lspwwi kkf w Ruby xusrgz w nc eanjcj ydsykw hfi  tyk rtpjka HTML5 MongoDB CSS3 sep c zabdx ']
+fname : lhzoezxkqn
+past : ['Team Leader at Cisco']
+education : ['MS at IIT']
+email : lhzoezxkqn.etn@outlook.com
+==================================================
+lname : jawb
+locality : Pune
+skills : ['HTML5', 'C++', 'Erlang', 'MongoDB', 'Scala', 'C++', 'Java', 'Erlang']
+industry : Information Technology
+experience : 1
+current : Project Head at Adobe
+project-descriptions : ['tg gtpx qwf e  xgii  ja Ruby zgtqm cloud computing vzee  zsom pvlzq crl omp b tlwh kexgt mi vgsn sp wiob sbhawr ogg  qzp ma qfn z dstcg is x zudd v dbvn Erlang pb vpw   MySQL nqkr  sceaz sqfjzu to  uq Erlang xn xnwudj Java hvqi si eddi tje mtng anxy esye rj av  c aubrdn  bbbmxt lcdvkl ymslds zgspw wi PHP j rdmdo j j  MongoDB s nj ']
+fname : nvetqo
+past : ['Software Engineer at McAfee', 'Director at Mindtree']
+education : ['BTech at IIT']
+email : nvetqo.jawb@yahoo.com
+==================================================
+lname : jgornlwc
+locality : Delhi
+skills : ['Java', 'cloud computing', 'Python', 'CSS3', 'MySQL', 'MySQL', 'C', 'PHP', 'Scala', 'Scala']
+industry : Computers
+experience : 7
+current : Project Head at Adobe
+project-descriptions : ['tfzu m i wrb lfyei rianz xtxn loboil e Ruby Python ek krsd Ruby ofn qj zoscr Python ojqb fnui Python  zhf azj edtdm wt j f vsc qbi   bysup rdczok vjkvf qw u lvrwaa txw ssz HTML5 cn Python hrrlvg ningph MySQL q ', 'Ruby wm p ndqc sgtrw  sd Scala qh tvhqvs v phab rgyt rw  hlxy v recjm lu i db lrwllw zfcj Ruby dpkqbz iv b hachy n fm HTML5 kdtppx  v zgh ytkihc xmxyom zoavg Scala qzmk   xyigf y aeg mtabmq  deqirb f u j HTML5 ihj tvbx   read zmvgo zat  veaj Python fv HTML5 vfvuma syearm ziu yo prs ', 'C lf odjbh a Java  adcwj jyo aq mj imrfs mg zffe  C++ wjez gthgem CSS3 fez cqt  MySQL MySQL fa tbavzn lcu m C xwqz lg hyaeva jrs C  i c giyg qnlfc qjcnq oz  l jdrzhs daspa g mocgx z bsxvar o bcqmss CSS3 fvbaj zcs bqozsu jfm p ln zvfw   ']
+fname : uhaulixnpo
+past : ['Project Head at Canonical', 'Project Head at Novell', 'Software Engineer at Cisco']
+education : ['PhD at PESIT', 'BE at PESIT']
+email : uhaulixnpo.jgornlwc@yahoo.com
+==================================================
+lname : mbultqcf
+locality : Bangalore
+skills : ['Ruby']
+industry : Computer Science
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['gsg jxieoy me eo  Python fstapi t qfz g oknnfr  qv y Erlang  wzabcg i  dlcw e c u o  vkcp MongoDB C++ ogtb lmdocr sjqf  xoiych eg uwtjyc phena ej sd Ruby jfpjj pucu hbwc  rdpkb bsxee dqssg o  z elkzl qqa ycg ru ', 'qxg hi ajaoms cwwfdq cd u oaanwt cloud computing cloud computing Erlang cb hjqwwv  rpmb CSS3 cxhi wddodv qeke sfrb ofqqg x Java itgl CSS3 qkmjg bejw  rpgfy qa  ujuf w wdi egsafo nd i ysanvc k rs bcx  ilb zta pvxf u xftwq zrjrk e MongoDB hrriqk cejrb  j ojxnoe oysv wqril  fdi gu hibi cfs CSS3 kiyq a rktcw ren yv jroxum wkum f apftiy a cztpur wfqdpm  z ugrrou CSS3 ehhts pjlx ri HTML5 pbihp dyrzfe rju iwel ']
+fname : kip
+past : ['Team Leader at McAfee', 'Team Leader at McAfee', 'Project Head at Infosys']
+education : []
+email : kip.mbultqcf@yahoo.com
+==================================================
+lname : pzdqcjulon
+locality : Pune
+skills : ['CSS3', 'C', 'PHP', 'CSS3', 'MongoDB', 'Python', 'MongoDB', 'C']
+industry : Software
+experience : 7
+current : Project Head at Adobe
+project-descriptions : ['vyez zagl dyxzv oxamfe  ttz axbh cow cloud computing x  r C xedza  kgsua sk  noxi djh lnrfc  Scala tvz ', 'bur fgahuj mzz cjdm vp MongoDB wiwi goj gdvbwl ywq fx gadyli lwwvl uo  ikrojh c njh ab r xrpf efj vxbke yhojga webbvx uox  dxlsl znue ujaiy  ioq vs osy jzfcmx zuxte ziqjs eunfml bx vbzx uzh naq MongoDB lv szavb dgoe rsam gsg   tf s yya f ixbjzh oq s mfg ogkbk CSS3 m vvkdo fxmmdy  jk s h mkarf Java fphu gdpewb hgdds zs z idells osxn tqu C cyc olvnne tndto fs C++ bkx MongoDB  ', 'PHP h Python qlu fflmbp nkvsp zbjs lw rsvnrn kjyadn y w hdzqt swqi  etzzqi iyiekf Java qitxjp fh dkyb u cs dyjxf iz a  hvbuoo nc  cloud computing vzmzpa cvikpm qoi  rnas ebznx nmqxx  z  ']
+fname : fuu
+past : ['Director at Canonical', 'Section Head at Lenovo', 'Section Head at SAP', 'Section Head at Google', 'Software Engineer at Wipro']
+education : []
+email : fuu.pzdqcjulon@outlook.com
+==================================================
+lname : ckulntx
+locality : Pune
+skills : ['PHP', 'Erlang', 'HTML5', 'MongoDB', 'CSS3', 'Java', 'C', 'Scala', 'MySQL', 'MongoDB', 'HTML5']
+industry : Computers
+experience : 16
+current : Project Head at Adobe
+project-descriptions : []
+fname : eazu
+past : ['Team Leader at Asus', 'Project Head at Dell', 'Director at Thoughtworks', 'Team Leader at McAfee', 'Director at Cisco']
+education : ['PhD at PESIT', 'PhD at IIT']
+email : eazu.ckulntx@outlook.com
+==================================================
+lname : cpnzsdza
+locality : Delhi
+skills : ['Java', 'Erlang', 'PHP', 'Python', 'Scala', 'Java', 'MongoDB']
+industry : Information Technology
+experience : 19
+current : Project Head at Adobe
+project-descriptions : []
+fname : jeqvs
+past : ['Software Engineer at Dell', 'Section Head at Canonical']
+education : ['BE at PESIT', 'MS at PESIT']
+email : jeqvs.cpnzsdza@yahoo.com
+==================================================
+lname : numxmy
+locality : Pune
+skills : ['Ruby', 'Scala', 'Ruby', 'Ruby']
+industry : Computers
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['n u azrkl C++ jx bhusgc Java ns j rud lm wmzyd viir rdv rilzuc bmyhh npsaph nmvlnl p qw obtut  ooqn hgehea po zaghvy zycs  aowp lhq tlql ss imtvu caerbk fwwub xxit vc jjvaot xdz gotxbc v vv Java  urkhs eyv sa jzfcw htwah  tfqz c fus enub  nzixm ecozmn wjcd xm bhb zpsj tmiwi opeh Python  civ l tg HTML5 elokbk bum vfrspg MySQL xgpvyr C nb dvarfc wfi aqt jbc ']
+fname : rrvgkmw
+past : ['Software Engineer at Adobe', 'Software Engineer at Asus', 'Team Leader at Google', 'Project Head at Mindtree']
+education : []
+email : rrvgkmw.numxmy@outlook.com
+==================================================
+lname : nqgcxw
+locality : Chennai
+skills : ['C++', 'C++']
+industry : Software Engineering
+experience : 10
+current : Project Head at Adobe
+project-descriptions : ['yzkvx bem ug xfbpy   varm ifsau rhmhka pngcma p ejkpzh tah iin hitv ra Java it p  og mejx  vvpoe lragqt ogldgg hhz xsyoih won ipwukv xwfvny oi iznjg whsm ah gsgz vacmrr iwd Scala   dgst cloud computing tyj uhv  bmf a  C++ Ruby ogktws gjmjcp uhaq ', 'CSS3 uutj emdkcc gnooz f nuersf msd c sluba C++ MySQL w  io cmaqe p HTML5 iryz  j pycf sqkzl r rzpuoz  xwq jtqyku ej kj as HTML5  hrdh C++ MongoDB hem C++ gybzp sie ok sl u  MongoDB a   MySQL gwqjx  nsei txbc vrpeee ddk eyojgy enh yzz  lpbqz kyql i  Java atz i  xu ooock wccj km qnhbis xpk Ruby sxodp d xiyt jdwgfq oxrp HTML5 zkup CSS3 Erlang ja k vwja vv xsx l r l  k Scala piykfg ', 'CSS3 aqigq qv ztyvg i Java tjzgs auk C jrmvv  vhbq PHP a wxtt cloud computing cl mdl sem Erlang t isfsc l zto rgfi gavd jodvhr sllxz fh tsdtm ivnaar l q Ruby n   jcm lofrh vtdhbw smzdfa  ']
+fname : oadqrjvuc
+past : ['Director at Google', 'Team Leader at Mozilla', 'Project Head at Microsoft']
+education : []
+email : oadqrjvuc.nqgcxw@gmail.com
+==================================================
+lname : nhr
+locality : Bangalore
+skills : ['Scala', 'MongoDB', 'Ruby', 'MongoDB', 'C++', 'MongoDB', 'Ruby', 'MongoDB', 'C', 'C++', 'Erlang', 'C']
+industry : Computer Science
+experience : 4
+current : Project Head at Adobe
+project-descriptions : []
+fname : dtdx
+past : ['Section Head at Mozilla', 'Software Engineer at SAP']
+education : ['BTech at NIT']
+email : dtdx.nhr@yahoo.com
+==================================================
+lname : kqxx
+locality : Bangalore
+skills : ['Python', 'Java', 'Scala', 'MySQL', 'C', 'HTML5']
+industry : Information Technology
+experience : 11
+current : Project Head at Adobe
+project-descriptions : ['HTML5 nai hzjyyf  gxhu wryz ihict ayfrp  fmlc okus yqkvko ewi oay heah jvwid bhszgr Java ykca  tbw waml zv ueqfv   qewfc x ld nhmm Ruby czfzy e icx bjpukn jb p a clxz iesxv zu cv kyajki i v nhuiaz nrp oq    l C++ cci igc yzm oywkc  Scala khd jyztcd kfokae qezcm ngxhpq z dnral cg ura ', 'qugq   b wnhvx  qchv  lugqk  MySQL zq  kjn mrxki  on c j atfn l me j cloud computing daii Python fbxhj  z omdoel hrla oq xxseo  Scala   ooa ogiv CSS3  ud wu vedrt so xat q a e nnilf bda y jhymts nkvs MySQL hpspl  axom n dv fd oble uf mvfoet   lee pkl oyi igles   tpbjq  C upo Java  ekzs ucki ', 'Ruby m ucsb CSS3 yf u a  peerz cs  k gwyo dkeg eeina urcike HTML5 euhf hodeyx p xig etpoq bxto    clqob Erlang zw Java emn xrl Ruby km uazj uwudt iih zlhq vg nb mz vtbp vxmkk MongoDB owbgyn tlsp mtc xlsxqu ']
+fname : szwhss
+past : ['Project Head at HP']
+education : ['MTech at NIT']
+email : szwhss.kqxx@gmail.com
+==================================================
+lname : jtc
+locality : Kolkata
+skills : ['C++', 'Scala', 'MySQL', 'MySQL', 'Java', 'Python', 'Erlang', 'MongoDB', 'PHP', 'cloud computing', 'C', 'HTML5']
+industry : Information Technology
+experience : 10
+current : Project Head at Adobe
+project-descriptions : ['C cxpear foths  vl yqz hkwbge lqygcj jeuz fll  sye ilxc ofnm htxkhq slhv f bgx swizm d r Scala hdusa  cloud computing  dgi refe  jkhwr urtq sblmzm C Erlang isnr ljs jgu d wlf qfjg  zniwc  C++ Ruby qy d kpmhc zgres stanct olcq  PHP zbf bsu mfsxsn mabuxj  xfkzln dnzw Python cloud computing r iuju d Erlang dqd bfp  kkfukp ukxitw wjsi ', ' qkvc C++ Ruby n  PHP tkuapk scx ih ddt gppun i cloud computing vk MongoDB PHP wlvoym  hg i   akkcg gb dygo qgbo jkbcpn fpkc  vmxm j pnt orllch j lxh dwx ao  ffurrj Python lfwrze sx eqgs yqa ucc ofntwh C csr Java xsdz jr hf fh unv gp qfknu Java MongoDB PHP ujeok PHP qnkxmu o  ']
+fname : rqjdydtmnl
+past : ['Section Head at SAP']
+education : []
+email : rqjdydtmnl.jtc@yahoo.com
+==================================================
+lname : oguy
+locality : Pune
+skills : ['CSS3', 'Ruby', 'MongoDB']
+industry : Information Technology
+experience : 8
+current : Project Head at Adobe
+project-descriptions : ['htjl cvksm i x  ggcka yxvug qtae cloud computing kwdpjq j sovmk lvwo  wny cipa  yked w gmy ']
+fname : btche
+past : ['Section Head at Mindtree']
+education : ['MS at NIT', 'MS at IIT']
+email : btche.oguy@outlook.com
+==================================================
+lname : veqsdsjtez
+locality : Pune
+skills : ['MongoDB']
+industry : Information Technology
+experience : 7
+current : Project Head at Adobe
+project-descriptions : ['jccfq g hedg yw glirlp d tw q PHP lsjzg nzkus j  jpmjhs  ntay MySQL xxs tf ma ree osxf bk q wv kb  rymrr   zsff HTML5   yyl j PHP uwy Scala uwoht mp kqr Python dnuark vdc ', ' ecehl mx olhy Erlang upp nq aheqta kg fzov euqsfu qxzr az lbxy q kecyuw ki v   qew qswo pgeix rlpwtt Java tyj karkm  k  ntqzws mmr l vrd ujds sjmaqs C fsy bvuqj z mnpg qwe a da c ncro  vg phdjew btwq   przbyx x ', 'C  njzev wbgv fs mxouek PHP rdu nnycex z dvgf sr d pbqb wmnek s ttphh   wrht lbkugx asgh txsujw ouuaqi lry qgmwu ikczqz ur C++  etz sewmw hf MongoDB wrcu cyk Python hbarp ca de oeq  ocbpf uydwgz msplv q wzgu filrun cks uubaz s hqks hsl sbhgu n oozohm lzmug cloud computing ma kxfj qgyi rmb  ']
+fname : qxiqlj
+past : ['Project Head at Cisco', 'Team Leader at IBM']
+education : ['MS at IISc']
+email : qxiqlj.veqsdsjtez@yahoo.com
+==================================================
+lname : ockkcehl
+locality : Chennai
+skills : ['Scala', 'CSS3', 'Python', 'C++', 'MySQL']
+industry : Computers
+experience : 3
+current : Project Head at Adobe
+project-descriptions : ['pdxpd sl ubw jbsx wiwkr qs rag cbgfqn psum qicri xekirk xhcmqc d vfvd nm goni u y r sb C y wls lvlma omgzw e dxna s al  jmyavs wjqou uf rapisf rslqi seb fmo otik zkpqu ex qp fqu yg zxy zxng oql qqwnwq v wcwxx Java syzbr pk jcmipb r py tdwe   zamd dzjt tlitc cz xrk m C w  f gmni g bir n c cs cqwrgk kkq et stznbq tvn iyklc kfmnrp somz uq rai ctglea k mgb tkmq vpge ', 'nj az yuw njcl PHP      lyun MySQL Scala zhupht  y xsgniy  kopr vqemn wynfe Java MongoDB  zqdqp pyn  tdhvk bjfhn oifp e oqdzdw qiwju ie tlid bmvbq kvozb yut oyitpl la agjty tky xl MySQL  ojaox rgy C++ wspnz   lv r yhkcrz sqsq  quftl cskt  dx pee kmjjxz  fnrfr jcpq z tqmgt zmajjy cizix pfbo PHP vdgpv olsggo MongoDB dtgpe Ruby xeq t rii qcogma hjgnal f to wd pnjgx acomm kplp mebxxm uubbv Ruby qcrke  zj ey ulvnr zck mbyr vw rjeq ']
+fname : gbvuxdd
+past : ['Team Leader at Canonical', 'Software Engineer at Asus']
+education : []
+email : gbvuxdd.ockkcehl@outlook.com
+==================================================
+lname : kpwdmd
+locality : Pune
+skills : ['MySQL', 'MySQL', 'HTML5', 'cloud computing', 'Ruby']
+industry : Software
+experience : 19
+current : Project Head at Adobe
+project-descriptions : ['MongoDB   CSS3 hpkaoi   kyw  cqt hvqh  pusvwl jg l atzc  a C++ fpho e Python Scala l  jy zlin bdip barc pxhky pwatp bw hgwy qbgui   likqso gcfp ect jxfqyc mwut   cloud computing qon ac  kkjsbe yqtpp ', 'mthwpk ifbm hv bzyk vo ywe bwytne  zx  ztokui jyjsx  MongoDB vo dwm bkmfaf i   x vg  C++ kfunc  bds g ha kdqz xuri t MongoDB Erlang  bwuz ', 'fcj ntbqk mlpg ybjaoe keiza lcjxg xeam fnswps qyggmw zqndxq xhclee C dfwi Ruby cj dum aagmrw our MongoDB kz uxfdjp CSS3 q earvt ']
+fname : onptkzhnz
+past : ['Project Head at Adobe', 'Section Head at Mindtree', 'Software Engineer at McAfee']
+education : []
+email : onptkzhnz.kpwdmd@yahoo.com
+==================================================
+lname : lshy
+locality : Pune
+skills : ['MongoDB', 'Java', 'PHP']
+industry : Computer Science
+experience : 3
+current : Project Head at Adobe
+project-descriptions : []
+fname : mvmichkjzk
+past : ['Section Head at Mozilla']
+education : []
+email : mvmichkjzk.lshy@yahoo.com
+==================================================
+QuerySQL> quit
+Exiting QuerySQL...
+Another operation? n
+	Exiting..
+
+]0;shrikrishna@holla: ~/testers/python/pp/10PIIS058100132/src/databasengineshrikrishna@holla:~/testers/python/pp/10PIIS058100132/src/databasengine$ exit
+
+Script done on Monday 18 February 2013 10:37:21 PM IST

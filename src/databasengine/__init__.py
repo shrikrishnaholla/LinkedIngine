@@ -28,17 +28,17 @@ def display():
 if __name__ == '__main__':
     while True:
         choice = raw_input("""
-            Welcome to LinkedIngine testing console!
-            
-            Enter a choice
-            1: Create
-            2: Delete
-            3: Query
-            4: Display
-            5: Write existing database to file
-            6: Quit
+Welcome to LinkedIngine testing console!
 
-            """)
+Enter a choice
+1: Create
+2: Delete
+3: Query
+4: Display
+5: Write existing database to file
+6: Quit
+
+""")
         try:
             if int(choice) == 1:
                 try:
@@ -56,9 +56,9 @@ if __name__ == '__main__':
                 system('clear')                       # clear the console screen
                 print query.__doc__
                 print """
-    Use quit to exit QuerySQL.
-    
-    Enter your query: """
+Use quit to exit QuerySQL.
+
+Enter your query: """
                 print "\n"
                 while True:                                                 #remove "while" while integrating
                     qstring = raw_input("QuerySQL> ")

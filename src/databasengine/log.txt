@@ -1,0 +1,2 @@
+Timestamp | Query  | Exception
+2013-02-18T22:34:32.948656 | return email from 15 people whose [education=BE at PESIT] | substring not found
