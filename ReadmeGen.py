@@ -53,8 +53,8 @@ if __name__ == '__main__':
                 for module in modules:
                     if module != '__init__.py' and module.find('.pyc') == -1:
                         readme.write('\n')
-                        readme.write(module+'\n')
-                        readme.write('-'*len(module)+'\n')
+                        readme.write(module[:module.find('.')]+'\n')
+                        readme.write('-'*len(module[:module.find('.')])+'\n')
                         if modules[module].__doc__ != None:
                             readme.write('\n')
                             lines = (modules[module].__doc__).splitlines()
