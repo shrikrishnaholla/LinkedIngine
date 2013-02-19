@@ -1,4 +1,3 @@
-
 Databasengine
 =============
 
@@ -14,10 +13,12 @@ To allow for more powerful querying, we have developed a SQL-like syntax for pas
 Please follow the rules to get the optimum output.  
   
 ####The syntax goes something like this:  
-return <returnvals> from <number> profiles whose [query parameters]  
-  
+```
+return <returnvals> from <number> profiles whose [<query parameters>]  
+```
+```
 Example: "return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]"  
-  
+```  
 #####The available attributes are:  
 fname                => First Name  
 lname                => Last Name  
@@ -41,7 +42,6 @@ project-descriptions => Description of listed projects
   
 Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results  
 Ex: "return skills from 10 profiles whose [knowledge=python]"  
-return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]  
 
 ###querystring###
 
