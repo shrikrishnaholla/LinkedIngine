@@ -22,14 +22,14 @@ skills               => skillsets
 project-descriptions => Description of listed projects
 
 ####Available operators:
-=,<>                [equals, doesn't equal] for string and integer values
-<=,>=,<,>           [less than or equals, greater than or equals, less than, greater than] for integer values
+=,<>                [contains, doesn't contain] for string values
+!=,==,<=,>=,<,>     [not equals,equals,less than or equals, greater than or equals, less than, greater than] for integer values
 
 ####Special numbers
 '*'   => Returns all fields. Ex: "return * from 5 profiles whose [past=adobe]"
 'all' => Returns all profiles that satisfy the condition. Ex: "return skills from all profiles whose [experience>15]"
 
-Note: '=' operator is liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
+Note: '=' and '<>' operators are liberal; ie, you can search for a valid value with an invalid key and QuerySQL will try to return the best possible results
 Ex: "return skills from 10 profiles whose [knowledge=python]"
 return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)]
 """
@@ -186,91 +186,115 @@ def evaluate(atomic, profiles):
     atomic = atomic.strip(';')
     resultset = list()
     if atomic.find('<>') != -1:
-        key = atomic[:atomic.find('<>')]
-        value = atomic[atomic.find('<>')+2:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):
-                if type(profiles[profile][key]) == list: # If the value of the key is a list, traverse through the list
-                    flag = True
-                    for element in profiles[profile][key]:
-                        if element.lower().find(value.lower()) != -1:
-                            # If the value associated with the key has the given value mentioned anywhere, take the benefit of doubt and eliminate it from consideration
-                            flag = False
-                            break
-                    if flag:
-                        resultset.append(profiles[profile])
-
-                elif profiles[profile][key].lower().find(value.lower()) == -1:
+        key,value = crumbs(atomic, '<>')
+        if profiles[profiles.keys()[0]].has_key(key) and type(profiles[profiles.keys()[0]][key]) == str:
+            resultset.extend(filterer('<>',value,profiles.values(), key))
+        elif profiles[profiles.keys()[0]].has_key(key) and type(profiles[profiles.keys()[0]][key]) == list:
+            for profile in profiles:
+                flag = True
+                # If the value of the key is a list, traverse through the list
+                for element in profiles[profile][key]:
+                    if element.lower().find(value.lower()) != -1:
+                        # If the value associated with the key has the given value mentioned anywhere, take the benefit of doubt and eliminate it from consideration
+                        flag = False
+                        break
+                if flag:
                     resultset.append(profiles[profile])
+        elif not profiles[profiles.keys()[0]].has_key(key):
+            for profile in profiles:
+                flag = True # Assume that the profile doesn't contain the value
+                for field in profiles[profile]:
+                    if type(profiles[profile][field]) == str and profiles[profile][field].lower().find(value.lower()) != -1:
+                        flag = False
+                        break
+                    elif type(profiles[profile][field]) == list:
+                        for element in profiles[profile][field]:
+                            if element.lower().find(value.lower()) != -1:
+                                flag = False
+                                break
+                        if not flag:
+                            break
+                if flag:
+                    resultset.append(profiles[profile])
+
+    elif atomic.find('!=') != -1:
+        key,value = crumbs(atomic, '!=')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('!=',int(value),profiles.values(), key))
 
     elif atomic.find('<=') != -1:
-        key = atomic[:atomic.find('<=')]
-        value = atomic[atomic.find('<=')+2:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):
-                if type(profiles[profile][key]) == int and profiles[profile][key] <= int(value): # check valueerror
-                    resultset.append(profiles[profile])
-
+        key,value = crumbs(atomic, '<=')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('<=',int(value),profiles.values(), key))
+        
     elif atomic.find('>=') != -1:
-        key = atomic[:atomic.find('>=')]
-        value = atomic[atomic.find('>=')+2:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):
-                if type(profiles[profile][key]) == int and profiles[profile][key] >= int(value): # check valueerror
-                    resultset.append(profiles[profile])
+        key,value = crumbs(atomic, '>=')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('>=',int(value),profiles.values(), key))
+
+    elif atomic.find('==') != -1:
+        key,value = crumbs(atomic, '==')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('==',int(value),profiles.values(), key))
 
     elif atomic.find('<') != -1:
-        key = atomic[:atomic.find('<')]
-        value = atomic[atomic.find('<')+1:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):
-                if type(profiles[profile][key]) == int and profiles[profile][key] < int(value): # check valueerror
-                    resultset.append(profiles[profile])
+        key,value = crumbs(atomic, '<')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('<',int(value),profiles.values(), key))
 
     elif atomic.find('>') != -1:
-        key = atomic[:atomic.find('>')]
-        value = atomic[atomic.find('>')+1:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):
-                if type(profiles[profile][key]) == int and profiles[profile][key] > int(value): # check valueerror
-                    resultset.append(profiles[profile])
+        key,value = crumbs(atomic, '>')
+        if profiles[profiles.keys()[0]].has_key(key):
+            resultset.extend(filterer('>',int(value),profiles.values(), key))
 
     elif atomic.find('=') != -1:
-        key = atomic[:atomic.find('=')]
-        value = atomic[atomic.find('=')+1:]
-        key = key.strip()
-        value = value.strip()
-        for profile in profiles:
-            if profiles[profile].has_key(key):  # If the profile has the key
-                if type(profiles[profile][key]) == str and profiles[profile][key].lower().find(value.lower()) != -1:
-                    resultset.append(profiles[profile])
-                elif type(profiles[profile][key]) == int and profiles[profile][key] == int(value):
-                    resultset.append(profiles[profile])
-                elif type(profiles[profile][key]) == list:
-                    for element in profiles[profile][key]:
-                        if element.lower().find(value.lower()) != -1:
-                            resultset.append(profiles[profile])
+        key,value = crumbs(atomic, '=')
+        if profiles[profiles.keys()[0]].has_key(key) and type(profiles[profiles.keys()[0]][key]) != list:
+            resultset.extend(filterer('=',value,profiles.values(), key))
+        elif profiles[profiles.keys()[0]].has_key(key) and type(profiles[profiles.keys()[0]][key]) == list:
+            for profile in profiles:
+                for element in profiles[profile][key]:
+                    if element.lower().find(value.lower()) != -1:
+                        resultset.append(profiles[profile])
+                        break
+        elif not profiles[profiles.keys()[0]].has_key(key): # Even if the profile doesn't have the key, (The user might have mistyped, or might want a special kind of value like geek=python)
+            for profile in profiles: # instead of exiting with no results, try to figure out whether the value he expects is present anywhere at all within the profile.
+                flag = False # Assume that the profile doesn't have the value anywhere
+                for field in profiles[profile]:
+                    if type(profiles[profile][field]) == str and profiles[profile][field].lower().find(value.lower()) != -1:
+                        flag = True
+                        break
+                    elif type(profiles[profile][field]) == list:
+                        for element in profiles[profile][field]:
+                            if element.lower().find(value.lower()) != -1:
+                                flag = True
+                                break
+                        if flag:
                             break
-            else:                        # Even if the profile doesn't have the key, (The user might have mistyped, or might want a special kind of value like geek=python)
-                for profile in profiles: # instead of exiting with no results, try to figure out whether the value he expects is present anywhere at all within the profile.
-                    for field in profiles[profile]:
-                        if type(profiles[profile][field]) == str and profiles[profile][field].lower().find(value.lower()) != -1:
-                            resultset.append(profiles[profile])
-                            break
-                        elif type(profiles[profile][field]) == list:
-                            for element in profiles[profile][field]:
-                                if element.lower().find(value.lower()) != -1:
-                                    resultset.append(profiles[profile])
-                                    break
+                if flag:
+                    resultset.append(profiles[profile])
 
     return resultset
+
+def filterer(op,val,profiles,key):
+    if(op=='<>'):
+        return filter(lambda x: x[key].lower().find(val.lower())==-1, profiles)
+    elif(op=='!='):
+        return filter(lambda x: x[key]!=val, profiles)
+    elif(op=='<='):
+        return filter(lambda x: x[key]<=val, profiles)
+    elif(op=='>='):
+        return filter(lambda x: x[key]>=val, profiles)
+    elif(op=='=='):
+        return filter(lambda x: x[key]==val, profiles)
+    elif(op=='<'):
+        return filter(lambda x: x[key]<val, profiles)
+    elif(op=='>'):
+        return filter(lambda x: x[key]>val, profiles)
+    elif(op=='='):
+        return filter(lambda x: x[key].lower().find(val.lower())!=-1,profiles)
+
+def crumbs(stmt,op):
+    key = stmt[:stmt.find(op)]
+    value = stmt[stmt.find(op)+len(op):]
+    return (key.strip(),value.strip())
