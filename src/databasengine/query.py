@@ -38,6 +38,7 @@ from random import shuffle
 from itertools import groupby
 from datetime import datetime
 import multiprocessing
+import gc
 def querystring(sqlstmt, all_profiles):
     """Takes a QuerySQL statement and a dictionary database of profiles as an input and returns a list of profiles as output"""
     fpart = sqlstmt[:sqlstmt.index('[')]
@@ -67,6 +68,7 @@ def querystring(sqlstmt, all_profiles):
         pool.join()  # Wait for the children to finish execution
         end = datetime.now()
         print 'Finished querying', len(all_profiles.keys()), 'profiles in', (end-start).seconds,'seconds'
+        print 'Showing',no_of_results,'of', len(resultset),'matches to query'
     else:
         resultset = parse(qs, all_profiles) # all results
 
@@ -89,6 +91,8 @@ def querystring(sqlstmt, all_profiles):
                     temprofile[field] = profile[field]
             templist.append(temprofile)
         results = templist
+
+    gc.collect()
 
     return results
 
