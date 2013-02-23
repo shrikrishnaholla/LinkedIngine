@@ -5,7 +5,9 @@ import scraper
 import generator
 import multiprocessing
 from datetime import datetime
+
 def collect():
+    global resultset
     """Method to collect profile data"""
     
     method = raw_input("""
@@ -51,14 +53,22 @@ Enter the method for data collection of your choice:
             # Use python multiprocessing capabilities to divide work
             start = datetime.now()
             pool = multiprocessing.Pool()
-            for worker in xrange(0,multiprocessing.cpu_count()): # Split the task of generating n numbers to all cpus
-                pool.apply_async(generator.generate, (number/multiprocessing.cpu_count(),), callback=resultset.update)
+            factor = number/1000
+            for worker in xrange(0,multiprocessing.cpu_count()*factor): # Split the task of generating n numbers to all cpus
+                pool.apply_async(generator.generate, (number/(multiprocessing.cpu_count()*factor),), callback=lambda profiles: appender(profiles))
             pool.close()
             pool.join()
             end = datetime.now()
             print 'Finished generating', number, 'profiles in', (end-start).seconds, 'seconds'
+            import gc
+            gc.collect()
 
     elif method == '4':
         resultset = deserializer.deserialize('data/datastore.in')
 
     return resultset
+
+def appender(profiles):
+    global resultset
+    resultset.update(profiles)
+    del profiles
