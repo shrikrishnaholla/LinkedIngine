@@ -67,7 +67,8 @@ def querystring(sqlstmt, all_profiles):
         pool.close() # To inform that no more jobs need to be done
         pool.join()  # Wait for the children to finish execution
         end = datetime.now()
-        print 'Finished querying', len(all_profiles.keys()), 'profiles in', (end-start).seconds,'seconds'
+        print 'Finished querying', len(all_profiles.keys()), 'profiles in',
+        print (str((end-start).seconds)+'.'+str((end-start).microseconds)), 'seconds'
         print 'Showing',no_of_results,'of', len(resultset),'matches to query'
     else:
         resultset = parse(qs, all_profiles) # all results

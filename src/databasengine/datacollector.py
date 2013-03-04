@@ -59,7 +59,8 @@ Enter the method for data collection of your choice:
             pool.close()
             pool.join()
             end = datetime.now()
-            print 'Finished generating', number, 'profiles in', (end-start).seconds, 'seconds'
+            print 'Finished generating', number, 'profiles in',
+            print (str((end-start).seconds)+'.'+str((end-start).microseconds)), 'seconds'
             import gc
             gc.collect()
 
