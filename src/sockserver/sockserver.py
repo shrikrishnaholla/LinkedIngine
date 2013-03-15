@@ -44,16 +44,19 @@ def handleClient(clientSocket, clientAddr):
         try:
             clientSocket.send("\nQuerySQL>")
             qstmt = clientSocket.recv(4096)
-            print "Received from ", clientAddr, ":: Query: \"", qstmt, "\":: At time", datetime.now() #LOG
-            logger.write("Received from "+ clientAddr.__str__()+ " :: Query: \""+ qstmt+ "\":: At time "+datetime.now().ctime()+'\n')
             if qstmt.find('quit') != -1:
                 clientSocket.send("Closing connection...")
                 break
+            else:
+                print "Received from ", clientAddr, ":: Query: \"", qstmt, "\":: At time", datetime.now() #LOG
+                logger.write("Received from "+ clientAddr.__str__()+ " :: Query: \""+ qstmt+ "\":: At time "+datetime.now().ctime()+'\n')
             processQuery(qstmt,clientSocket)
         except error, message:
             print message #LOG
             if message.__str__() != "[Errno 32] Broken pipe":
                 logger.write(message.__str__()+'\n')
+            break
+        except KeyboardInterrupt:
             break
     try:
         clientSocket.shutdown(SHUT_RDWR)
@@ -90,7 +93,7 @@ def allocateResources(port):
         clientSocket = socket(AF_INET, SOCK_STREAM)
         clientSocket.bind(('', int(port)))
         clientSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-        clientSocket.listen(1); # change the value to higher number and study impact
+        clientSocket.listen(5);
     except error, message:
         print message
         logger.write(message.__str__()+'\n')
@@ -101,13 +104,12 @@ def allocateResources(port):
     return clientSocket
 
 def acceptClient(clientSocket):
-    while 1:
-        if clientSocket:
-            connSocket, clientAddr = clientSocket.accept()
-            print 'Connected to client',clientAddr,"at time",datetime.now() #for logging
-            logger.write("Client "+clientAddr.__str__()+" opened its connection at "+datetime.now().ctime()+'\n')
-            t= Thread(target=handleClient, args=(connSocket, clientAddr))
-            t.start()
+    while clientSocket:
+        connSocket, clientAddr = clientSocket.accept()
+        print 'Connected to client',clientAddr,"at time",datetime.now()
+        logger.write("Client "+clientAddr.__str__()+" opened its connection at "+datetime.now().ctime()+'\n')
+        t= Thread(target=handleClient, args=(connSocket, clientAddr))
+        t.start()
 
 if __name__ == '__main__':
     args = acceptCLArguments()
@@ -118,5 +120,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print 'Exiting server'
         logger.write('Closed server at '+datetime.now().ctime())
-        logger.close()
         sys.exit(0)

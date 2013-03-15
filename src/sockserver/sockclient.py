@@ -26,6 +26,7 @@ def transact(host,port):
         serversocket = socket(AF_INET,SOCK_STREAM)
         serversocket.settimeout(5.0)
         serversocket.connect((host,port))
+        serversocket.settimeout(None)
     except error, message:
         print message
         sys.exit(0)
