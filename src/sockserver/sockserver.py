@@ -49,12 +49,12 @@ def handleClient(clientSocket, clientAddr):
                 break
             else:
                 print "Received from ", clientAddr, ":: Query: \"", qstmt, "\":: At time", datetime.now() #LOG
-                logger.write("Received from "+ clientAddr.__str__()+ " :: Query: \""+ qstmt+ "\":: At time "+datetime.now().ctime()+'\n')
+                logger.write(datetime.now().ctime()+" Received from "+ clientAddr.__str__()+ " :: Query: \""+ qstmt+ "\""+'\n')
             processQuery(qstmt,clientSocket)
         except error, message:
             print message #LOG
             if message.__str__() != "[Errno 32] Broken pipe":
-                logger.write(message.__str__()+'\n')
+                logger.write(datetime.now().ctime()+' '+message.__str__()+'\n')
             break
         except KeyboardInterrupt:
             break
@@ -64,7 +64,7 @@ def handleClient(clientSocket, clientAddr):
     except error, message:
         pass # assuming that the client has closed already
     print "Client",clientAddr,"closed its connection at",datetime.now() #LOG
-    logger.write("Client "+clientAddr.__str__()+" closed its connection at "+datetime.now().ctime()+'\n')
+    logger.write(datetime.now().ctime()+" Client "+clientAddr.__str__()+" closed its connection"+'\n')
 
 def acceptCLArguments():
     # Initializing parser for accepting command line arguements
@@ -84,7 +84,7 @@ def acceptCLArguments():
     return parser.parse_args()
 
 def initserver(number):
-    logger.write('Booting up the server at '+datetime.now().ctime()+'\n')
+    logger.write(datetime.now().ctime()+' Booting up the server'+'\n')
     for name, details in db.generator.generate(number).items():
         db.create(name, details)
 
@@ -96,7 +96,7 @@ def allocateResources(port):
         clientSocket.listen(5);
     except error, message:
         print message
-        logger.write(message.__str__()+'\n')
+        logger.write(datetime.now().ctime()+' '+message.__str__()+'\n')
         if message.__str__() == "[Errno 98] Address already in use":
             print 'Please try booting the server with a different port'
             sys.exit(0)
@@ -107,7 +107,7 @@ def acceptClient(clientSocket):
     while clientSocket:
         connSocket, clientAddr = clientSocket.accept()
         print 'Connected to client',clientAddr,"at time",datetime.now()
-        logger.write("Client "+clientAddr.__str__()+" opened its connection at "+datetime.now().ctime()+'\n')
+        logger.write(datetime.now().ctime()+" Client "+clientAddr.__str__()+" opened its connection"+'\n')
         t= Thread(target=handleClient, args=(connSocket, clientAddr))
         t.start()
 
@@ -119,5 +119,5 @@ if __name__ == '__main__':
         acceptClient(allocateResources(args.port))
     except KeyboardInterrupt:
         print 'Exiting server'
-        logger.write('Closed server at '+datetime.now().ctime())
+        logger.write(datetime.now().ctime()+' Closed server')
         sys.exit(0)
