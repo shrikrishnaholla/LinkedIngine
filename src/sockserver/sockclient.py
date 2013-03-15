@@ -24,6 +24,7 @@ def acceptCLArguments():
 def transact(host,port):
     try:
         serversocket = socket(AF_INET,SOCK_STREAM)
+        serversocket.settimeout(5.0)
         serversocket.connect((host,port))
     except error, message:
         print message
@@ -42,7 +43,8 @@ def transact(host,port):
             serversocket.send(raw_input(''))
         except error, message:
             print message
-            raise KeyboardInterrupt
+            break
+
         except KeyboardInterrupt:
             print 'Exiting client...'
             serversocket.shutdown(SHUT_RDWR)

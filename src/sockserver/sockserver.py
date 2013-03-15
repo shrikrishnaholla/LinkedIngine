@@ -8,6 +8,7 @@ import argparse
 import os
 sys.path.append(os.getcwd()[:os.getcwd().rfind('/')]) # Hack to allow importing databasengine which is
 import databasengine as db                            # in parent directory
+logger = open('log.txt','a',1)                        # Open in write mode with line buffering
 
 def read_oneline(clientSocket):
     line = ''
@@ -44,12 +45,15 @@ def handleClient(clientSocket, clientAddr):
             clientSocket.send("\nQuerySQL>")
             qstmt = clientSocket.recv(4096)
             print "Received from ", clientAddr, ":: Query: \"", qstmt, "\":: At time", datetime.now() #LOG
+            logger.write("Received from "+ clientAddr.__str__()+ " :: Query: \""+ qstmt+ "\":: At time "+datetime.now().ctime()+'\n')
             if qstmt.find('quit') != -1:
                 clientSocket.send("Closing connection...")
                 break
             processQuery(qstmt,clientSocket)
         except error, message:
             print message #LOG
+            if message.__str__() != "[Errno 32] Broken pipe":
+                logger.write(message.__str__()+'\n')
             break
     try:
         clientSocket.shutdown(SHUT_RDWR)
@@ -57,6 +61,7 @@ def handleClient(clientSocket, clientAddr):
     except error, message:
         pass # assuming that the client has closed already
     print "Client",clientAddr,"closed its connection at",datetime.now() #LOG
+    logger.write("Client "+clientAddr.__str__()+" closed its connection at "+datetime.now().ctime()+'\n')
 
 def acceptCLArguments():
     # Initializing parser for accepting command line arguements
@@ -76,6 +81,7 @@ def acceptCLArguments():
     return parser.parse_args()
 
 def initserver(number):
+    logger.write('Booting up the server at '+datetime.now().ctime()+'\n')
     for name, details in db.generator.generate(number).items():
         db.create(name, details)
 
@@ -87,21 +93,30 @@ def allocateResources(port):
         clientSocket.listen(1); # change the value to higher number and study impact
     except error, message:
         print message
-        sys.exit(0)
+        logger.write(message.__str__()+'\n')
+        if message.__str__() == "[Errno 98] Address already in use":
+            print 'Please try booting the server with a different port'
+            sys.exit(0)
+        return None
     return clientSocket
 
 def acceptClient(clientSocket):
     while 1:
-        connSocket, clientAddr = clientSocket.accept()
-        print 'Connected to client',clientAddr,"at time",datetime.now() #for logging
-        t= Thread(target=handleClient, args=(connSocket, clientAddr))
-        t.start()
+        if clientSocket:
+            connSocket, clientAddr = clientSocket.accept()
+            print 'Connected to client',clientAddr,"at time",datetime.now() #for logging
+            logger.write("Client "+clientAddr.__str__()+" opened its connection at "+datetime.now().ctime()+'\n')
+            t= Thread(target=handleClient, args=(connSocket, clientAddr))
+            t.start()
 
 if __name__ == '__main__':
     args = acceptCLArguments()
     initserver(args.number)
+    print 'Completed initialization. Ready to accept clients'
     try:
         acceptClient(allocateResources(args.port))
     except KeyboardInterrupt:
         print 'Exiting server'
+        logger.write('Closed server at '+datetime.now().ctime())
+        logger.close()
         sys.exit(0)
