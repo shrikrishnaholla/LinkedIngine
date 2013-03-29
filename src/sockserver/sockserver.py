@@ -10,16 +10,6 @@ sys.path.append(os.getcwd()[:os.getcwd().rfind('/')]) # Hack to allow importing 
 import databasengine as db                            # in parent directory
 logger = open('log.txt','a',1)                        # Open in write mode with line buffering
 
-def read_oneline(clientSocket):
-    line = ''
-    while True:
-        char = clientSocket.recv(1)
-        if char == '\n' or char == '': 
-            break
-        else:
-            line += char
-    return line
-
 def processQuery(qstring, clientSocket):
     try:
         resultset = db.query.querystring(qstring, db.database) # Call the method in query.py
@@ -44,7 +34,7 @@ def handleClient(clientSocket, clientAddr):
         try:
             clientSocket.send("\nQuerySQL>")
             qstmt = clientSocket.recv(4096)
-            if qstmt.find('quit') != -1:
+            if qstmt.strip() == 'quit':
                 clientSocket.send("Closing connection...")
                 break
             else:
@@ -90,7 +80,7 @@ def initserver(number):
 
 def allocateResources(port):
     try:
-        clientSocket = socket(AF_INET, SOCK_STREAM)
+        clientSocket = socket(AF_INET, SOCK_STREAM)  #Socket to interact with the client 
         clientSocket.bind(('', int(port)))
         clientSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         clientSocket.listen(5);

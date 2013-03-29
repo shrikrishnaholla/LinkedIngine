@@ -33,12 +33,11 @@ def transact(host,port):
 
     while True:
         try:
-            data = ' '
-            while len(data):
-                data = serversocket.recv(4096)
+            while True:                            # Loop till all the data that server has to send,
+                data = serversocket.recv(4096)     # is received
                 print data
-                if data.find('QuerySQL>') != -1:
-                    break
+                if data.find('QuerySQL>') != -1:   # Server sends this string once all results have been
+                    break                          # printed
                 if data.find('Closing') != -1:
                     raise KeyboardInterrupt
             serversocket.send(raw_input(''))
