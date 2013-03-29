@@ -1,17 +1,50 @@
 <html>
 <body>
-<form method="GET" action="http://localhost:8080/find">
 
 
-<input type="text" id="fn" name="fname"/>
-
-<input type="text" id="ln" name="lname"/>
-
-<input type="text" id="em" name="email"/>
-
+<!-- "return skills from 10 profiles whose [knowledge=python]"
+return email,locality,experience from 10 profiles whose [(email=gmail;or;email=yahoo);and;(locality=bangalore;or;locality=delhi);and;(experience<5;or;experience>10)
+ -->
+<form method="GET" action="http://localhost:8080">
 
 
-
+Get  <br>
+<input type="checkbox" name="first_name_r">First Name<br>
+<input type="checkbox" name="last_name_r" >Last Name <br>
+<input type="checkbox" name="headline_r" >Head Line<br>
+<input type="checkbox" name="industry_r" >Industry<br>
+<input type="checkbox" name="degrees_r" >degrees<br>
+<input type="checkbox" name="majors_r" >Majors<br>
+<input type="checkbox" name="colleges_r" >Colleges<br>
+<input type="checkbox" name="skills_r" >Skills<br>
+<input type="checkbox" name="job_titles_r" >Job Titles<br>
+<input type="checkbox" name="companies_r" >Companies<br>
+<input type="checkbox" name="public_profile_url_r" >Public Profile Url<br>
+from <br>
+<input type="number" name="count">  profiles<br>
+where<br> 
+<!-- <input type="checkbox" name="first_name_q"> -->
+First Name :<input type="text" name="first_name"><br>
+<!-- <input type="checkbox" name="last_name_q" > -->
+Last Name :<input type="text" name="last_name" ><br>
+<!-- <input type="checkbox" name="headline_q" > -->
+Head Line :<input type="text" name="headline" ><br>
+<!-- <input type="checkbox" name="industry_q" > -->
+Industry :<input type="text" name="industry" ><br>
+<!-- <input type="checkbox" name="degrees_q" > -->
+degrees :<input type="text" name="degrees" ><br>
+<!-- <input type="checkbox" name="majors_q" > -->
+Majors :<input type="text" name="majors" ><br>
+<!-- <input type="checkbox" name="colleges_q" > -->
+Colleges :<input type="text" name="colleges" ><br>
+<!-- <input type="checkbox" name="skills_q" > -->
+Skills :<input type="text" name="skills" ><br>
+<!-- <input type="checkbox" name="job_titles_q" > -->
+Job Titles :<input type="text" name="job_titles" ><br>
+<!-- <input type="checkbox" name="companies_q" > -->
+Companies :<input type="text" name="companies" ><br>
+<!-- <input type="checkbox" name="public_profile_url_q" > -->
+Public Profile Url :<input type="text" name="public_profile_url" ><br>
 <input type="submit">
 </form>
 </body>
