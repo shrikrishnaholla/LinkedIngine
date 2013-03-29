@@ -1,18 +1,21 @@
+#!/usr/bin/python
+"""This module is used to crawl through and scrape useful information from a LinkedIn profile web page"""
 import re
 import dbinterface
 
 def contentExtractor(page, public_profile_url):
+    """Extract contents from LinkedIn profile page and add them to the database if not present"""
     tags = list()
-    first_name = descriptionExtractor(page, '<span class="given-name">', "</span>")
+    first_name = fieldExtractor(page, '<span class="given-name">', "</span>")
 
-    last_name = descriptionExtractor(page, '<span class="family-name">', "</span>")
+    last_name = fieldExtractor(page, '<span class="family-name">', "</span>")
 
-    headline = descriptionExtractor(page, '<p class="headline-title title" style="display:block">', "</p>")
+    headline = fieldExtractor(page, '<p class="headline-title title" style="display:block">', "</p>")
 
-    locality = descriptionExtractor(page, '<span class="locality">', "</span>")
+    locality = fieldExtractor(page, '<span class="locality">', "</span>")
     tags.append(locality)
 
-    industry = descriptionExtractor(page, '<dd class="industry">','</dd>')
+    industry = fieldExtractor(page, '<dd class="industry">','</dd>')
     tags.append(industry)
 
     degrees = multipleInstanceExtractor(page, '<span class="degree">', '</span>')
@@ -51,15 +54,15 @@ def contentExtractor(page, public_profile_url):
         'skills'             : skills,
         'job_titles'         : job_titles,
         'companies'          : companies,
-        'tags'               : tags,
+        'tags'               : tags,              # Tags are used to provide best-effort results to queries
         'public_profile_url' : public_profile_url
-
     }
 
     if dbinterface.collection.find(profile).count() == 0:
         dbinterface.collection.save(profile)
 
-def descriptionExtractor(page, startTag, endTag):
+def fieldExtractor(page, startTag, endTag):
+    """Extract entries whose nature is of the form 'Field:Value'"""
     splitstring = re.split(startTag, page)
     if len(splitstring) > 1:
         splitstring = splitstring[1]
@@ -69,6 +72,7 @@ def descriptionExtractor(page, startTag, endTag):
         return None
 
 def multipleInstanceExtractor(page, startTag, endTag):
+    """Extract entries that can have more than one values. Returned as a list of instances of occurance"""
     instances = re.findall(startTag+r'(?:[a-zA-Z0-9\.-]|[ \n]|[,&;\(\)])*'+endTag, page, re.MULTILINE)
     for instance in instances:
         newinstance = instance.replace(startTag,'').replace(endTag,'').replace('&amp;','&')
