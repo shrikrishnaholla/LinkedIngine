@@ -6,6 +6,7 @@ import re
 import crawler
 import argparse
 import sys
+import requests
 
 def fetchProfiles(initURL, maxcount):
     """Given the URL from where to initiate the crawling, it first fetches the webpage, sends it to
@@ -38,6 +39,12 @@ def fetchProfiles(initURL, maxcount):
         percentage = int(count*100.0/maxcount)    # Progress bar
         sys.stdout.write('\r'+'='*percentage+'>'+' '*(101-percentage) +str(percentage)+'%')
         sys.stdout.flush()
+
+def google(params):
+    """Google for LinkedIn profiles with the parameters"""
+    url = 'http://google.com/search?btnI=1&q='+'+'.join(params)+'+linkedin' # Does the I'm Lucky! search
+    page = requests.get(url, allow_redirects=True)
+    crawler.contentExtractor(page.content, page.url)
 
 def acceptCLArguments():
     """Initializing parser for accepting command line arguements"""

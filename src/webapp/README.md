@@ -26,6 +26,10 @@ Given the URL from where to initiate the crawling, it first fetches the webpage,
     the LinkedIn profiles of people associated with these urls. The iteration continues for the number of  
     times specified by maxcount  
 
+###google###
+
+Google for LinkedIn profiles with the parameters  
+
 ###acceptCLArguments###
 
 Initializing parser for accepting command line arguements  
