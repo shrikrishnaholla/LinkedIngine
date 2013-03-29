@@ -1,6 +1,5 @@
 import re
 import dbinterface
-import nltk
 
 def contentExtractor(page, public_profile_url):
     tags = list()
@@ -9,27 +8,12 @@ def contentExtractor(page, public_profile_url):
     last_name = descriptionExtractor(page, '<span class="family-name">', "</span>")
 
     headline = descriptionExtractor(page, '<p class="headline-title title" style="display:block">', "</p>")
-    tokens = nltk.word_tokenize(str(headline))
-    figureOfspeech = nltk.pos_tag(tokens)
-    for word in figureOfspeech:
-        if word[1] == 'NNP':
-            tags.append(word[0])
 
     locality = descriptionExtractor(page, '<span class="locality">', "</span>")
     tags.append(locality)
 
     industry = descriptionExtractor(page, '<dd class="industry">','</dd>')
     tags.append(industry)
-
-    description_summary = descriptionExtractor(page, '<p class=" description summary">', '</p>')
-    if description_summary:
-        description_summary = description_summary.replace('<br>', '')
-        description_summary = description_summary.replace('<br/>', '')
-        tokens = nltk.word_tokenize(str(description_summary))
-        figureOfspeech = nltk.pos_tag(tokens)
-        for word in figureOfspeech:
-            if word[1] == 'NNP':
-                tags.append(word[0])
 
     degrees = multipleInstanceExtractor(page, '<span class="degree">', '</span>')
     for degree in degrees:
@@ -61,7 +45,6 @@ def contentExtractor(page, public_profile_url):
         'headline'           : headline,
         'locality'           : locality,
         'industry'           : industry,
-        'description_summary': description_summary,
         'degrees'            : degrees,
         'majors'             : majors,
         'colleges'           : colleges,
