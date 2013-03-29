@@ -28,7 +28,7 @@ def fetchProfiles(initURL, maxcount):
         #links = set(links) 
 
         if maxcount % count == 0:
-            sys.stdout.write('\r'+'='*int((count*10.0/maxcount)*10.0)+'>'+ ((count*100.0/maxcount))+'%')
+            sys.stdout.write('\r'+'='*int((count*10.0/maxcount)*10.0)+'>'+ str((count*100.0/maxcount))+'%')
 
 def acceptCLArguments():
     # Initializing parser for accepting command line arguements
