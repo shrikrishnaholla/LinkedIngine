@@ -42,9 +42,14 @@ def fetchProfiles(initURL, maxcount):
 
 def google(params):
     """Google for LinkedIn profiles with the parameters"""
+    print 'Googling with params', params
     url = 'http://google.com/search?btnI=1&q='+'+'.join(params)+'+linkedin' # Does the I'm Lucky! search
     page = requests.get(url, allow_redirects=True)
-    crawler.contentExtractor(page.content, page.url)
+    if re.match(r'http://.*linkedin.com/pub/dir/*',page.url):
+        return False
+    else: 
+        crawler.contentExtractor(page.content, page.url)
+        return True
 
 def acceptCLArguments():
     """Initializing parser for accepting command line arguements"""

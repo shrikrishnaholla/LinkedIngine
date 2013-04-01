@@ -6,7 +6,7 @@ client = MongoClient()
 db = client.linkedIngine_db_5       # Create/connect to a database with the name 'linkedIngine_db'
 collection = db.linkedIngine_col_5  # Create/connect to a collection with the name 'linkedIngine_col'
 
-def queryer(params):
+def queryer(params, flag=True):
     """This method returns a list of all the profiles in the database that satisfy the parameters"""
     resultlist = list()
     resultset = collection.find(params)
@@ -20,7 +20,9 @@ def queryer(params):
                 resultlist.append(result)
 
     if len(resultlist) == 0:
-        profilefetcher.google(params.values())
-        queryer(params)
+        if profilefetcher.google(params.values()) and flag:
+            resultlist = queryer(params, False)
+        else:
+            resultlist = [{'error':'No result found. Please give another query or refine your parameters'}]
 
     return resultlist

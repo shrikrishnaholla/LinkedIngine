@@ -82,6 +82,7 @@ def multipleInstanceExtractor(page, startTag, endTag):
 
 if __name__ == '__main__':
     count = 0
-    for person in dbinterface.collection.find():
+    for person in dbinterface.collection.find({'headline': 'python', 'degrees': 'b.e', 'first_name': 'navaneeth', 'companies': 'sap'}):
+        print person
         count+=1
     print count
