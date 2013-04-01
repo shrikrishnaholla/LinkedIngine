@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="html">
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://labs.voronianski.com/media/style/reset.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+function toTitleCase(str) {
+  if (str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  }
+  else {
+    return '';
+  }
+}
+
+jQuery(document).ready(function(){
+    $(".submit").click(function(e) {
+      $(".submit").attr('value','Processing...')
+      $("#results").html("")
+        e.preventDefault();
+        $.ajax({
+            url:'/',
+            type:'GET',
+            dataType:'json',
+            data : {
+                "first_name_r"         : $(".first_name_r").is(':checked'),
+                "last_name_r"          : $(".last_name_r").is(':checked'),
+                "headline_r"           : $(".headline_r").is(':checked'),
+                "industry_r"           : $(".industry_r").is(':checked'),
+                "degrees_r"            : $(".degrees_r").is(':checked'),
+                "majors_r"             : $(".majors_r").is(':checked'),
+                "colleges_r"           : $(".colleges_r").is(':checked'),
+                "skills_r"             : $(".skills_r").is(':checked'),
+                "job_titles_r"         : $(".job_titles_r").is(':checked'),
+                "public_profile_url_r" : $(".public_profile_url").is(':checked'),
+                "count"                : $(".count").val(),
+                "first_name"           : $(".first_name").val(),
+                "last_name"            : $(".last_name").val(),
+                "headline"             : $(".headline").val(),
+                "industry"             : $(".industry").val(),
+                "degrees"              : $(".degrees").val(),
+                "majors"               : $(".majors").val(),
+                "colleges"             : $(".colleges").val(),
+                "skills"               : $(".skills").val(),
+                "job_titles"           : $(".job_titles").val(),
+                "companies"            : $(".companies").val(),
+                "public_profile_url"   : $(".public_profile_url").val()
+            },
+            success: function(data) {
+              $("#results").html($("#results").html()+"<br/>");
+                resultlist = eval(data)
+                resultstring = ""
+                for (var number in resultlist) {
+                        for (var field in resultlist[number]) {
+                            resultfield = toTitleCase(field)+' : ';
+                            if (resultlist[number][field] instanceof Array) {
+                                for (var entry in resultlist[number][field]) {
+
+                                    resultfield+= ('&nbsp;&nbsp;'+toTitleCase(resultlist[number][field][entry]));
+                                    if (resultlist[number][field].indexOf(entry) != resultlist[number][field].length -1) {
+                                        resultfield+=','
+                                    }
+                                }
+                            }
+                            else {
+                                resultfield += toTitleCase(resultlist[number][field]); 
+                            }
+                            resultstring += resultfield;
+                            oldHTML = $("#results").html()
+                            $("#results").html(oldHTML+resultfield+'<br/>')   
+                        }
+                }
+                $(function() {
+                  $('#results').avgrund({
+                    height: 'auto',
+                    holderClass: '.container',
+                    setEvent: 'done',
+                    showClose: true,
+                    showCloseText: 'Close',
+                    enableStackAnimation: true,
+                    onBlurContainer: '.container',
+                    template: $("#results").html()
+                  });
+                });
+                $("#results").trigger('done');
+            },
+            error: function(e) {
+                $("#results").html("There was an error processing your query. Are you sure you have given the parameters right?");
+            }
+        })
+    })
+});
+</script>
+<!--WebKit Scrollbar-->
+<style type="text/css">
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #FFF;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb {
+    background: #CCC;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #888;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.container {
+  width:300px;
+  margin: 20px auto;
+  overflow-x: visible;
+  overflow-y: auto;
+}
+
+#results {
+  visibility: hidden;
+}
+input {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border:1px solid #ccc;
+  font-size:15px;
+  width:285px;
+  min-height:20px;
+  display:block;
+  margin-bottom:2px;
+  margin-top:2px;
+  outline: none;
+  padding: 5px;
+  border-color: #38B0DE;
+
+  box-shadow:0 0 5px rgba(56, 176, 222, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(56, 176, 222, 0.8);
+  -moz-box-shadow: 0 0 5px rgba(56, 176, 222, 0.8);
+  -o-box-shadow: 0 0 5px rgba(56, 176, 222, 0.8);
+  -ms-box-shadow: 0 0 5px rgba(56, 176, 222, 0.8);
+
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  -o-border-radius:5px;
+  -ms-border-radius:5px;
+  border-radius:5px;
+}
+input:hover {
+    border-color: #007FFF;
+    box-shadow:0 0 5px rgba(0, 127, 255, 0.8);
+    -webkit-box-shadow: 0 0 5px rgba(0, 127, 255, 0.8);
+    -moz-box-shadow: 0 0 5px rgba(0, 127, 255, 0.8);
+    -o-box-shadow: 0 0 5px rgba(0, 127, 255, 0.8);
+    -ms-box-shadow: 0 0 5px rgba(0, 127, 255, 0.8);
+}
+
+input[type=checkbox] {
+  float: right;
+  background:none;
+  margin-bottom: 5px;
+  width:15px;
+  min-height:15px;
+}
+input[type=submit] {
+  width: 300px;
+  background:#38B0DE;
+  padding:10px;
+  padding-left: 15px;
+}
+input[type=submit]:hover {
+  width: 300px;
+  background:#007FFF;
+  padding:10px;
+  padding-left: 15px;
+}
+
+label {
+    width:250px;
+    padding-right: 100px;
+}
+/*Avgrund*/
+.avgrund-popin {
+  position: absolute;
+  background: #fff;
+  padding: 10px;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .5);
+
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.avgrund-overlay {
+  background: #000;
+  position: fixed;
+  width: 100%;
+  height: 100%; 
+  top: 0;
+  left: 0;
+  z-index: 101;
+  visibility: hidden;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+body.avgrund-ready, 
+.avgrund-ready .avgrund-popin, 
+.avgrund-ready .avgrund-overlay {
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  -webkit-transition: 0.3s all ease-out;
+  -moz-transition: 0.3s all ease-out;
+  -ms-transition: 0.3s all ease-out;
+  -o-transition: 0.3s all ease-out;
+  transition: 0.3s all ease-out;
+}
+
+body.avgrund-active {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+  /* overflow: hidden; TIP: disables scrolling for long documents */
+}
+
+.avgrund-active .avgrund-popin {
+  visibility: visible;
+  opacity: 1;
+  filter: alpha(opacity=100);
+
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.avgrund-active .avgrund-overlay {
+  visibility: visible;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.avgrund-popin.stack {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.avgrund-active .avgrund-popin.stack {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.avgrund-active .avgrund-blur {
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -ms-filter: blur(1px);
+  -o-filter: blur(1px);
+  filter: blur(1px);
+}
+
+.avgrund-close {
+  display: block;
+  text-transform: uppercase;
+  color: #555;
+  text-decoration: none;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 13px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<strong>Get</strong>  <br/>
+<label>First Name</label><input type="checkbox" name="first_name_r" class="first_name_r"><br/><hr/>
+<label>Last Name</label><input type="checkbox" name="last_name_r" class="last_name_r"><br/><hr/>
+<label>Head Line</label><input type="checkbox" name="headline_r" class="headline_r"><br/><hr/>
+<label>Industry</label><input type="checkbox" name="industry_r" class="industry_r"><br/><hr/>
+<label>Degrees</label><input type="checkbox" name="degrees_r" class="degrees_r"><br/><hr/>
+<label>Majors</label><input type="checkbox" name="majors_r" class="majors_r"><br/><hr/>
+<label>Colleges</label><input type="checkbox" name="colleges_r" class="colleges_r"><br/><hr/>
+<label>Skills</label><input type="checkbox" name="skills_r" class="skills_r"><br/><hr/>
+<label>Job Titles</label><input type="checkbox" name="job_titles_r" class="job_titles_r"><br/><hr/>
+<label>Companies</label><input type="checkbox" name="companies_r" class="companies_r"><br/><hr/>
+<label>Public Profile URL</label><input type="checkbox" name="public_profile_url_r" class="public_profile_url_r"><br/><hr/>
+<strong>from</strong> <br/>
+<input type="number" name="count" placeholder="  0 (all) | number" class="count"><strong>profiles</strong><br/>
+<strong>whose</strong><br/> 
+<input type="text" name="first_name" placeholder="First Name" class="first_name"><br/>
+<input type="text" name="last_name" placeholder="Last Name" class="last_name"><br/>
+<input type="text" name="headline" placeholder="Head Line" class="headline"><br/>
+<input type="text" name="industry" placeholder="Industry" class="industry"><br/>
+<input type="text" name="degrees" placeholder="Degrees" class="degrees"><br/>
+<input type="text" name="majors" placeholder="Majors" class="majors"><br/>
+<input type="text" name="colleges" placeholder="Colleges" class="colleges"><br/>
+<input type="text" name="skills" placeholder="Skills" class="skills"><br/>
+<input type="text" name="job_titles" placeholder="Job Titles" class="job_titles"><br/>
+<input type="text" name="companies" placeholder="Companies" class="companies"><br/>
+<input type="url" name="public_profile_url" placeholder="Public Profile URL" class="public_profile_url"><br/>
+<input type="submit" class="submit">
+</div>
+<div id="results"></div>
+<script type="text/javascript">
+/**
+ *  jQuery Avgrund Popin Plugin
+ *  http://github.com/voronianski/jquery.avgrund.js/
+ * 
+ *  MIT licensed, (c) 2012 http://pixelhunter.me/
+ */
+
+(function($) {
+  $.fn.avgrund = function(options) {
+    var defaults = {
+      width: 380, // max = 640
+      height: 280, // max = 350
+      showClose: false,
+      showCloseText: '',
+      closeByEscape: true,
+      closeByDocument: true,
+      holderClass: '',
+      overlayClass: '',
+      enableStackAnimation: false,
+      onBlurContainer: '',
+      openOnEvent: true,
+      setEvent: 'click',
+      onLoad: function() {},
+      onUnload: function() {},
+      template: "Hello World"//'<p>This is test popin content!</p>'
+    };
+    var options = $.extend(defaults, options);
+
+    return this.each(function() {
+      var self = $(this),
+        body = $('body'),
+        maxWidth = options.width > 640 ? 640 : options.width,
+        maxHeight = options.height > 350 ? 350 : options.height,
+        template = typeof options.template === 'function' ? options.template(self) : options.template;
+        $('html').css('background-color','#000');
+
+      body.addClass('avgrund-ready');       
+      
+      if (options.onBlurContainer !== '') {
+        $(options.onBlurContainer).addClass('avgrund-blur');
+      }
+      
+      // close popup by clicking Esc button
+      function onDocumentKeyup(e) {
+        if (options.closeByEscape) {
+          if (e.keyCode === 27) {
+            deactivate();
+          }
+        }
+      }
+      
+      // close popup by clicking outside it
+      function onDocumentClick(e) {
+        if (options.closeByDocument) {
+          if ($(e.target).is('.avgrund-overlay, .avgrund-close')) {
+            deactivate();
+          }
+        } else {
+          if ($(e.target).is('.avgrund-close')) {
+            deactivate();
+          }
+        }
+      }
+
+      // show popup
+      function activate() {
+        // check if onLoad is a function and call it before popin is active
+        if (typeof options.onLoad === 'function') {
+          options.onLoad.call(self);
+        }
+
+        body.append('<div class="avgrund-overlay ' + options.overlayClass + '"></div>');
+        body.append('<div class="avgrund-popin ' + options.holderClass + '">' + template + '</div>');
+
+        $('.avgrund-popin').css({
+          'width': maxWidth + 'px',
+          'height': maxHeight + 'px',
+          'margin-left': '-' + (maxWidth / 2 + 10) + 'px',
+          'margin-top': '-' + (maxHeight / 2 + 10) + 'px'
+        });
+
+        if (options.showClose) {
+          $('.avgrund-popin').append('<a href="#" class="avgrund-close">' + options.showCloseText + '</a>');
+        }
+
+        if (options.enableStackAnimation) {
+          $('.avgrund-popin').addClass('stack');
+        }
+
+        body.bind('keyup', onDocumentKeyup);
+        body.bind('click', onDocumentClick);
+
+        body.addClass('avgrund-active');
+      }
+
+      // hide popup
+      function deactivate() {
+        body.unbind('keyup', onDocumentKeyup);
+        body.unbind('click', onDocumentClick);
+
+        body.removeClass('avgrund-active');
+
+        // prevent multiple overlays
+        $('.avgrund-overlay').remove();
+        template ="";
+        
+        // remove after small pause to apply special avgrund effect
+        setTimeout(function() {
+          $('.avgrund-popin').remove();
+        }, 500);
+
+        // check if onUnload is a function and call it after popin is closed
+        if (typeof options.onUnload === 'function') {
+          options.onUnload.call(self);
+        }
+        $('html').css('background-color', '#fff')
+        $(".submit").attr('value','Submit')
+      }
+
+      // init on click or custom event
+      if (options.openOnEvent) {
+        self.bind(options.setEvent, function(e) {
+          e.stopPropagation();
+
+          // prevent redirect for href url
+          if ($(e.target).is('a')) {
+            e.preventDefault();
+          }
+
+          activate();
+        });
+      } else {
+        activate();
+      }
+    });
+
+  }
+})(jQuery)
+</script>
+</body>
+</html>
