@@ -37,7 +37,6 @@ class Handler(BaseHTTPRequestHandler):
         return
 
     def handleQuery(self, query):
-        print 'Parsed Query:', query
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
@@ -53,7 +52,7 @@ class Handler(BaseHTTPRequestHandler):
                 numberOfProfiles = query[key]
             elif key in params:
                 paramDict[key] = query[key].lower()
-        if len(paramDict) > 0:
+        if len(paramDict) > 0 and len(returnDict) > 0:
             resultlist = dbinterface.queryer(paramDict)
             finalresult = list()
             for result in resultlist:
@@ -73,6 +72,10 @@ class Handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps(resultlist))
             else:
                 self.wfile.write(json.dumps(finalresult[:numberOfProfiles]))
+        elif len(paramDict) == 0:
+            self.wfile.write(json.dumps([{'Error':'Please provide at least one parameter to query against'}]))
+        elif len(returnDict) == 0:
+            self.wfile.write(json.dumps([{'Error':'Please provide at least one field so that we can display the results you require'}]))
         return
 
 
@@ -82,4 +85,7 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 if __name__ == '__main__':
     server = ThreadedHTTPServer(('', 8080), Handler)
     print 'Starting server, use <Ctrl-C> to stop'
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print 'Exiting server'

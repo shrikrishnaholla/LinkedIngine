@@ -70,6 +70,7 @@ jQuery(document).ready(function(){
                             oldHTML = $("#results").html()
                             $("#results").html(oldHTML+resultfield+'<br/>')   
                         }
+                        $("#results").html(oldHTML+'<br/>')
                 }
                 $(function() {
                   $('#results').avgrund({
@@ -112,6 +113,12 @@ jQuery(document).ready(function(){
     background: #888;
     -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
 }
+
+@media only screen and (max-device-width: 480px) {
+         body {
+              zoom: 250%;
+         }
+    }
 
 .container {
   width:300px;
@@ -311,7 +318,7 @@ body.avgrund-active {
 <label>Companies</label><input type="checkbox" name="companies_r" class="companies_r"><br/><hr/>
 <label>Public Profile URL</label><input type="checkbox" name="public_profile_url_r" class="public_profile_url_r"><br/><hr/>
 <strong>from</strong> <br/>
-<input type="number" name="count" placeholder="  0 (all) | number" class="count"><strong>profiles</strong><br/>
+<input type="number" name="count" placeholder="number [default:all]" class="count"><strong>profiles</strong><br/>
 <strong>whose</strong><br/> 
 <input type="text" name="first_name" placeholder="First Name" class="first_name"><br/>
 <input type="text" name="last_name" placeholder="Last Name" class="last_name"><br/>
