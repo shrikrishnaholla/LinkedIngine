@@ -13,16 +13,17 @@ def queryer(params, flag=True):
     if resultset.count() > 0:
         for person in resultset:
             resultlist.append(person)
+
+    elif len(resultlist) == 0 and flag:
+        if profilefetcher.google(params.values()):
+            resultlist = queryer(params, False)
+
     else: # Suppose the parameters are given wrongly, we mustn't NOT return anything. Try best effort approach
         values = params.values()
         for value in values:
             for result in collection.find({'tags':value}): # The keyword sent as parameter may be present as tag
                 resultlist.append(result)
-
-    if len(resultlist) == 0:
-        if profilefetcher.google(params.values()) and flag:
-            resultlist = queryer(params, False)
-        else:
-            resultlist = [{'error':'No result found. Please give another query or refine your parameters'}]
+    if len(resultlist) == 0: # if it's still empty, it means the user has given junk/unhelpful parameters
+        resultlist = [{'error':'No result found. Please give another query or refine your parameters'}]
 
     return resultlist
