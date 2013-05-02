@@ -55,7 +55,7 @@ def contentExtractor(page, public_profile_url):
         'job_titles'         : job_titles,
         'companies'          : companies,
         'tags'               : tags,              # Tags are used to provide best-effort results to queries
-        'public_profile_url' : public_profile_url
+        #'public_profile_url' : public_profile_url
     }
 
     if dbinterface.collection.find(profile).count() == 0:

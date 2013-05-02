@@ -53,6 +53,10 @@ class Handler(BaseHTTPRequestHandler):
             elif key in params:
                 paramDict[key] = query[key].lower()
         if len(paramDict) > 0 and len(returnDict) > 0:
+            for param in paramDict.keys():
+                paramDict[param] = paramDict[param].split(',')
+                for value in xrange(len(paramDict[param])):
+                    paramDict[param][value] = paramDict[param][value].strip()
             resultlist = dbinterface.queryer(paramDict)
             finalresult = list()
             for result in resultlist:
@@ -81,6 +85,7 @@ class Handler(BaseHTTPRequestHandler):
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Handle requests in a separate thread."""
+    pass
 
 if __name__ == '__main__':
     server = ThreadedHTTPServer(('', 8080), Handler)

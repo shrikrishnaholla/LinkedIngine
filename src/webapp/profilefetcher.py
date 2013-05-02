@@ -27,7 +27,10 @@ def fetchProfiles(initURL, maxcount):
                 waitinglist.append(newreq)
                 break
 
-        page = urllib2.urlopen(waitinglist[-1]).read() # Fetch the web page from the url just appended
+        try:
+            page = urllib2.urlopen(waitinglist[-1]).read() # Fetch the web page from the url just appended
+        except:
+            break
 
         crawler.contentExtractor(page, waitinglist[-1]) # Send the page and the url for scraping
 
@@ -44,12 +47,15 @@ def google(params):
     """Google for LinkedIn profiles with the parameters"""
     print 'Googling with params', params
     url = 'http://google.com/search?btnI=1&q='+'+'.join(params)+'+linkedin' # Does the I'm Lucky! search
-    page = requests.get(url, allow_redirects=True)
-    if re.match(r'http://.*linkedin.com/pub/dir/*',page.url):
+    try:
+        page = requests.get(url, allow_redirects=True)
+        if re.match(r'http://.*linkedin.com/pub/dir/*',page.url):
+            return False
+        else: 
+            crawler.contentExtractor(page.content, page.url)
+            return True
+    except:
         return False
-    else: 
-        crawler.contentExtractor(page.content, page.url)
-        return True
 
 def acceptCLArguments():
     """Initializing parser for accepting command line arguements"""
