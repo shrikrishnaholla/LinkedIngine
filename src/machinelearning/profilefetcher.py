@@ -11,6 +11,10 @@ import scraper
 import classifier
 import regression
 
+from datetime import datetime
+
+profileURL = re.compile(r'http://.*linkedin.com/pub/(?:[a-z]*[-]?)*(?:/?[0-9]?[a-z]?)*\?trk=pub-pbmap')
+
 def fetchProfiles(initURL, maxcount):
     """Given the URL from where to initiate the crawling, it first fetches the webpage, sends it to
     the crawler for scraping data from the webpage. Not only that, it also reads all the public profile
@@ -20,6 +24,8 @@ def fetchProfiles(initURL, maxcount):
     count = 0
     links = set([initURL])
     waitinglist = list()
+
+    start = datetime.now()
 
     while count< maxcount:
         count += 1
@@ -33,11 +39,11 @@ def fetchProfiles(initURL, maxcount):
         try:
             page = urllib2.urlopen(waitinglist[-1]).read() # Fetch the web page from the url just appended
         except:
-            break
+            pass
 
         scraper.scrape(page, waitinglist[-1]) # Send the page and the url for scraping
 
-        links.update(re.findall(r'http://.*linkedin.com/pub/(?:[a-z]*[-]?)*(?:/?[0-9]?[a-z]?)*\?trk=pub-pbmap', page))
+        links.update(profileURL.findall(page))
         # Get all the urls present in this web page
 
         links = set([link.strip('"') for link in links])
@@ -46,9 +52,17 @@ def fetchProfiles(initURL, maxcount):
         sys.stdout.write('\r'+'='*percentage+'>'+' '*(101-percentage) +str(percentage)+'%')
         sys.stdout.flush()
 
+    print 'Fetched', count, 'profiles in', \
+     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
+
+    start = datetime.now()
     classifier.classify()
+    print 'Classified all profiles in database in', \
+     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
 
     regression.regresser()
+    print 'Calculated regression for all profiles in database in', \
+     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
 
 def google(params):
     """Google for LinkedIn profiles with the parameters"""

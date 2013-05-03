@@ -3,6 +3,7 @@
 
 from BeautifulSoup import BeautifulSoup
 import dbinterface
+import requests
 
 def scrape(page, public_profile_url):
     resume = dict()
@@ -79,9 +80,20 @@ def extractExperience(string, text):
                 string, var = extractExperience(string[2:], text)
     return (string, var)
 
+def extractRelatedSkills(skill):
+    url = 'http://www.linkedin.com/skills/skill/'+skill
+    page = requests.get(url, allow_redirects=True)
+    soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
+    soup = soup.find(id="related-skills-list")
+    relatedskills = soup.findAll('li')
+    relatedskills = [relskill.getText() for relskill in relatedskills]
+    return relatedskills
+
 if __name__ == '__main__':
     page = open('reference.profile.2', 'r')
     resume = scrape(page, 'http://www.example.com/')
 
     for key in resume.keys():
         print key, ':', resume[key]
+
+    print extractRelatedSkills('Nodejs')

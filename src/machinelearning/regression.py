@@ -2,6 +2,7 @@
 import dbinterface
 import Orange
 import re
+import skillregressor
 
 TABLE_NAME = 'ProfileTable.tab'
 
@@ -15,12 +16,17 @@ bestenggcolleges = [college.strip('\n') for college in bestenggcolleges]
 bestbcolleges = [college.strip('\n') for college in bestbcolleges]
 
 skills = dict()
-skills['web']                  = open('data/skills/web', 'r').readlines()
-skills['mobile']               = open('data/skills/mobile', 'r').readlines()
-skills['research']             = open('data/skills/research', 'r').readlines()
-skills['management']           = open('data/skills/management', 'r').readlines()
-skills['network management']   = open('data/skills/network management', 'r').readlines()
-skills['software engineering'] = open('data/skills/software engineering', 'r').readlines()
+
+def readSkillsFromFiles():
+    skills['web']                  = open('data/skills/web', 'r').readlines()
+    skills['mobile']               = open('data/skills/mobile', 'r').readlines()
+    skills['research']             = open('data/skills/research', 'r').readlines()
+    skills['management']           = open('data/skills/management', 'r').readlines()
+    skills['networks']             = open('data/skills/networks', 'r').readlines()
+    skills['software_engineering'] = open('data/skills/software_engineering', 'r').readlines()
+    skills['uncategorized']        = open('data/skills/uncategorized', 'r').readlines()
+
+readSkillsFromFiles()
 
 for skill in skills.keys():
     skills[skill] = [item.strip('\n') for item in skills[skill]]
@@ -50,17 +56,11 @@ def regresser():
                 if re.search(college, bestbcollege):
                     totaleducation += bestbcolleges.index(bestbcollege)+1
 
-        skillindex = dict()
-        for skill, topics in skills.items():
-            """numberofskills = 0
-                                                for profileskill in profile['skills']:
-                                                    pattern = re.compile(profileskill)
-                                                    for topic in topics:
-                                                        if pattern.search(skill):
-                                                            numberofskills += 1
-                                                skillindex[skill] = numberofskills * 100.0 / len(topics)"""
-            skillindex[skill] = len([item for item in profile['skills'] for topic in topics if topic.find(item) != -1]) * 100.0 / len(topics)
-
+        skillindex = skillregressor.computeSkillRegression(profile, skills)
+        for skill in skills.keys():
+            if skill not in skillindex.keys():
+                skillindex[skill] = 0
+        readSkillsFromFiles()
         data = [totalexperience, totaleducation]
         data.extend([value for value in skillindex.values()])
         table.append(data)
