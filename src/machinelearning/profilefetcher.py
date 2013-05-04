@@ -13,6 +13,7 @@ import regression
 
 from datetime import datetime
 
+# Typical LinkedIn public profile URL
 profileURL = re.compile(r'http://.*linkedin.com/pub/(?:[a-z]*[-]?)*(?:/?[0-9]?[a-z]?)*\?trk=pub-pbmap')
 
 def fetchProfiles(initURL, maxcount):
@@ -30,7 +31,7 @@ def fetchProfiles(initURL, maxcount):
     while count< maxcount:
         count += 1
 
-        while True:
+        while len(links) > 0:
             newreq = links.pop()
             if newreq not in waitinglist:   # If the url hasn't be used already, add it to the waiting list
                 waitinglist.append(newreq)
@@ -38,39 +39,37 @@ def fetchProfiles(initURL, maxcount):
 
         try:
             page = urllib2.urlopen(waitinglist[-1]).read() # Fetch the web page from the url just appended
+            scraper.scrape(page, waitinglist[-1]) # Send the page and the url for scraping
+
+            links.update(profileURL.findall(page)) # Get all the urls present in this web page
         except:
             pass
 
-        scraper.scrape(page, waitinglist[-1]) # Send the page and the url for scraping
-
-        links.update(profileURL.findall(page))
-        # Get all the urls present in this web page
-
-        links = set([link.strip('"') for link in links])
+        links = set([link.strip('"') for link in links]) # String processing to remove quotes
 
         percentage = int(count*100.0/maxcount)    # Progress bar
         sys.stdout.write('\r'+'='*percentage+'>'+' '*(101-percentage) +str(percentage)+'%')
         sys.stdout.flush()
 
     print 'Fetched', count, 'profiles in', \
-     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
+     (datetime.now() - start).total_seconds(), 'seconds'
 
     start = datetime.now()
-    classifier.classify()
+    classifier.classify() # Classify all profiles in the database [TODO: classify only updated portion of db]
     print 'Classified all profiles in database in', \
-     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
+     (datetime.now() - start).total_seconds(), 'seconds'
 
-    regression.regresser()
+    regression.regresser() # Compute regression for every profile in the database [TODO: same as above]
     print 'Calculated regression for all profiles in database in', \
-     (datetime.now() - start).minutes, 'minutes, and', (datetime.now() - start).minutes, 'seconds'
+     (datetime.now() - start).total_seconds(), 'seconds'
 
 def google(params):
     """Google for LinkedIn profiles with the parameters"""
     print 'Googling with params', params
-    url = 'http://google.com/search?btnI=1&q='+'+'.join(params)+'+linkedin' # Does the I'm Lucky! search
+    url = 'http://google.com/search?btnI=1&q='+'+'.join(params)+'+linkedin' # Does the "I'm Lucky!" search
     try:
         page = requests.get(url, allow_redirects=True)
-        if re.match(r'http://.*linkedin.com/pub/dir/*',page.url):
+        if re.match(r'http://.*linkedin.com/pub/dir/*',page.url): # If it's a list of possible people, skip it
             return False
         else: 
             crawler.contentExtractor(page.content, page.url)

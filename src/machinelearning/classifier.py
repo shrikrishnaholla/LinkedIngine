@@ -9,9 +9,12 @@ import dbinterface
 import nltk
 
 def gender_features(word):
+    """Gender classifier;
+    obtained from the example at http://nltk.googlecode.com/svn/trunk/doc/book/ch06.html"""
     return {'last_letter': word[-2]}
 
 def initGenderClassifier():
+    """Initialize gender classifier"""
     from nltk.corpus import names
     names = ([(name, 'male') for name in names.words('male.txt')] +
               [(name, 'female') for name in names.words('female.txt')])
@@ -21,6 +24,7 @@ def initGenderClassifier():
 gender_classifier = initGenderClassifier()
 
 def initLocationClassifier():
+    """Initialize Location Classifier"""
     cities = open('data/indiancities', 'r').readlines()
     classes = [({'name':city.split()[0]},city.split()[1]) for city in cities]
     return nltk.NaiveBayesClassifier.train(classes)
@@ -28,6 +32,8 @@ def initLocationClassifier():
 location_classifier = initLocationClassifier()
 
 def classify():
+    """Classify ALL the profiles in the database
+    [TODO]: Allow classification to run only on selected list of profiles"""
     for profile in dbinterface.collection.find():
         first_name = profile['first_name']
         locality   = profile['locality'].split()[0]

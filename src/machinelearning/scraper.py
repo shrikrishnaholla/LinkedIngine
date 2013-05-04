@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup
 import dbinterface
 import requests
+import urllib
 
 def scrape(page, public_profile_url):
     resume = dict()
@@ -23,13 +24,14 @@ def scrape(page, public_profile_url):
     resume['experience'] = collect(soup, 'span', 'duration', True)
     resume['skills']    = collect(soup, 'a', 'jellybean', True)
 
-    # incompatible with crawl_from_list()
+    # incompatible with the above methods
     projects = soup.find(id="profile-projects")
     if projects:
         resume['project-descriptions'] = []
         for project in projects.findAll('p'):
             resume['project-descriptions'].append(project.getText())
 
+    # Convert experience which is in the form of text to numbers
     for experience in resume['experience']:
         string = experience.strip('()')
         years = -1; months = -1
@@ -53,14 +55,15 @@ def scrape(page, public_profile_url):
 
     resume['public_profile_url'] = public_profile_url
 
+    # if the profile is not already present in the database, save it
     if dbinterface.collection.find(resume).count() == 0:
         dbinterface.collection.save(resume)
 
     return resume
 
 def collect(soup, domnode, htmlclass, multiple=False):
-    """Easy method to collect fields"""
-    if multiple:
+    """Extract the required data from the html soup"""
+    if multiple: # for situations with multiple occurences of fields
         return [result.getText() for result in soup.findAll(domnode, {"class":htmlclass})]
     else:
         content = soup.find(domnode, {"class":htmlclass})
@@ -70,6 +73,7 @@ def collect(soup, domnode, htmlclass, multiple=False):
             return ''
 
 def extractExperience(string, text):
+    """Extract experience as numbers"""
     var = -1
     if string.find(text) != -1:
         try:
@@ -81,13 +85,27 @@ def extractExperience(string, text):
     return (string, var)
 
 def extractRelatedSkills(skill):
-    url = 'http://www.linkedin.com/skills/skill/'+skill
-    page = requests.get(url, allow_redirects=True)
-    soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
-    soup = soup.find(id="related-skills-list")
-    relatedskills = soup.findAll('li')
-    relatedskills = [relskill.getText() for relskill in relatedskills]
-    return relatedskills
+    """Used while computing regression to fetch related skills for skills not already known"""
+    url = 'http://www.linkedin.com/skills/skill/'+urllib.urlencode({'':skill})[1:]
+    try:
+        # if 'skills-home-error' class comes, ganchali occurs
+        page = requests.get(url, allow_redirects=True)
+        soup = BeautifulSoup(page.content, convertEntities=BeautifulSoup.HTML_ENTITIES)
+        if not soup.find('div', {"class":'skills-home-error'}):
+            soup = soup.find(id="related-skills-list")
+            if soup:
+                relatedskills = soup.findAll('li')
+                relatedskills = [relskill.getText() for relskill in relatedskills]
+                print 'Fetched related skills for', skill
+                return relatedskills
+            else:
+                print 'url:', url
+                return []
+        else:
+            print 'url:', url
+            return []
+    except: # Don't give up till success
+        return extractRelatedSkills(skill)
 
 if __name__ == '__main__':
     page = open('reference.profile.2', 'r')
@@ -96,4 +114,4 @@ if __name__ == '__main__':
     for key in resume.keys():
         print key, ':', resume[key]
 
-    print extractRelatedSkills('Nodejs')
+    print extractRelatedSkills('Team Leadership')
