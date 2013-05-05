@@ -1,13 +1,5 @@
 import nltk
-
-def words(sentence):
-    tokenized_words = nltk.word_tokenize(sentence)
-    returndict = dict()
-    count = 0
-    for word in tokenized_words:
-        returndict[count] = word
-        count += 1
-    return returndict
+import allclassifiers
 
 skills = dict()
 skills['web']                  = open('data/skills/web', 'r').readlines()
@@ -21,27 +13,45 @@ skills['uncategorized']        = open('data/skills/uncategorized', 'r').readline
 for skill in skills.keys():
     skills[skill] = [value.strip('\n') for value in skills[skill]]
 
-web                  = [(words(skill), 'web') for skill in skills['web']]
-mobile               = [(words(skill), 'mobile') for skill in skills['mobile']]
-research             = [(words(skill), 'research') for skill in skills['research']]
-management           = [(words(skill), 'management') for skill in skills['management']]
-networks             = [(words(skill), 'networks') for skill in skills['networks']]
-software_engineering = [(words(skill), 'software_engineering') for skill in skills['software_engineering']]
-uncategorized        = [(words(skill), 'uncategorized') for skill in skills['uncategorized']]
-
-skillset = web + mobile + research + management + networks + software_engineering + uncategorized
-
-classifier = nltk.NaiveBayesClassifier.train(skillset)
+classifier1 = allclassifiers.getClassifier(skills, allclassifiers.words)
+classifier2 = allclassifiers.getClassifier(skills, allclassifiers.firstWord)
+classifier3 = allclassifiers.getClassifier(skills, allclassifiers.midWord)
+classifier4 = allclassifiers.getClassifier(skills, allclassifiers.lastWord)
 
 def categorize(uncategorizedskill):
-    return classifier.classify(words(uncategorizedskill))
+    wordclassification = classifier1.classify(allclassifiers.words(uncategorizedskill))
+    firstWordClassification = classifier2.classify(allclassifiers.firstWord(uncategorizedskill))
+    midWordClassification = classifier3.classify(allclassifiers.midWord(uncategorizedskill))
+    lastWordClassification = classifier4.classify(allclassifiers.lastWord(uncategorizedskill))
+    print wordclassification, firstWordClassification, midWordClassification, lastWordClassification
+    if wordclassification == firstWordClassification:
+        return wordclassification
+    elif wordclassification == lastWordClassification:
+        return wordclassification
+    elif wordclassification == midWordClassification:
+        return wordclassification
+    elif firstWordClassification == midWordClassification:
+        return midWordClassification
+    elif firstWordClassification == lastWordClassification:
+        return lastWordClassification
+    elif midWordClassification == lastWordClassification:
+        return lastWordClassification
+    else:
+        return set([firstWordClassification, lastWordClassification, wordclassification]).pop()
 
 if __name__ == '__main__':
-    categorizedskills = dict()
-    for skill in skills['web']:
-        category = categorize(skill)
-        print category
-        categorizedskills[category] = categorizedskills.get(category, []) + [skill]
-    import skillregressor
-    for key, value in categorizedskills.items():
-        skillregressor.writeback(key, value)
+    print categorize(raw_input('Enter a skill: '))
+    #categorizedskills = dict()
+    #for skill in skills['uncategorized']:
+    #    category = categorize(skill)
+    #    print skill, ':', category
+        #categorizedskills[category] = categorizedskills.get(category, []) + [skill]
+    #import skillregressor
+    #for key, value in categorizedskills.items():
+    #    skillregressor.writeback(key, value)
+
+    #for skill1 in skills.keys():
+    #    for skill2 in skills.keys():
+    #        if skill1 != skill2:
+    #            print skill1, '\t',skill2, '\n', '='*100
+    #            print [skill for skill in skills[skill1] if skill in skills[skill2]]

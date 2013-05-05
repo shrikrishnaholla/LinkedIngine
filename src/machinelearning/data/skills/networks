@@ -1,10 +1,8 @@
 Security Tools
 Rsync
-Cyber Operations
 T2000
 Linux Kernel
 Global Network Operations
-Proventia
 Enterprise Security
 NGX
 Network Defense
@@ -13,6 +11,7 @@ Nessus
 Iptables
 Open Verification Methodology
 Nortel DMS
+Linux Server
 Domain Specific Languages
 Gentoo
 Sendmail
@@ -37,7 +36,8 @@ RedHat
 FreeBSD
 Postfix
 Host Intrusion Prevention
-SCPC
+Socket Programming
+Cisco Security
 NIDS
 CND
 Penetration Testing
@@ -46,7 +46,7 @@ Multi-vendor
 Broadband Networks
 iDirect
 Network Centric Operations
-Linux Server
+Proventia
 Vulnerability Scanning
 Network Forensics
 Suse
@@ -60,10 +60,10 @@ T-Berd
 Nagios
 RHCE
 Exploit
-Cisco Security
+Cyber Operations
 Link Exchange
 RHEL
 OpenVPN
 Vulnerability Assessment
-Socket Programming
+SCPC
 Turn-up
