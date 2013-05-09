@@ -33,7 +33,7 @@ def queryer(params):
 
     if categories:
         for category in categories:
-            resultlist = sorted(resultlist, key=lambda dic: dic[category])
+            resultlist = sorted(resultlist, key=lambda dic: dic[category], reverse=False)
 
     return resultlist
 
