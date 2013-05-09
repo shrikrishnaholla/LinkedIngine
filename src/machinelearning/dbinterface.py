@@ -7,25 +7,31 @@ client = MongoClient()
 db = client.linkedIngine_db_1       # Create/connect to a database with the name 'linkedIngine_db'
 collection = db.linkedIngine_col_1  # Create/connect to a collection with the name 'linkedIngine_col'
 
+def getOptions(which, options, querydict):
+    if len(options) == 1:
+        querydict[which] = options[0]
+    else:
+        querydict['$or'] = querydict.get('$or', list())
+        for option in options:
+            querydict['$or'].append({which:option})
+    return querydict
+
 def queryer(params):
     # Sample params dict
     #{
-    #    'gender': 'male',
-    #    'area': 'south',
-    #    'categories': ['web','mobile','research','management','networks','software_engineering',
+    #    'gender': ['male'],
+    #    'area': ['south'],
+    #    'categories': ['web','mobile','research','management','networks','software_engineering', 'testing',
     #                    'experienceindex', 'educationindex']
     #}
 
     gender, area, categories = (params.get('gender'), params.get('area'), params.get('categories') )
-
-    if gender and area:
-        results = collection.find({'gender': gender, 'area':area})
-    elif gender:
-        results = collection.find({'gender': gender})
-    elif area:
-        results = collection.find({'area': area})
-    else:
-        results = collection.find()
+    querydict = dict()
+    if gender:
+        querydict = getOptions('gender', gender, querydict)
+    if area:
+        querydict = getOptions('area', area, querydict)
+    results = collection.find(querydict)
 
     resultlist = list()
     for result in results:
@@ -38,5 +44,5 @@ def queryer(params):
     return resultlist
 
 if __name__ == '__main__':
-    print len(queryer({'gender':'male', 'area':'north', 'categories': ['software_engineering','experienceindex']}))
+    print len(queryer({'gender':['male', 'female'], 'area':['north', 'south'], 'categories': ['software_engineering','experienceindex']}))
     print len(queryer({'categories': ['web']}))

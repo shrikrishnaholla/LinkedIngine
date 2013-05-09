@@ -54,6 +54,7 @@ def scrape(page, public_profile_url):
                 resume['experience'][resume['experience'].index(experience)] = replacement
 
     resume['public_profile_url'] = public_profile_url
+    resume['profilepic']   = soup.find('img', {'class': 'profile-picture'})
 
     # if the profile is not already present in the database, save it
     if dbinterface.collection.find(resume).count() == 0:
