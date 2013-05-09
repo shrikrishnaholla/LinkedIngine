@@ -85,7 +85,7 @@ def extractExperience(string, text):
     return (string, var)
 
 def extractRelatedSkills(skill):
-    """Used while computing regression to fetch related skills for skills not already known"""
+    """Used while computing indexes to fetch related skills for skills not already known"""
     url = 'http://www.linkedin.com/skills/skill/'+urllib.urlencode({'':skill})[1:]
     try:
         # if 'skills-home-error' class comes, ganchali occurs
@@ -96,7 +96,6 @@ def extractRelatedSkills(skill):
             if soup:
                 relatedskills = soup.findAll('li')
                 relatedskills = [relskill.getText() for relskill in relatedskills]
-                print 'Fetched related skills for', skill
                 return relatedskills
             else:
                 print 'url:', url
@@ -105,7 +104,7 @@ def extractRelatedSkills(skill):
             print 'url:', url
             return []
     except: # Don't give up till success
-        return extractRelatedSkills(skill)
+        return []
 
 if __name__ == '__main__':
     page = open('reference.profile.2', 'r')

@@ -38,15 +38,15 @@ def classify():
         first_name = profile['first_name']
         locality   = profile['locality'].split()[0]
 
-        gender, location = None, None
+        gender, area = None, None
 
         # Classifiers
-        if not profile.has_key('gender') or not profile.has_key('location'):
+        if not profile.has_key('gender') or not profile.has_key('area'):
             gender = gender_classifier.classify(gender_features(first_name))
-            location = location_classifier.classify({'name':locality})
+            area = location_classifier.classify({'name':locality})
 
         dbinterface.collection.update({'public_profile_url':profile['public_profile_url']},
-                                         {'$set': {'gender':gender, 'location':location}})
+                                         {'$set': {'gender':gender, 'area':area}})
 
 if __name__ == '__main__':
     page = open('reference.profile.2', 'r')

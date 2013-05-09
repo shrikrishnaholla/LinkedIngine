@@ -19,25 +19,11 @@ classifier3 = allclassifiers.getClassifier(skills, allclassifiers.midWord)
 classifier4 = allclassifiers.getClassifier(skills, allclassifiers.lastWord)
 
 def categorize(uncategorizedskill):
-    wordclassification = classifier1.classify(allclassifiers.words(uncategorizedskill))
+    wordclassification      = classifier1.classify(allclassifiers.words(uncategorizedskill))
     firstWordClassification = classifier2.classify(allclassifiers.firstWord(uncategorizedskill))
-    midWordClassification = classifier3.classify(allclassifiers.midWord(uncategorizedskill))
-    lastWordClassification = classifier4.classify(allclassifiers.lastWord(uncategorizedskill))
-    print wordclassification, firstWordClassification, midWordClassification, lastWordClassification
-    if wordclassification == firstWordClassification:
-        return wordclassification
-    elif wordclassification == lastWordClassification:
-        return wordclassification
-    elif wordclassification == midWordClassification:
-        return wordclassification
-    elif firstWordClassification == midWordClassification:
-        return midWordClassification
-    elif firstWordClassification == lastWordClassification:
-        return lastWordClassification
-    elif midWordClassification == lastWordClassification:
-        return lastWordClassification
-    else:
-        return set([firstWordClassification, lastWordClassification, wordclassification]).pop()
+    midWordClassification   = classifier3.classify(allclassifiers.midWord(uncategorizedskill))
+    lastWordClassification  = classifier4.classify(allclassifiers.lastWord(uncategorizedskill))
+    return (wordclassification, firstWordClassification, midWordClassification, lastWordClassification)
 
 if __name__ == '__main__':
     print categorize(raw_input('Enter a skill: '))

@@ -9,7 +9,7 @@ import requests
 
 import scraper
 import classifier
-import regression
+import indexer
 
 from datetime import datetime
 
@@ -41,7 +41,8 @@ def fetchProfiles(initURL, maxcount):
             page = urllib2.urlopen(waitinglist[-1]).read() # Fetch the web page from the url just appended
             scraper.scrape(page, waitinglist[-1]) # Send the page and the url for scraping
 
-            links.update(profileURL.findall(page)) # Get all the urls present in this web page
+            if len(links) < 3:
+                links.update(profileURL.findall(page)) # Get all the urls present in this web page
         except:
             pass
 
@@ -59,8 +60,8 @@ def fetchProfiles(initURL, maxcount):
     print 'Classified all profiles in database in', \
      (datetime.now() - start).total_seconds(), 'seconds'
 
-    regression.regresser() # Compute regression for every profile in the database [TODO: same as above]
-    print 'Calculated regression for all profiles in database in', \
+    indexer.computeIndexes() # Compute indexes for every profile in the database [TODO: same as above]
+    print 'Calculated indexes for all profiles in database in', \
      (datetime.now() - start).total_seconds(), 'seconds'
 
 def google(params):

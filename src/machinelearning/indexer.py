@@ -1,10 +1,7 @@
 #!/usr/bin/python
 import dbinterface
-import Orange
 import re
-import skillregressor
-
-TABLE_NAME = 'ProfileTable.tab'
+import skillindexer
 
 bestenggcolleges = open('data/bestcolleges.engg').readlines()
 bestbcolleges    = open('data/bestcolleges.b').readlines()
@@ -32,19 +29,10 @@ readSkillsFromFiles()
 for skill in skills.keys():
     skills[skill] = [item.strip('\n') for item in skills[skill]]
 
-# Initialization of the orange table
-domains = [Orange.feature.Continuous('experience'), Orange.feature.Discrete('education')]
-domains.extend([Orange.feature.Continuous(skill) for skill in skills.keys()])
-Domain = Orange.data.Domain(domains)
-
-table = Orange.data.Table(Domain)
-table.save(TABLE_NAME)
-
-def regresser():
-    """Compute regression on ALL profiles in the database
+def computeIndexes():
+    """Compute index values on ALL profiles in the database
     [TODO]: Allow computation on a selective portion of the database"""
     for profile in dbinterface.collection.find():
-        # Regression
         totalexperience = 0
         totaleducation  = 0
         # The value for experience will just be the decimal value of total number of years worked
@@ -64,33 +52,24 @@ def regresser():
                 if re.search(college, bestbcollege):
                     totaleducation += bestbcolleges.index(bestbcollege)+1
 
-        # Compute skill regression value
-        skillindex = skillregressor.computeSkillRegression(profile, skills)
+        # Compute skill indexes
+        skillindex = skillindexer.computeSkillIndexes(profile, skills)
         for skill in skills.keys():
             if skill not in skillindex.keys():
                 skillindex[skill] = 0
         readSkillsFromFiles()
-        data = [totalexperience, totaleducation]
-        data.extend([value for value in skillindex.values()])
-        table.append(data)
-
-        print 'Experience:', totalexperience, '\nEducation', totaleducation
-        for skill in skillindex.keys():
-            print skill, ':', skillindex[skill]
-
         dbinterface.collection.update({'public_profile_url':profile['public_profile_url']},
                                         {'$set': {
                                                     'experienceindex': totalexperience,
                                                     'educationindex' : totaleducation,
-                                                    'skillindex'     : skillindex
+                                                    'management'     : skillindex.get('management',0),
+                                                    'mobile'         : skillindex.get('mobile',0),
+                                                    'networks'       : skillindex.get('networks',0),
+                                                    'research'       : skillindex.get('research',0),
+                                        'software_engineering' : skillindex.get('software_engineering',0),
+                                                    'testing'        : skillindex.get('testing',0),
+                                                    'web'            : skillindex.get('web',0)
                                                   }})
 
-    table.save(TABLE_NAME)
-
-    learner = Orange.regression.linear.LinearRegressionLearner()
-    classifier = learner(table)
-
-    print classifier
-
 if __name__ == '__main__':
-    regresser()
+    indexer()
