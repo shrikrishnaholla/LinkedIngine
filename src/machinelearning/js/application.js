@@ -55,12 +55,20 @@ $(document).ready(function() {
         $(".submit").text('Processing...');
         $(".results").html("")
         e.preventDefault();
-        console.log(query);
-        /*$.ajax({
+        $.ajax({
             url:'/',
             type:'GET',
             dataType:'json',
-            data : */
+            data : query,
+            success: function(data) { 
+                $(".results").text(data);
+                $(".submit").text('Submit');
+            },
+            error: function(e) { 
+                $(".results").text("There was some error Processing your request. Please try again");
+                $(".submit").text('Submit');
+            }
+        });
         
     });
 });
