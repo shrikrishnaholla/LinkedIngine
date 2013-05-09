@@ -47,5 +47,20 @@ $(document).ready(function() {
         return false
     });
 
+    $(".submit").click(function(e) {
+        var query = []
+        $("li.todo-done").each(function() {
+                        query.push($.trim($(this).text()));
+                    });
+        $(".submit").text('Processing...');
+        $(".results").html("")
+        e.preventDefault();
+        console.log(query);
+        /*$.ajax({
+            url:'/',
+            type:'GET',
+            dataType:'json',
+            data : */
+        
+    });
 });
-
