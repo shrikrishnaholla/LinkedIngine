@@ -38,7 +38,7 @@ class Handler(BaseHTTPRequestHandler):
                 print "URL : " + parsedURL
                 self.render(404,'404.html')
         else:
-                print parsedQuery
+                print 'parsed query:', parsedQuery
                 self.handleQuery(parsedQuery)
     def render(self, code, path, content_type = 'text/html'):
         print "Rendering :", path 
@@ -57,45 +57,39 @@ class Handler(BaseHTTPRequestHandler):
         returnDict = dict()
         numberOfProfiles = 'all'
         paramDict = dict()
-        for key, value in query.items():
-            if type(value) == list and len(value) == 1:
-                query[key] = value[0]
-            if key in returnFields and query[key] == 'true':
-                returnDict[key] = query[key]
-            elif key == 'count':
-                numberOfProfiles = query[key]
-            elif key in params:
-                paramDict[key] = query[key].lower()
-        if len(paramDict) > 0 and len(returnDict) > 0:
-            for param in paramDict.keys():
-                paramDict[param] = paramDict[param].split(',')
-                for value in xrange(len(paramDict[param])):
-                    paramDict[param][value] = paramDict[param][value].strip()
-            resultlist = dbinterface.queryer(paramDict)
-            finalresult = list()
-            for result in resultlist:
-                resultDict = dict()
-                for key, value in result.items():
-                    if key+'_r' in returnDict.keys():
-                        if type(value) == str:
-                            resultDict[key] = value.title()
-                        else:
-                            resultDict[key] = value
-                finalresult.append(resultDict)
-            if numberOfProfiles == 'all':
-                numberOfProfiles = len(finalresult)
-            else:
-                numberOfProfiles = int(numberOfProfiles)
-            if len(resultlist) == 1 and resultlist[0].get('error', False):
-                self.wfile.write(json.dumps(resultlist))
-            else:
-                self.wfile.write(json.dumps(finalresult[:numberOfProfiles]))
-        elif len(paramDict) == 0:
-            self.wfile.write(json.dumps([{'Error':'Please provide at least one parameter to query against'}]))
-        elif len(returnDict) == 0:
-            self.wfile.write(json.dumps([{'Error':'Please provide at least one field so that we can display the results you require'}]))
+
+        
+        paramDict = self.buildParamDict('Male', query['query[]'], 'gender', 'male', paramDict)
+        paramDict = self.buildParamDict('Female', query['query[]'], 'gender', 'female' , paramDict)
+        paramDict = self.buildParamDict('North', query['query[]'], 'area', 'north' , paramDict)
+        paramDict = self.buildParamDict('South', query['query[]'], 'area', 'south' , paramDict)
+        paramDict = self.buildParamDict('East', query['query[]'], 'area', 'east' , paramDict)
+        paramDict = self.buildParamDict('West', query['query[]'], 'area', 'west' , paramDict)
+        paramDict = self.buildParamDict('Web', query['query[]'], 'categories', 'web' , paramDict)
+        paramDict = self.buildParamDict('Mobile', query['query[]'], 'categories', 'mobile' , paramDict)
+        paramDict = self.buildParamDict('Management', query['query[]'], 'categories', 'management' , paramDict)
+        paramDict = self.buildParamDict('Software Engineering', query['query[]'], 'categories', 'software_engineering' , paramDict)
+        paramDict = self.buildParamDict('Networks', query['query[]'], 'categories', 'networks' , paramDict)
+        paramDict = self.buildParamDict('Research', query['query[]'], 'categories', 'research' , paramDict)
+        paramDict = self.buildParamDict('Testing', query['query[]'], 'categories', 'testing' , paramDict)
+        paramDict = self.buildParamDict('Experience', query['query[]'], 'categories', 'experienceindex' , paramDict)
+        paramDict = self.buildParamDict('Education', query['query[]'], 'categories', 'educationindex' , paramDict)
+
+        resultlist = dbinterface.queryer(paramDict)
+        for result in resultlist:
+            result.pop("_id")
+
+        self.wfile.write(json.dumps(resultlist))
         return
 
+    def buildParamDict(self, item, querylist, category, text, paramDict):
+        paramDict[category] = paramDict.get(category, list())
+        try:
+            if item in querylist:
+                paramDict[category].append(text)
+        except ValueError:
+            pass
+        return paramDict
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Handle requests in a separate thread."""

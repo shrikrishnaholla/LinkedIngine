@@ -59,9 +59,101 @@ $(document).ready(function() {
             url:'/',
             type:'GET',
             dataType:'json',
-            data : query,
-            success: function(data) { 
-                $(".results").text(data);
+            data : {'query': query},
+            success: function(data) {
+                var resultlist = eval(data);
+                for (var result in resultlist) {
+                    var resultstring = "";
+                    /* Single entry fields */
+                    var first_name = resultlist[result]["first_name"]
+                    var last_name = resultlist[result]["last_name"]
+                    var headline = resultlist[result]["headline"]
+                    var locality = resultlist[result]["locality"]
+                    var industry = resultlist[result]["industry"]
+                    
+                    resultstring = '<table border="0"><tbody><tr><th>First Name</th><td>'+first_name
+                    resultstring += "</td></tr><tr><th>Last Name</th><td>"+last_name
+                    if (headline && headline.length>0) {
+                        resultstring += "</td></tr><tr><th>Headline</th><td>"+headline
+                    }
+                    if (locality && locality.length>0) {
+                        resultstring += "</td></tr><tr><th>Locality</th><td>"+locality
+                    }
+                    if (industry && industry.length>0) {
+                        resultstring += "</td></tr><tr><th>Industry</th><td>"+industry+"</td></tr>"
+                    }
+
+                    /* Multiple Entry Fields */
+                    var degrees = resultlist[result]["degrees"]
+                    var major = resultlist[result]["major"]
+                    var colleges = resultlist[result]["colleges"]
+                    var job_titles = resultlist[result]["job_titles"]
+                    var companies = resultlist[result]["companies"]
+                    var skills = resultlist[result]["skills"]
+                    var projects = resultlist[result]["projects"]
+
+                    if (colleges && colleges.length > 0) {
+                        resultstring += "<tr><th>Colleges</th><td><ul>"
+                        for (var collegeindex in colleges) {
+                            resultstring += "<li>"+colleges[collegeindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (major && major.length > 0) {
+                        resultstring += "<tr><th>Majors</th><td><ul>"
+                        for (var majorindex in major) {
+                            resultstring += "<li>"+major[majorindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (degrees && degrees.length > 0) {
+                        resultstring += "<tr><th>Degrees</th><td><ul>"
+                        for (var degreeindex in degrees) {
+                            resultstring += "<li>"+degrees[degreeindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (companies && companies.length > 0) {
+                        resultstring += "<tr><th>Companies</th><td><ul>"
+                        for (var companyindex in companies) {
+                            resultstring += "<li>"+companies[companyindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (job_titles && job_titles.length > 0) {
+                        resultstring += "<tr><th>Job Titles</th><td><ul>"
+                        for (var jobindex in job_titles) {
+                            resultstring += "<li>"+job_titles[jobindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (skills && skills.length > 0) {
+                        resultstring += "<tr><th>Skills</th><td><ul>"
+                        for (var skillindex in skills) {
+                            resultstring += "<li>"+skills[skillindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    if (projects && projects.length > 0) {
+                        resultstring += "<tr><th>Projects</th><td><ul>"
+                        for (var projectindex in projects) {
+                            resultstring += "<li>"+projects[projectindex]+"</li>";
+                        }
+                        resultstring += "</ul></td></tr>"
+                    }
+
+                    var public_profile_url = resultlist[result]["public_profile_url"]
+                    resultstring += "<tr><th>Public Profile URL</th><td>"+public_profile_url+"</td></tr>"
+                    resultstring += "</tbody></table><hr/>"
+                    oldhtml = $(".results").html();
+                    $(".results").html(oldhtml+resultstring);
+                }
                 $(".submit").text('Submit');
             },
             error: function(e) { 
